@@ -1,334 +1,463 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html><html lang="zh-TW"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1a1410">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="首爾輕旅">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="apple-touch-icon.png"><style rel="stylesheet" type="text/css">@charset "utf-8";
+
+:root { --ink: #1a1410; --cream: #faf7f2; --warm: #f5efe6; --coral: #d4573c; --gold: #c9992a; --sage: #5a7a5e; --sky: #3d6b8e; --muted: #7a6f65; --border: #e0d8cd; --card: #ffffff; --red-kr: #cd2e3a; --blue-kr: #003478; }
+
+* { margin: 0px; padding: 0px; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body { background: var(--cream); color: var(--ink); font-family: "Noto Sans TC", sans-serif; line-height: 1.7; overflow-x: hidden; }
+
+button, [data-fn] { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+
+.site-header { background: var(--ink); color: var(--cream); padding: 0px; position: sticky; top: 0px; z-index: 1000; box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 20px; }
+
+.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 0px 2rem; height: 56px; }
+
+.logo { font-family: "DM Serif Display", serif; font-size: 1.25rem; letter-spacing: 0.02em; color: var(--gold); }
+
+.logo span { color: var(--cream); font-size: 0.9rem; font-family: "Space Mono", monospace; margin-left: 0.5rem; opacity: 0.7; }
+
+.main-nav { display: flex; gap: 0px; overflow-x: auto; scrollbar-width: none; }
+
+.main-nav::-webkit-scrollbar { display: none; }
+
+.nav-btn { background: none; border-top: none; border-right: none; border-left: none; border-image: initial; color: rgba(250, 247, 242, 0.65); font-family: "Noto Sans TC", sans-serif; font-size: 0.78rem; font-weight: 500; padding: 0.9rem 0.85rem; cursor: pointer; white-space: nowrap; border-bottom: 3px solid transparent; transition: 0.2s; letter-spacing: 0.05em; }
+
+.nav-btn:hover { color: var(--cream); }
+
+.nav-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+.hero { background: var(--ink); color: var(--cream); padding: 5rem 2rem 4rem; text-align: center; position: relative; overflow: hidden; }
+
+.hero::before { content: ""; position: absolute; inset: 0px; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+
+.hero-badge { display: inline-block; background: var(--coral); color: rgb(255, 255, 255); font-family: "Space Mono", monospace; font-size: 0.7rem; padding: 0.3rem 0.9rem; border-radius: 2px; letter-spacing: 0.12em; margin-bottom: 1.5rem; }
+
+.hero h1 { font-family: "DM Serif Display", serif; font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.1; margin-bottom: 1rem; }
+
+.hero h1 em { color: var(--gold); font-style: italic; }
+
+.hero-sub { font-size: 0.95rem; opacity: 0.7; letter-spacing: 0.15em; margin-bottom: 2.5rem; font-weight: 300; }
+
+.hero-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; margin-bottom: 2.5rem; }
+
+.pill { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); color: rgba(250, 247, 242, 0.85); padding: 0.4rem 1.1rem; border-radius: 100px; font-size: 0.8rem; letter-spacing: 0.05em; }
+
+.flight-strip { display: flex; flex-direction: column; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 12px; padding: 1.2rem 2rem; max-width: 560px; margin: 0px auto; }
+
+.flight-row { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
+
+.flight-item { text-align: center; }
+
+.flight-code { font-family: "Space Mono", monospace; font-size: 1.5rem; font-weight: 700; color: var(--gold); }
+
+.flight-label { font-size: 0.7rem; opacity: 0.6; letter-spacing: 0.1em; }
+
+.flight-arrow { color: var(--coral); font-size: 1.5rem; }
+
+.section { display: none; padding: 2.5rem 1.5rem; max-width: 960px; margin: 0px auto; animation: 0.3s ease 0s 1 normal none running fadeIn; }
+
+.section.active { display: block; }
+
+@keyframes fadeIn { 
+  0% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0px); }
+}
+
+.sec-title { font-family: "DM Serif Display", serif; font-size: 2rem; margin-bottom: 0.4rem; color: var(--ink); }
+
+.sec-title span { color: var(--coral); }
+
+.sec-desc { color: var(--muted); font-size: 0.9rem; margin-bottom: 2rem; border-left: 3px solid var(--gold); padding-left: 0.8rem; }
+
+.day-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
+
+.day-tab { background: rgb(255, 255, 255); border: 1.5px solid var(--border); border-radius: 8px; padding: 0.5rem 1.1rem; cursor: pointer; font-size: 0.82rem; font-weight: 500; transition: 0.2s; color: var(--muted); }
+
+.day-tab:hover, .day-tab.active { background: var(--ink); border-color: var(--ink); color: var(--gold); }
+
+.day-panel { display: none; animation: 0.25s ease 0s 1 normal none running fadeIn; }
+
+.day-panel.active { display: block; }
+
+.timeline { position: relative; padding-left: 2.5rem; }
+
+.timeline::before { content: ""; position: absolute; left: 0.75rem; top: 0px; bottom: 0px; width: 2px; background: linear-gradient(to bottom,var(--coral),var(--gold),var(--sage)); }
+
+.tl-item { position: relative; margin-bottom: 2rem; }
+
+.tl-dot { position: absolute; left: -2.15rem; top: 0.3rem; width: 14px; height: 14px; border-radius: 50%; background: var(--coral); border: 2.5px solid var(--cream); box-shadow: 0 0 0 2px var(--coral); }
+
+.tl-time { font-family: "Space Mono", monospace; font-size: 0.72rem; color: var(--coral); margin-bottom: 0.25rem; letter-spacing: 0.05em; }
+
+.tl-title { font-weight: 700; font-size: 1rem; margin-bottom: 0.3rem; color: var(--ink); }
+
+.tl-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+.tl-note { background: var(--warm); border-radius: 8px; padding: 0.6rem 0.9rem; margin-top: 0.5rem; font-size: 0.82rem; color: var(--ink); border-left: 3px solid var(--gold); }
+
+.tl-note strong { color: var(--sage); }
+
+.map-link { display: inline-flex; align-items: center; gap: 0.4rem; background: var(--sky); color: rgb(255, 255, 255); border-radius: 6px; padding: 0.35rem 0.8rem; font-size: 0.78rem; text-decoration: none; margin-top: 0.5rem; transition: opacity 0.2s; }
+
+.map-link:hover { opacity: 0.85; }
+
+.budget-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+
+.budget-card { background: rgb(255, 255, 255); border-radius: 12px; padding: 1.4rem; border: 1px solid var(--border); position: relative; overflow: hidden; }
+
+.budget-card::before { content: ""; position: absolute; top: 0px; left: 0px; right: 0px; height: 4px; background: var(--coral); }
+
+.budget-card.sage::before { background: var(--sage); }
+
+.budget-card.sky::before { background: var(--sky); }
+
+.budget-card.gold::before { background: var(--gold); }
+
+.budget-card.muted::before { background: var(--muted); }
+
+.budget-card h4 { font-size: 0.8rem; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.5rem; }
+
+.budget-amount { font-family: "DM Serif Display", serif; font-size: 2rem; color: var(--ink); line-height: 1; }
+
+.budget-amount span { font-size: 0.9rem; font-family: "Noto Sans TC", sans-serif; color: var(--muted); }
+
+.budget-note { font-size: 0.78rem; color: var(--muted); margin-top: 0.4rem; }
+
+.budget-rows { background: rgb(255, 255, 255); border-radius: 12px; padding: 1.4rem; border: 1px solid var(--border); margin-bottom: 1.5rem; }
+
+.budget-rows h3 { font-size: 0.85rem; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--border); }
+
+.brow { display: flex; justify-content: space-between; padding: 0.45rem 0px; border-bottom: 1px dashed var(--border); font-size: 0.88rem; }
+
+.brow:last-child { border-bottom: none; font-weight: 700; padding-top: 0.7rem; }
+
+.brow .amt { font-family: "Space Mono", monospace; color: var(--coral); }
+
+.brow.total { background: var(--warm); margin: 0px -1.4rem; padding: 0.7rem 1.4rem; border-radius: 0px 0px 12px 12px; }
+
+.grand-total { background: var(--ink); color: var(--cream); border-radius: 12px; padding: 1.5rem 2rem; text-align: center; margin-top: 1rem; }
+
+.grand-total .label { font-size: 0.8rem; letter-spacing: 0.15em; opacity: 0.6; margin-bottom: 0.5rem; }
+
+.grand-total .amount { font-family: "DM Serif Display", serif; font-size: 2.8rem; color: var(--gold); }
+
+.grand-total .sub { font-size: 0.82rem; opacity: 0.6; margin-top: 0.3rem; }
+
+.resto-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+
+.resto-tab { background: rgb(255, 255, 255); border: 1.5px solid var(--border); border-radius: 100px; padding: 0.45rem 1.1rem; cursor: pointer; font-size: 0.8rem; font-weight: 500; transition: 0.2s; color: var(--muted); }
+
+.resto-tab.active { background: var(--coral); border-color: var(--coral); color: rgb(255, 255, 255); }
+
+.resto-panel { display: none; }
+
+.resto-panel.active { display: block; }
+
+.resto-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+
+.resto-card { background: rgb(255, 255, 255); border-radius: 12px; padding: 1.3rem; border: 1px solid var(--border); transition: transform 0.2s, box-shadow 0.2s; }
+
+.resto-card:hover { transform: translateY(-3px); box-shadow: rgba(0, 0, 0, 0.08) 0px 8px 24px; }
+
+.resto-tag { display: inline-block; font-size: 0.68rem; padding: 0.2rem 0.6rem; border-radius: 4px; margin-bottom: 0.6rem; font-weight: 600; letter-spacing: 0.06em; }
+
+.tag-veg { background: rgb(232, 244, 232); color: var(--sage); }
+
+.tag-bbq { background: rgb(253, 236, 234); color: var(--coral); }
+
+.tag-cafe { background: rgb(232, 238, 245); color: var(--sky); }
+
+.tag-bakery { background: rgb(254, 248, 231); color: var(--gold); }
+
+.tag-seafood { background: rgb(232, 240, 248); color: rgb(45, 109, 160); }
+
+.resto-name { font-weight: 700; font-size: 1rem; margin-bottom: 0.25rem; }
+
+.resto-kr { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.4rem; }
+
+.resto-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.55; margin-bottom: 0.7rem; }
+
+.resto-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+.resto-chip { font-size: 0.72rem; background: var(--warm); padding: 0.2rem 0.55rem; border-radius: 4px; color: var(--muted); }
+
+.resto-chip.rating { background: var(--gold); color: rgb(255, 255, 255); font-weight: 700; }
+
+.resto-hours { font-size: 0.75rem; color: var(--muted); margin-top: 0.5rem; display: flex; align-items: center; gap: 0.3rem; }
+
+.map-section { margin-bottom: 2rem; }
+
+.map-day-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+
+.map-day-tab { background: rgb(255, 255, 255); border: 1.5px solid var(--border); border-radius: 8px; padding: 0.4rem 0.9rem; cursor: pointer; font-size: 0.78rem; font-weight: 500; transition: 0.2s; color: var(--muted); }
+
+.map-day-tab.active { background: var(--sage); border-color: var(--sage); color: rgb(255, 255, 255); }
+
+.map-panel { display: none; }
+
+.map-panel.active { display: block; }
+
+.spots-list { display: flex; flex-direction: column; gap: 0.7rem; }
+
+.spot-row { display: flex; align-items: center; gap: 1rem; background: rgb(255, 255, 255); border-radius: 10px; padding: 1rem 1.2rem; border: 1px solid var(--border); }
+
+.spot-num { width: 28px; height: 28px; border-radius: 50%; background: var(--ink); color: var(--gold); font-family: "Space Mono", monospace; font-size: 0.78rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: 700; }
+
+.spot-info { flex: 1 1 0%; }
+
+.spot-name { font-weight: 700; font-size: 0.92rem; margin-bottom: 0.1rem; }
+
+.spot-addr { font-size: 0.77rem; color: var(--muted); }
+
+.info-section { margin-bottom: 2.5rem; }
+
+.info-section h3 { font-family: "DM Serif Display", serif; font-size: 1.3rem; margin-bottom: 1rem; color: var(--ink); display: flex; align-items: center; gap: 0.5rem; }
+
+.info-section h3::before { content: ""; display: block; width: 4px; height: 1.2em; background: var(--coral); border-radius: 2px; }
+
+.steps-list { display: flex; flex-direction: column; gap: 0.7rem; }
+
+.step-item { display: flex; gap: 1rem; background: rgb(255, 255, 255); border-radius: 10px; padding: 1rem 1.2rem; border: 1px solid var(--border); }
+
+.step-num { width: 28px; height: 28px; border-radius: 50%; background: var(--coral); color: rgb(255, 255, 255); font-weight: 700; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 0.1rem; }
+
+.step-content h4 { font-size: 0.92rem; font-weight: 700; margin-bottom: 0.2rem; }
+
+.step-content p { font-size: 0.83rem; color: var(--muted); line-height: 1.55; }
+
+.info-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+
+.info-card { background: rgb(255, 255, 255); border-radius: 12px; padding: 1.3rem; border: 1px solid var(--border); }
+
+.info-card-icon { font-size: 1.6rem; margin-bottom: 0.5rem; }
+
+.info-card h4 { font-weight: 700; font-size: 0.92rem; margin-bottom: 0.4rem; }
+
+.info-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
+
+.warning-box { background: rgb(255, 248, 230); border-left: 4px solid var(--gold); border-radius: 0px 8px 8px 0px; padding: 1rem 1.2rem; margin: 1rem 0px; font-size: 0.85rem; }
+
+.warning-box strong { color: var(--gold); }
+
+.tip-box { background: rgb(232, 244, 232); border-left: 4px solid var(--sage); border-radius: 0px 8px 8px 0px; padding: 1rem 1.2rem; margin: 1rem 0px; font-size: 0.85rem; }
+
+.tip-box strong { color: var(--sage); }
+
+.danger-box { background: rgb(253, 236, 234); border-left: 4px solid var(--coral); border-radius: 0px 8px 8px 0px; padding: 1rem 1.2rem; margin: 1rem 0px; font-size: 0.85rem; }
+
+.danger-box strong { color: var(--coral); }
+
+.pack-cats { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+
+.pack-cat { background: rgb(255, 255, 255); border: 1.5px solid var(--border); border-radius: 100px; padding: 0.4rem 1rem; cursor: pointer; font-size: 0.78rem; font-weight: 500; transition: 0.2s; color: var(--muted); }
+
+.pack-cat.active { background: var(--sky); border-color: var(--sky); color: rgb(255, 255, 255); }
+
+.pack-panel { display: none; }
+
+.pack-panel.active { display: block; }
+
+.checklist { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.5rem; }
+
+.check-item { display: flex; align-items: center; gap: 0.7rem; background: rgb(255, 255, 255); border-radius: 8px; padding: 0.7rem 0.9rem; border: 1px solid var(--border); cursor: pointer; transition: 0.2s; user-select: none; }
+
+.check-item:hover { border-color: var(--sky); }
+
+.check-item.checked { background: var(--warm); border-color: var(--sage); opacity: 0.7; }
+
+.check-box { width: 18px; height: 18px; border: 2px solid var(--border); border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: 0.2s; font-size: 0.75rem; }
+
+.check-item.checked .check-box { background: var(--sage); border-color: var(--sage); color: rgb(255, 255, 255); }
+
+.check-label { font-size: 0.83rem; }
+
+.check-item.checked .check-label { text-decoration: line-through; color: var(--muted); }
+
+.pack-note { background: var(--warm); border-radius: 10px; padding: 1.2rem; margin-top: 1.5rem; font-size: 0.85rem; }
+
+.pack-note h4 { font-weight: 700; margin-bottom: 0.5rem; color: var(--ink); }
+
+.med-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+
+.med-card { background: rgb(255, 255, 255); border-radius: 12px; padding: 1.4rem; border: 1px solid var(--border); position: relative; overflow: hidden; }
+
+.med-card::after { content: ""; position: absolute; top: 0px; right: 0px; width: 0px; height: 0px; border-style: solid; border-width: 0px 40px 40px 0px; border-color: transparent var(--warm) transparent transparent; }
+
+.med-badge { display: inline-block; font-size: 0.68rem; padding: 0.2rem 0.6rem; border-radius: 4px; margin-bottom: 0.7rem; font-weight: 600; letter-spacing: 0.05em; }
+
+.badge-basic { background: rgb(232, 244, 232); color: var(--sage); }
+
+.badge-popular { background: rgb(253, 236, 234); color: var(--coral); }
+
+.badge-premium { background: rgb(254, 248, 231); color: var(--gold); }
+
+.med-name { font-weight: 700; font-size: 1rem; margin-bottom: 0.15rem; }
+
+.med-kr { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.6rem; }
+
+.med-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.55; margin-bottom: 0.8rem; }
+
+.med-price { display: flex; align-items: baseline; gap: 0.4rem; }
+
+.med-price .krw { font-family: "Space Mono", monospace; font-size: 1.1rem; font-weight: 700; color: var(--coral); }
+
+.med-price .twd { font-size: 0.8rem; color: var(--muted); }
+
+.med-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.7rem; }
+
+.med-chip { font-size: 0.72rem; background: var(--warm); padding: 0.2rem 0.55rem; border-radius: 4px; color: var(--muted); }
+
+.med-who { font-size: 0.78rem; color: var(--sky); margin-top: 0.5rem; font-weight: 600; }
+
+.clinic-box { background: var(--ink); color: var(--cream); border-radius: 12px; padding: 1.4rem; margin-top: 1.5rem; }
+
+.clinic-box h3 { font-family: "DM Serif Display", serif; font-size: 1.2rem; color: var(--gold); margin-bottom: 1rem; }
+
+.clinic-list { display: flex; flex-direction: column; gap: 0.7rem; }
+
+.clinic-item { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.85rem; }
+
+.clinic-item:last-child { border-bottom: none; }
+
+.clinic-name { font-weight: 600; }
+
+.clinic-area { font-size: 0.75rem; opacity: 0.6; }
+
+.gift-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+
+.gift-tab { background: rgb(255, 255, 255); border: 1.5px solid var(--border); border-radius: 100px; padding: 0.45rem 1.1rem; cursor: pointer; font-size: 0.8rem; font-weight: 500; transition: 0.2s; color: var(--muted); }
+
+.gift-tab.active { background: var(--gold); border-color: var(--gold); color: rgb(255, 255, 255); }
+
+.gift-panel { display: none; }
+
+.gift-panel.active { display: block; }
+
+.gift-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.9rem; }
+
+.gift-card { background: rgb(255, 255, 255); border-radius: 12px; padding: 1.2rem; border: 1px solid var(--border); transition: transform 0.15s; }
+
+.gift-card:hover { transform: translateY(-2px); }
+
+.gift-emoji { font-size: 1.8rem; margin-bottom: 0.5rem; }
+
+.gift-name { font-weight: 700; font-size: 0.92rem; margin-bottom: 0.25rem; }
+
+.gift-price { font-family: "Space Mono", monospace; font-size: 0.82rem; color: var(--coral); margin-bottom: 0.3rem; }
+
+.gift-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+
+.gift-hot { font-size: 0.65rem; background: var(--coral); color: rgb(255, 255, 255); padding: 0.1rem 0.4rem; border-radius: 3px; margin-left: 0.3rem; vertical-align: middle; }
+
+.where-buy { background: var(--warm); border-radius: 10px; padding: 1.2rem; margin-top: 1.5rem; }
+
+.where-buy h4 { font-weight: 700; margin-bottom: 0.7rem; font-size: 0.88rem; }
+
+.where-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+.where-item { background: rgb(255, 255, 255); border: 1px solid var(--border); border-radius: 8px; padding: 0.5rem 0.9rem; font-size: 0.8rem; display: flex; align-items: center; gap: 0.4rem; }
+
+.where-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--coral); }
+
+.area-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+
+.area-tab { background: rgb(255, 255, 255); border: 1.5px solid var(--border); border-radius: 8px; padding: 0.45rem 1.1rem; cursor: pointer; font-size: 0.8rem; font-weight: 500; transition: 0.2s; color: var(--muted); }
+
+.area-tab.active { background: var(--ink); border-color: var(--ink); color: var(--gold); }
+
+.area-panel { display: none; }
+
+.area-panel.active { display: block; }
+
+.area-header { display: flex; align-items: flex-start; gap: 1.2rem; background: rgb(255, 255, 255); border-radius: 12px; padding: 1.3rem; border: 1px solid var(--border); margin-bottom: 1.2rem; }
+
+.area-icon { font-size: 2.5rem; flex-shrink: 0; }
+
+.area-title { font-family: "DM Serif Display", serif; font-size: 1.3rem; margin-bottom: 0.2rem; }
+
+.area-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.5; }
+
+.area-vibe { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.6rem; }
+
+.vibe-tag { font-size: 0.72rem; background: var(--warm); padding: 0.2rem 0.6rem; border-radius: 4px; color: var(--muted); }
+
+.shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.8rem; margin-bottom: 1.5rem; }
+
+.shop-card { background: rgb(255, 255, 255); border-radius: 10px; padding: 1.1rem; border: 1px solid var(--border); }
+
+.shop-type { font-size: 0.68rem; color: var(--muted); letter-spacing: 0.08em; margin-bottom: 0.3rem; font-weight: 600; }
+
+.shop-name { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.3rem; }
+
+.shop-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+
+.transport-pill { display: inline-flex; align-items: center; gap: 0.35rem; background: var(--sky); color: rgb(255, 255, 255); border-radius: 6px; padding: 0.35rem 0.8rem; font-size: 0.78rem; margin-top: 0.5rem; }
+
+footer { background: var(--ink); color: var(--cream); padding: 2.5rem; text-align: center; margin-top: 4rem; }
+
+footer .logo-f { font-family: "DM Serif Display", serif; font-size: 1.5rem; color: var(--gold); margin-bottom: 0.5rem; }
+
+footer p { font-size: 0.78rem; opacity: 0.5; letter-spacing: 0.1em; }
+
+@media (max-width: 600px) {
+  .header-inner { padding: 0px 0.75rem; }
+  .logo { font-size: 1.05rem; }
+  .logo span { display: none; }
+  .nav-btn { padding: 0.8rem 0.55rem; font-size: 0.7rem; }
+  .hero { padding: 2.5rem 1rem 2rem; }
+  .hero h1 { font-size: 2rem; }
+  .hero-sub { font-size: 0.82rem; margin-bottom: 1.2rem; }
+  .hero-pills { gap: 0.35rem; margin-bottom: 1.2rem; }
+  .pill { font-size: 0.7rem; padding: 0.3rem 0.75rem; }
+  .flight-strip { padding: 0.9rem 1.1rem; max-width: 100%; }
+  .flight-row { gap: 0.7rem; }
+  .flight-code { font-size: 1.15rem; }
+  .section { padding: 1.5rem 0.9rem; }
+  .sec-title { font-size: 1.5rem; }
+  .sec-desc { font-size: 0.82rem; }
+  .day-tabs { gap: 0.3rem; }
+  .day-tab { padding: 0.4rem 0.7rem; font-size: 0.75rem; }
+  .timeline { padding-left: 2rem; }
+  .tl-title { font-size: 0.93rem; }
+  .tl-desc { font-size: 0.82rem; }
+  .budget-grid { grid-template-columns: 1fr 1fr; }
+  .budget-amount { font-size: 1.4rem; }
+  .budget-rows { padding: 1rem 0.9rem; }
+  .brow { font-size: 0.8rem; }
+  .grand-total .amount { font-size: 2rem; }
+  .grand-total { padding: 1.2rem 1rem; }
+  .map-day-tabs { gap: 0.3rem; }
+  .map-day-tab { padding: 0.35rem 0.65rem; font-size: 0.72rem; }
+  .spot-row { flex-wrap: wrap; gap: 0.6rem; }
+  .resto-tabs { gap: 0.35rem; }
+  .resto-grid { grid-template-columns: 1fr; }
+  .info-grid { grid-template-columns: 1fr 1fr; }
+  .step-item { gap: 0.7rem; }
+  .pack-cats { gap: 0.3rem; }
+  .checklist { grid-template-columns: 1fr; }
+  .med-grid { grid-template-columns: 1fr; }
+  .gift-tabs { gap: 0.3rem; }
+  .gift-grid { grid-template-columns: 1fr 1fr; }
+  .where-list { flex-direction: column; }
+  .where-item { width: 100%; }
+  .area-tabs { gap: 0.3rem; }
+  .area-header { flex-wrap: wrap; gap: 0.8rem; }
+  .shop-grid { grid-template-columns: 1fr 1fr; }
+  .clinic-item { flex-direction: column; align-items: flex-start; gap: 0.15rem; }
+}</style>
+
+
 <title>首爾 2026｜五天五夜家庭輕旅</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=DM+Serif+Display:ital@0;1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<style>
-:root{
-  --ink:#1a1410;
-  --cream:#faf7f2;
-  --warm:#f5efe6;
-  --coral:#d4573c;
-  --gold:#c9992a;
-  --sage:#5a7a5e;
-  --sky:#3d6b8e;
-  --muted:#7a6f65;
-  --border:#e0d8cd;
-  --card:#ffffff;
-  --red-kr:#cd2e3a;
-  --blue-kr:#003478;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:var(--cream);color:var(--ink);font-family:'Noto Sans TC',sans-serif;line-height:1.7;overflow-x:hidden}
-button,[data-fn]{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&amp;family=Noto+Sans+TC:wght@300;400;500;700&amp;family=DM+Serif+Display:ital@0;1&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
 
-/* ─── HEADER ─── */
-.site-header{background:var(--ink);color:var(--cream);padding:0;position:sticky;top:0;z-index:1000;box-shadow:0 2px 20px rgba(0,0,0,.4)}
-.header-inner{display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:56px}
-.logo{font-family:'DM Serif Display',serif;font-size:1.25rem;letter-spacing:.02em;color:var(--gold)}
-.logo span{color:var(--cream);font-size:.9rem;font-family:'Space Mono',monospace;margin-left:.5rem;opacity:.7}
-
-/* nav tabs */
-.main-nav{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
-.main-nav::-webkit-scrollbar{display:none}
-.nav-btn{background:none;border:none;color:rgba(250,247,242,.65);font-family:'Noto Sans TC',sans-serif;font-size:.78rem;font-weight:500;padding:.9rem .85rem;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;transition:all .2s;letter-spacing:.05em}
-.nav-btn:hover{color:var(--cream)}
-.nav-btn.active{color:var(--gold);border-bottom-color:var(--gold)}
-
-/* ─── HERO ─── */
-.hero{background:var(--ink);color:var(--cream);padding:5rem 2rem 4rem;text-align:center;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
-.hero-badge{display:inline-block;background:var(--coral);color:#fff;font-family:'Space Mono',monospace;font-size:.7rem;padding:.3rem .9rem;border-radius:2px;letter-spacing:.12em;margin-bottom:1.5rem}
-.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(2.5rem,6vw,4.5rem);line-height:1.1;margin-bottom:1rem}
-.hero h1 em{color:var(--gold);font-style:italic}
-.hero-sub{font-size:.95rem;opacity:.7;letter-spacing:.15em;margin-bottom:2.5rem;font-weight:300}
-.hero-pills{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin-bottom:2.5rem}
-.pill{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:rgba(250,247,242,.85);padding:.4rem 1.1rem;border-radius:100px;font-size:.8rem;letter-spacing:.05em}
-.flight-strip{display:flex;flex-direction:column;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:1.2rem 2rem;max-width:560px;margin:0 auto}
-.flight-row{display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
-.flight-item{text-align:center}
-.flight-code{font-family:'Space Mono',monospace;font-size:1.5rem;font-weight:700;color:var(--gold)}
-.flight-label{font-size:.7rem;opacity:.6;letter-spacing:.1em}
-.flight-arrow{color:var(--coral);font-size:1.5rem}
-
-/* ─── SECTION WRAPPER ─── */
-.section{display:none;padding:2.5rem 1.5rem;max-width:960px;margin:0 auto;animation:fadeIn .3s ease}
-.section.active{display:block}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-
-/* ─── SECTION HEADING ─── */
-.sec-title{font-family:'DM Serif Display',serif;font-size:2rem;margin-bottom:.4rem;color:var(--ink)}
-.sec-title span{color:var(--coral)}
-.sec-desc{color:var(--muted);font-size:.9rem;margin-bottom:2rem;border-left:3px solid var(--gold);padding-left:.8rem}
-
-/* ─── DAY CARDS ─── */
-.day-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem}
-.day-tab{background:#fff;border:1.5px solid var(--border);border-radius:8px;padding:.5rem 1.1rem;cursor:pointer;font-size:.82rem;font-weight:500;transition:all .2s;color:var(--muted)}
-.day-tab:hover,.day-tab.active{background:var(--ink);border-color:var(--ink);color:var(--gold)}
-
-.day-panel{display:none;animation:fadeIn .25s ease}
-.day-panel.active{display:block}
-
-.timeline{position:relative;padding-left:2.5rem}
-.timeline::before{content:'';position:absolute;left:.75rem;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--coral),var(--gold),var(--sage))}
-.tl-item{position:relative;margin-bottom:2rem}
-.tl-dot{position:absolute;left:-2.15rem;top:.3rem;width:14px;height:14px;border-radius:50%;background:var(--coral);border:2.5px solid var(--cream);box-shadow:0 0 0 2px var(--coral)}
-.tl-time{font-family:'Space Mono',monospace;font-size:.72rem;color:var(--coral);margin-bottom:.25rem;letter-spacing:.05em}
-.tl-title{font-weight:700;font-size:1rem;margin-bottom:.3rem;color:var(--ink)}
-.tl-desc{font-size:.88rem;color:var(--muted);line-height:1.6}
-.tl-note{background:var(--warm);border-radius:8px;padding:.6rem .9rem;margin-top:.5rem;font-size:.82rem;color:var(--ink);border-left:3px solid var(--gold)}
-.tl-note strong{color:var(--sage)}
-
-/* map link */
-.map-link{display:inline-flex;align-items:center;gap:.4rem;background:var(--sky);color:#fff;border-radius:6px;padding:.35rem .8rem;font-size:.78rem;text-decoration:none;margin-top:.5rem;transition:opacity .2s}
-.map-link:hover{opacity:.85}
-
-/* ─── BUDGET ─── */
-.budget-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin-bottom:2rem}
-.budget-card{background:#fff;border-radius:12px;padding:1.4rem;border:1px solid var(--border);position:relative;overflow:hidden}
-.budget-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--coral)}
-.budget-card.sage::before{background:var(--sage)}
-.budget-card.sky::before{background:var(--sky)}
-.budget-card.gold::before{background:var(--gold)}
-.budget-card.muted::before{background:var(--muted)}
-.budget-card h4{font-size:.8rem;letter-spacing:.1em;color:var(--muted);margin-bottom:.5rem}
-.budget-amount{font-family:'DM Serif Display',serif;font-size:2rem;color:var(--ink);line-height:1}
-.budget-amount span{font-size:.9rem;font-family:'Noto Sans TC',sans-serif;color:var(--muted)}
-.budget-note{font-size:.78rem;color:var(--muted);margin-top:.4rem}
-.budget-rows{background:#fff;border-radius:12px;padding:1.4rem;border:1px solid var(--border);margin-bottom:1.5rem}
-.budget-rows h3{font-size:.85rem;letter-spacing:.1em;color:var(--muted);margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid var(--border)}
-.brow{display:flex;justify-content:space-between;padding:.45rem 0;border-bottom:1px dashed var(--border);font-size:.88rem}
-.brow:last-child{border-bottom:none;font-weight:700;padding-top:.7rem}
-.brow .amt{font-family:'Space Mono',monospace;color:var(--coral)}
-.brow.total{background:var(--warm);margin:0 -1.4rem;padding:.7rem 1.4rem;border-radius:0 0 12px 12px}
-.grand-total{background:var(--ink);color:var(--cream);border-radius:12px;padding:1.5rem 2rem;text-align:center;margin-top:1rem}
-.grand-total .label{font-size:.8rem;letter-spacing:.15em;opacity:.6;margin-bottom:.5rem}
-.grand-total .amount{font-family:'DM Serif Display',serif;font-size:2.8rem;color:var(--gold)}
-.grand-total .sub{font-size:.82rem;opacity:.6;margin-top:.3rem}
-
-/* ─── RESTAURANTS ─── */
-.resto-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
-.resto-tab{background:#fff;border:1.5px solid var(--border);border-radius:100px;padding:.45rem 1.1rem;cursor:pointer;font-size:.8rem;font-weight:500;transition:all .2s;color:var(--muted)}
-.resto-tab.active{background:var(--coral);border-color:var(--coral);color:#fff}
-
-.resto-panel{display:none}
-.resto-panel.active{display:block}
-.resto-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
-.resto-card{background:#fff;border-radius:12px;padding:1.3rem;border:1px solid var(--border);transition:transform .2s,box-shadow .2s}
-.resto-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
-.resto-tag{display:inline-block;font-size:.68rem;padding:.2rem .6rem;border-radius:4px;margin-bottom:.6rem;font-weight:600;letter-spacing:.06em}
-.tag-veg{background:#e8f4e8;color:var(--sage)}
-.tag-bbq{background:#fdecea;color:var(--coral)}
-.tag-cafe{background:#e8eef5;color:var(--sky)}
-.tag-bakery{background:#fef8e7;color:var(--gold)}
-.tag-seafood{background:#e8f0f8;color:#2d6da0}
-.resto-name{font-weight:700;font-size:1rem;margin-bottom:.25rem}
-.resto-kr{font-size:.78rem;color:var(--muted);margin-bottom:.4rem}
-.resto-desc{font-size:.83rem;color:var(--muted);line-height:1.55;margin-bottom:.7rem}
-.resto-meta{display:flex;flex-wrap:wrap;gap:.4rem}
-.resto-chip{font-size:.72rem;background:var(--warm);padding:.2rem .55rem;border-radius:4px;color:var(--muted)}
-.resto-chip.rating{background:var(--gold);color:#fff;font-weight:700}
-.resto-hours{font-size:.75rem;color:var(--muted);margin-top:.5rem;display:flex;align-items:center;gap:.3rem}
-
-/* ─── MAPS ─── */
-.map-section{margin-bottom:2rem}
-.map-day-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
-.map-day-tab{background:#fff;border:1.5px solid var(--border);border-radius:8px;padding:.4rem .9rem;cursor:pointer;font-size:.78rem;font-weight:500;transition:all .2s;color:var(--muted)}
-.map-day-tab.active{background:var(--sage);border-color:var(--sage);color:#fff}
-.map-panel{display:none}
-.map-panel.active{display:block}
-.spots-list{display:flex;flex-direction:column;gap:.7rem}
-.spot-row{display:flex;align-items:center;gap:1rem;background:#fff;border-radius:10px;padding:1rem 1.2rem;border:1px solid var(--border)}
-.spot-num{width:28px;height:28px;border-radius:50%;background:var(--ink);color:var(--gold);font-family:'Space Mono',monospace;font-size:.78rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:700}
-.spot-info{flex:1}
-.spot-name{font-weight:700;font-size:.92rem;margin-bottom:.1rem}
-.spot-addr{font-size:.77rem;color:var(--muted)}
-
-/* ─── IMMIGRATION ─── */
-.info-section{margin-bottom:2.5rem}
-.info-section h3{font-family:'DM Serif Display',serif;font-size:1.3rem;margin-bottom:1rem;color:var(--ink);display:flex;align-items:center;gap:.5rem}
-.info-section h3::before{content:'';display:block;width:4px;height:1.2em;background:var(--coral);border-radius:2px}
-.steps-list{display:flex;flex-direction:column;gap:.7rem}
-.step-item{display:flex;gap:1rem;background:#fff;border-radius:10px;padding:1rem 1.2rem;border:1px solid var(--border)}
-.step-num{width:28px;height:28px;border-radius:50%;background:var(--coral);color:#fff;font-weight:700;font-size:.8rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
-.step-content h4{font-size:.92rem;font-weight:700;margin-bottom:.2rem}
-.step-content p{font-size:.83rem;color:var(--muted);line-height:1.55}
-.info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem;margin-bottom:2rem}
-.info-card{background:#fff;border-radius:12px;padding:1.3rem;border:1px solid var(--border)}
-.info-card-icon{font-size:1.6rem;margin-bottom:.5rem}
-.info-card h4{font-weight:700;font-size:.92rem;margin-bottom:.4rem}
-.info-card p{font-size:.82rem;color:var(--muted);line-height:1.55}
-.warning-box{background:#fff8e6;border-left:4px solid var(--gold);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:.85rem}
-.warning-box strong{color:var(--gold)}
-.tip-box{background:#e8f4e8;border-left:4px solid var(--sage);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:.85rem}
-.tip-box strong{color:var(--sage)}
-.danger-box{background:#fdecea;border-left:4px solid var(--coral);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:.85rem}
-.danger-box strong{color:var(--coral)}
-
-/* ─── PACKING ─── */
-.pack-cats{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
-.pack-cat{background:#fff;border:1.5px solid var(--border);border-radius:100px;padding:.4rem 1rem;cursor:pointer;font-size:.78rem;font-weight:500;transition:all .2s;color:var(--muted)}
-.pack-cat.active{background:var(--sky);border-color:var(--sky);color:#fff}
-.pack-panel{display:none}
-.pack-panel.active{display:block}
-.checklist{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.5rem}
-.check-item{display:flex;align-items:center;gap:.7rem;background:#fff;border-radius:8px;padding:.7rem .9rem;border:1px solid var(--border);cursor:pointer;transition:all .2s;user-select:none}
-.check-item:hover{border-color:var(--sky)}
-.check-item.checked{background:var(--warm);border-color:var(--sage);opacity:.7}
-.check-box{width:18px;height:18px;border:2px solid var(--border);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;font-size:.75rem}
-.check-item.checked .check-box{background:var(--sage);border-color:var(--sage);color:#fff}
-.check-label{font-size:.83rem}
-.check-item.checked .check-label{text-decoration:line-through;color:var(--muted)}
-.pack-note{background:var(--warm);border-radius:10px;padding:1.2rem;margin-top:1.5rem;font-size:.85rem}
-.pack-note h4{font-weight:700;margin-bottom:.5rem;color:var(--ink)}
-
-/* ─── MEDICAL BEAUTY ─── */
-.med-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem;margin-bottom:2rem}
-.med-card{background:#fff;border-radius:12px;padding:1.4rem;border:1px solid var(--border);position:relative;overflow:hidden}
-.med-card::after{content:'';position:absolute;top:0;right:0;width:0;height:0;border-style:solid;border-width:0 40px 40px 0;border-color:transparent var(--warm) transparent transparent}
-.med-badge{display:inline-block;font-size:.68rem;padding:.2rem .6rem;border-radius:4px;margin-bottom:.7rem;font-weight:600;letter-spacing:.05em}
-.badge-basic{background:#e8f4e8;color:var(--sage)}
-.badge-popular{background:#fdecea;color:var(--coral)}
-.badge-premium{background:#fef8e7;color:var(--gold)}
-.med-name{font-weight:700;font-size:1rem;margin-bottom:.15rem}
-.med-kr{font-size:.78rem;color:var(--muted);margin-bottom:.6rem}
-.med-desc{font-size:.82rem;color:var(--muted);line-height:1.55;margin-bottom:.8rem}
-.med-price{display:flex;align-items:baseline;gap:.4rem}
-.med-price .krw{font-family:'Space Mono',monospace;font-size:1.1rem;font-weight:700;color:var(--coral)}
-.med-price .twd{font-size:.8rem;color:var(--muted)}
-.med-meta{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.7rem}
-.med-chip{font-size:.72rem;background:var(--warm);padding:.2rem .55rem;border-radius:4px;color:var(--muted)}
-.med-who{font-size:.78rem;color:var(--sky);margin-top:.5rem;font-weight:600}
-.clinic-box{background:var(--ink);color:var(--cream);border-radius:12px;padding:1.4rem;margin-top:1.5rem}
-.clinic-box h3{font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--gold);margin-bottom:1rem}
-.clinic-list{display:flex;flex-direction:column;gap:.7rem}
-.clinic-item{display:flex;justify-content:space-between;align-items:center;padding:.6rem 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:.85rem}
-.clinic-item:last-child{border-bottom:none}
-.clinic-name{font-weight:600}
-.clinic-area{font-size:.75rem;opacity:.6}
-
-/* ─── GIFTS ─── */
-.gift-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
-.gift-tab{background:#fff;border:1.5px solid var(--border);border-radius:100px;padding:.45rem 1.1rem;cursor:pointer;font-size:.8rem;font-weight:500;transition:all .2s;color:var(--muted)}
-.gift-tab.active{background:var(--gold);border-color:var(--gold);color:#fff}
-.gift-panel{display:none}
-.gift-panel.active{display:block}
-.gift-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.9rem}
-.gift-card{background:#fff;border-radius:12px;padding:1.2rem;border:1px solid var(--border);transition:transform .15s}
-.gift-card:hover{transform:translateY(-2px)}
-.gift-emoji{font-size:1.8rem;margin-bottom:.5rem}
-.gift-name{font-weight:700;font-size:.92rem;margin-bottom:.25rem}
-.gift-price{font-family:'Space Mono',monospace;font-size:.82rem;color:var(--coral);margin-bottom:.3rem}
-.gift-desc{font-size:.78rem;color:var(--muted);line-height:1.5}
-.gift-hot{font-size:.65rem;background:var(--coral);color:#fff;padding:.1rem .4rem;border-radius:3px;margin-left:.3rem;vertical-align:middle}
-.where-buy{background:var(--warm);border-radius:10px;padding:1.2rem;margin-top:1.5rem}
-.where-buy h4{font-weight:700;margin-bottom:.7rem;font-size:.88rem}
-.where-list{display:flex;flex-wrap:wrap;gap:.5rem}
-.where-item{background:#fff;border:1px solid var(--border);border-radius:8px;padding:.5rem .9rem;font-size:.8rem;display:flex;align-items:center;gap:.4rem}
-.where-dot{width:8px;height:8px;border-radius:50%;background:var(--coral)}
-
-/* ─── SHOPPING ─── */
-.area-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
-.area-tab{background:#fff;border:1.5px solid var(--border);border-radius:8px;padding:.45rem 1.1rem;cursor:pointer;font-size:.8rem;font-weight:500;transition:all .2s;color:var(--muted)}
-.area-tab.active{background:var(--ink);border-color:var(--ink);color:var(--gold)}
-.area-panel{display:none}
-.area-panel.active{display:block}
-.area-header{display:flex;align-items:flex-start;gap:1.2rem;background:#fff;border-radius:12px;padding:1.3rem;border:1px solid var(--border);margin-bottom:1.2rem}
-.area-icon{font-size:2.5rem;flex-shrink:0}
-.area-title{font-family:'DM Serif Display',serif;font-size:1.3rem;margin-bottom:.2rem}
-.area-desc{font-size:.83rem;color:var(--muted);line-height:1.5}
-.area-vibe{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.6rem}
-.vibe-tag{font-size:.72rem;background:var(--warm);padding:.2rem .6rem;border-radius:4px;color:var(--muted)}
-.shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.8rem;margin-bottom:1.5rem}
-.shop-card{background:#fff;border-radius:10px;padding:1.1rem;border:1px solid var(--border)}
-.shop-type{font-size:.68rem;color:var(--muted);letter-spacing:.08em;margin-bottom:.3rem;font-weight:600}
-.shop-name{font-weight:700;font-size:.9rem;margin-bottom:.3rem}
-.shop-desc{font-size:.78rem;color:var(--muted);line-height:1.5}
-.transport-pill{display:inline-flex;align-items:center;gap:.35rem;background:var(--sky);color:#fff;border-radius:6px;padding:.35rem .8rem;font-size:.78rem;margin-top:.5rem}
-
-/* ─── FOOTER ─── */
-footer{background:var(--ink);color:var(--cream);padding:2.5rem;text-align:center;margin-top:4rem}
-footer .logo-f{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--gold);margin-bottom:.5rem}
-footer p{font-size:.78rem;opacity:.5;letter-spacing:.1em}
-
-/* mobile */
-@media(max-width:600px){
-  /* header */
-  .header-inner{padding:0 .75rem}
-  .logo{font-size:1.05rem}
-  .logo span{display:none}
-  .nav-btn{padding:.8rem .55rem;font-size:.7rem}
-
-  /* hero */
-  .hero{padding:2.5rem 1rem 2rem}
-  .hero h1{font-size:2rem}
-  .hero-sub{font-size:.82rem;margin-bottom:1.2rem}
-  .hero-pills{gap:.35rem;margin-bottom:1.2rem}
-  .pill{font-size:.7rem;padding:.3rem .75rem}
-  .flight-strip{padding:.9rem 1.1rem;max-width:100%}
-  .flight-row{gap:.7rem}
-  .flight-code{font-size:1.15rem}
-
-  /* sections */
-  .section{padding:1.5rem .9rem}
-  .sec-title{font-size:1.5rem}
-  .sec-desc{font-size:.82rem}
-
-  /* day tabs */
-  .day-tabs{gap:.3rem}
-  .day-tab{padding:.4rem .7rem;font-size:.75rem}
-
-  /* timeline */
-  .timeline{padding-left:2rem}
-  .tl-title{font-size:.93rem}
-  .tl-desc{font-size:.82rem}
-
-  /* budget */
-  .budget-grid{grid-template-columns:1fr 1fr}
-  .budget-amount{font-size:1.4rem}
-  .budget-rows{padding:1rem .9rem}
-  .brow{font-size:.8rem}
-  .grand-total .amount{font-size:2rem}
-  .grand-total{padding:1.2rem 1rem}
-
-  /* map */
-  .map-day-tabs{gap:.3rem}
-  .map-day-tab{padding:.35rem .65rem;font-size:.72rem}
-  .spot-row{flex-wrap:wrap;gap:.6rem}
-
-  /* restaurant */
-  .resto-tabs{gap:.35rem}
-  .resto-grid{grid-template-columns:1fr}
-
-  /* immigration */
-  .info-grid{grid-template-columns:1fr 1fr}
-  .step-item{gap:.7rem}
-
-  /* packing */
-  .pack-cats{gap:.3rem}
-  .checklist{grid-template-columns:1fr}
-
-  /* medical */
-  .med-grid{grid-template-columns:1fr}
-
-  /* gifts */
-  .gift-tabs{gap:.3rem}
-  .gift-grid{grid-template-columns:1fr 1fr}
-  .where-list{flex-direction:column}
-  .where-item{width:100%}
-
-  /* shopping */
-  .area-tabs{gap:.3rem}
-  .area-header{flex-wrap:wrap;gap:.8rem}
-  .shop-grid{grid-template-columns:1fr 1fr}
-
-  /* clinic */
-  .clinic-item{flex-direction:column;align-items:flex-start;gap:.15rem}
-}
-</style>
 </head>
 <body>
 
@@ -417,7 +546,7 @@ footer p{font-size:.78rem;opacity:.5;letter-spacing:.1em}
         <div class="tl-time">18:30</div>
         <div class="tl-title">🏨 L7 Hongdae by LOTTE — Check-in</div>
         <div class="tl-desc">141 Yanghwa-ro, Mapo-gu｜弘大核心地帶，交通超便利，步行即達各景點。稍作休息，換裝準備夜逛。</div>
-        <a class="map-link" href="https://maps.google.com/?q=L7+Hongdae+by+LOTTE&ll=37.5556155,126.9215951" target="_blank">📍 Google Maps</a>
+        <a class="map-link" href="https://maps.google.com/?q=L7+Hongdae+by+LOTTE&amp;ll=37.5556155,126.9215951" target="_blank">📍 Google Maps</a>
       </div>
       <div class="tl-item">
         <div class="tl-dot" style="background:var(--coral)"></div>
@@ -425,14 +554,14 @@ footer p{font-size:.78rem;opacity:.5;letter-spacing:.1em}
         <div class="tl-title">🥩 韓式烤肉晚餐 — 육전식당</div>
         <div class="tl-desc">弘大人氣豬肉烤肉店，全團接受度高。</div>
         <div class="tl-note"><strong>素食提醒：</strong>媽媽可點去肉拌飯（비빔밥）與豆腐鍋（순두부찌개），記得跟店員說「고기 빼주세요（不要肉）」</div>
-        <a class="map-link" href="https://maps.google.com/?q=육전식당+홍대" target="_blank">📍 Google Maps</a>
+        <a class="map-link" href="https://maps.google.com/?q=%EC%9C%A1%EC%A0%84%EC%8B%9D%EB%8B%B9+%ED%99%8D%EB%8C%80" target="_blank">📍 Google Maps</a>
       </div>
       <div class="tl-item">
         <div class="tl-dot" style="background:var(--sage)"></div>
         <div class="tl-time">21:00</div>
         <div class="tl-title">🌃 弘大散步</div>
         <div class="tl-desc">延南洞文青小巷、京義線森林公園、街頭藝人表演、弘大主街夜景。首次首爾旅遊的表妹一定會驚喜！</div>
-        <a class="map-link" href="https://maps.google.com/?q=延南洞+서울&ll=37.5652109,126.9238607" target="_blank">📍 延南洞地圖</a>
+        <a class="map-link" href="https://maps.google.com/?q=%E5%BB%B6%E5%8D%97%E6%B4%9E+%EC%84%9C%EC%9A%B8&amp;ll=37.5652109,126.9238607" target="_blank">📍 延南洞地圖</a>
       </div>
     </div>
   </div>
@@ -449,7 +578,7 @@ footer p{font-size:.78rem;opacity:.5;letter-spacing:.1em}
         <div class="tl-title">🏯 景福宮</div>
         <div class="tl-desc">首爾最大古宮，朝鮮王朝代表建築。<br>▸ 開放時間 09:00–18:00（週二休館）<br>▸ 門票：成人 ₩3,000，穿韓服免費</div>
         <div class="tl-note"><strong>💡 建議：</strong>在景福宮前租韓服，拍家族照！弘大→景福宮搭地鐵 3 號線約 20 分。</div>
-        <a class="map-link" href="https://maps.google.com/?cid=ChIJod7tSseifDUR9hXHLFNGMIs&q=景福宮&ll=37.579617,126.977041" target="_blank">📍 Google Maps</a>
+        <a class="map-link" href="https://maps.google.com/?cid=ChIJod7tSseifDUR9hXHLFNGMIs&amp;q=%E6%99%AF%E7%A6%8F%E5%AE%AE&amp;ll=37.579617,126.977041" target="_blank">📍 Google Maps</a>
       </div>
       <div class="tl-item">
         <div class="tl-dot" style="background:var(--gold)"></div>
@@ -457,7 +586,7 @@ footer p{font-size:.78rem;opacity:.5;letter-spacing:.1em}
         <div class="tl-title">🏘️ 北村韓屋村</div>
         <div class="tl-desc">首爾最美韓屋聚落，超多韓劇取景地。步行山坡小巷，登高可遠眺城市。<br>▸ 建議早到，下午人潮擁擠</div>
         <div class="tl-note"><strong>⚠️ 注意：</strong>這是住宅區，請輕聲細語，尊重居民。10:00–17:00 對遊客開放。</div>
-        <a class="map-link" href="https://maps.google.com/?cid=ChIJT8H4r9qifDURmuXJ_6m6vM0&ll=37.5814696,126.9849519" target="_blank">📍 Google Maps</a>
+        <a class="map-link" href="https://maps.google.com/?cid=ChIJT8H4r9qifDURmuXJ_6m6vM0&amp;ll=37.5814696,126.9849519" target="_blank">📍 Google Maps</a>
       </div>
       <div class="tl-item">
         <div class="tl-dot" style="background:var(--sage)"></div>
@@ -465,21 +594,21 @@ footer p{font-size:.78rem;opacity:.5;letter-spacing:.1em}
         <div class="tl-title">🥬 Osegyehyang 午餐（素食）</div>
         <div class="tl-desc">14-5 Insadong 12-gil，知名韓式純素餐廳。蛋奶素餐廳選擇多，其他成員也有各種非蛋奶素選項。評分 4.3 ⭐</div>
         <div class="tl-note"><strong>🕐 營業：</strong>11:30–15:00，17:00–21:00（週四休息）｜<strong>建議提早入場</strong></div>
-        <a class="map-link" href="https://maps.google.com/?q=Osegyehyang+Seoul&ll=37.5746333,126.9852542" target="_blank">📍 Google Maps</a>
+        <a class="map-link" href="https://maps.google.com/?q=Osegyehyang+Seoul&amp;ll=37.5746333,126.9852542" target="_blank">📍 Google Maps</a>
       </div>
       <div class="tl-item">
         <div class="tl-dot" style="background:var(--sky)"></div>
         <div class="tl-time">15:00</div>
         <div class="tl-title">☕ 益善洞咖啡街</div>
         <div class="tl-desc">老韓屋改造的文青咖啡街，最有故事感。巷弄間都是超上鏡的咖啡廳、甜品店、選物店。<br>▸ 鄰近鐘路 3 街地鐵站</div>
-        <a class="map-link" href="https://maps.google.com/?cid=ChIJe4Jbot2ifDUR2zWhruwyaow&ll=37.5737132,126.9901271" target="_blank">📍 Google Maps</a>
+        <a class="map-link" href="https://maps.google.com/?cid=ChIJe4Jbot2ifDUR2zWhruwyaow&amp;ll=37.5737132,126.9901271" target="_blank">📍 Google Maps</a>
       </div>
       <div class="tl-item">
         <div class="tl-dot" style="background:var(--coral)"></div>
         <div class="tl-time">18:00</div>
         <div class="tl-title">🛍️ 明洞購物</div>
         <div class="tl-desc">首爾最熱鬧購物街，Olive Young、美妝旗艦店、韓系服飾應有盡有。路邊小吃也不要錯過！<br>▸ 建議在此解決晚餐（街頭小吃或各式餐廳）</div>
-        <a class="map-link" href="https://maps.google.com/?q=明洞+서울&ll=37.5599800,126.9858296" target="_blank">📍 Google Maps</a>
+        <a class="map-link" href="https://maps.google.com/?q=%E6%98%8E%E6%B4%9E+%EC%84%9C%EC%9A%B8&amp;ll=37.5599800,126.9858296" target="_blank">📍 Google Maps</a>
       </div>
     </div>
   </div>
@@ -496,7 +625,7 @@ footer p{font-size:.78rem;opacity:.5;letter-spacing:.1em}
         <div class="tl-title">🧡 聖水洞</div>
         <div class="tl-desc">首爾「布魯克林」，工業風老倉庫改造成時尚選物店、個性咖啡廳。Dior、TAMBURINS、Cafe ONION 都在這。<br>▸ 搭地鐵 2 號線至聖水站</div>
         <div class="tl-note"><strong>📸 拍照熱點：</strong>NUDAKE、Cafe ONION 聖水、自然島鹽可頌（天天大排隊）</div>
-        <a class="map-link" href="https://maps.google.com/?q=성수동+서울&ll=37.5406846,127.0566319" target="_blank">📍 Google Maps</a>
+        <a class="map-link" href="https://maps.google.com/?q=%EC%84%B1%EC%88%98%EB%8F%99+%EC%84%9C%EC%9A%B8&amp;ll=37.5406846,127.0566319" target="_blank">📍 Google Maps</a>
       </div>
       <div class="tl-item">
         <div class="tl-dot" style="background:var(--gold)"></div>
@@ -513,7 +642,7 @@ footer p{font-size:.78rem;opacity:.5;letter-spacing:.1em}
           <strong>🏃 跑步計畫：</strong>推薦路線 汝矣島漢江公園 → 麻浦大橋折返，單程約 4km，傍晚涼風徐徐。<br>
           <strong>🧺 其餘成員：</strong>CU 便利商店購買炸雞＋啤酒野餐組合，漢江野餐超道地！
         </div>
-        <a class="map-link" href="https://maps.google.com/?cid=ChIJ77fEAzuffDURLEWNv56G2KQ&ll=37.5267106,126.9347112" target="_blank">📍 Google Maps</a>
+        <a class="map-link" href="https://maps.google.com/?cid=ChIJ77fEAzuffDURLEWNv56G2KQ&amp;ll=37.5267106,126.9347112" target="_blank">📍 Google Maps</a>
       </div>
       <div class="tl-item">
         <div class="tl-dot" style="background:var(--sage)"></div>
@@ -521,7 +650,7 @@ footer p{font-size:.78rem;opacity:.5;letter-spacing:.1em}
         <div class="tl-title">🔥 몽탄（Mongtan）烤肉晚餐</div>
         <div class="tl-desc">首爾最人氣稻草燻烤牛肉名店，U字牛小排超香！<br>▸ 位於龍山區，步行或計程車前往<br>▸ <strong style="color:var(--coral)">務必提前電話或網路訂位！</strong>平均等候 1–2 小時</div>
         <div class="tl-note"><strong>💰 預算：</strong>約 ₩50,000–₩70,000 / 人（牛肉主餐＋配菜）｜評分 4.1 ⭐</div>
-        <a class="map-link" href="https://maps.google.com/?cid=ChIJO85WpN6jfDURVI5DNM9JkCI&ll=37.5360397,126.9722240" target="_blank">📍 Google Maps</a>
+        <a class="map-link" href="https://maps.google.com/?cid=ChIJO85WpN6jfDURVI5DNM9JkCI&amp;ll=37.5360397,126.9722240" target="_blank">📍 Google Maps</a>
       </div>
     </div>
   </div>
@@ -538,7 +667,7 @@ footer p{font-size:.78rem;opacity:.5;letter-spacing:.1em}
         <div class="tl-title">💆 江南醫美行程</div>
         <div class="tl-desc">媽媽、小阿姨安排皮膚管理 / 音波 / 輕醫美療程。建議提早預約，帶上護照。<br>▸ 江南區診所密集，建議提前 2 週網路預約<br>▸ 許多診所有中文翻譯服務</div>
         <div class="tl-note"><strong>📍 推薦區域：</strong>江南站、新論峴站周邊醫美診所最密集。詳見「醫美」頁面。</div>
-        <a class="map-link" href="https://maps.google.com/?q=강남구+의원&ll=37.4979,127.0276" target="_blank">📍 江南醫美區地圖</a>
+        <a class="map-link" href="https://maps.google.com/?q=%EA%B0%95%EB%82%A8%EA%B5%AC+%EC%9D%98%EC%9B%90&amp;ll=37.4979,127.0276" target="_blank">📍 江南醫美區地圖</a>
       </div>
       <div class="tl-item">
         <div class="tl-dot" style="background:var(--gold)"></div>
@@ -546,7 +675,7 @@ footer p{font-size:.78rem;opacity:.5;letter-spacing:.1em}
         <div class="tl-title">🌳 新沙洞林蔭道（가로수길）</div>
         <div class="tl-desc">首爾最優雅的購物散步道，法桐樹排列成蔭，兩側是精品店、設計師品牌、高質感咖啡廳。<br>▸ 搭地鐵 3 號線至新沙站</div>
         <div class="tl-note"><strong>推薦：</strong>Gentle Monster、Ader Error、APM 名品店巡禮，咖啡廳午後慢時光</div>
-        <a class="map-link" href="https://maps.google.com/?q=가로수길+강남&ll=37.5210566,127.0228686" target="_blank">📍 Google Maps</a>
+        <a class="map-link" href="https://maps.google.com/?q=%EA%B0%80%EB%A1%9C%EC%88%98%EA%B8%B8+%EA%B0%95%EB%82%A8&amp;ll=37.5210566,127.0228686" target="_blank">📍 Google Maps</a>
       </div>
       <div class="tl-item">
         <div class="tl-dot" style="background:var(--sky)"></div>
@@ -554,7 +683,7 @@ footer p{font-size:.78rem;opacity:.5;letter-spacing:.1em}
         <div class="tl-title">📚 COEX 星空圖書館</div>
         <div class="tl-desc">Starfield Library，全首爾最上鏡的打卡地標。巨型書架壯觀，內有 Starbucks，可坐下來喝咖啡享受氣氛。<br>▸ 10:30–22:00 | 三成站 5–6 號出口</div>
         <div class="tl-note"><strong>👴👵 長輩友善：</strong>室內冷氣涼爽，地板平坦無障礙，適合媽媽輕鬆逛，醫美後也很適合輕量活動</div>
-        <a class="map-link" href="https://maps.google.com/?cid=ChIJu5Gg2hWkfDURl7NN7FpFnis&ll=37.5100586,127.0601188" target="_blank">📍 Google Maps</a>
+        <a class="map-link" href="https://maps.google.com/?cid=ChIJu5Gg2hWkfDURl7NN7FpFnis&amp;ll=37.5100586,127.0601188" target="_blank">📍 Google Maps</a>
       </div>
     </div>
   </div>
@@ -571,7 +700,7 @@ footer p{font-size:.78rem;opacity:.5;letter-spacing:.1em}
         <div class="tl-title">🐟 廣藏市場</div>
         <div class="tl-desc">首爾百年傳統市場，必吃：生牛肉拌飯、綠豆煎餅（빈대떡）、麻藥飯捲、各式海鮮。<br>▸ 09:00–22:30 | 鐘路 5 街站 8 號出口</div>
         <div class="tl-note"><strong>🐙 海鮮控必訪：</strong>小舅舅與小阿姨一定喜歡！鮮魚攤、海鮮煎餅超新鮮</div>
-        <a class="map-link" href="https://maps.google.com/?cid=ChIJm3V0fu2ifDURRJ8IMUijVtY&ll=37.5700398,126.9996036" target="_blank">📍 Google Maps</a>
+        <a class="map-link" href="https://maps.google.com/?cid=ChIJm3V0fu2ifDURRJ8IMUijVtY&amp;ll=37.5700398,126.9996036" target="_blank">📍 Google Maps</a>
       </div>
       <div class="tl-item">
         <div class="tl-dot" style="background:var(--gold)"></div>
@@ -589,7 +718,7 @@ footer p{font-size:.78rem;opacity:.5;letter-spacing:.1em}
         <div class="tl-time">晚上 19:00</div>
         <div class="tl-title">🥩 韓牛晚餐 — 旅程完美結尾</div>
         <div class="tl-desc">推薦弘大附近韓牛餐廳：<strong>Ilpyeon Deungsim（一片登心）</strong>或 <strong>Andong Hanwoo Village</strong>。<br>▸ 韓牛品質絕對值得！最後一晚好好犒賞自己 🎉</div>
-        <a class="map-link" href="https://maps.google.com/?cid=ChIJVc8g-cKYfDURq2lcpdtK5wY&ll=37.5562719,126.9243717" target="_blank">📍 一片登心 Google Maps</a>
+        <a class="map-link" href="https://maps.google.com/?cid=ChIJVc8g-cKYfDURq2lcpdtK5wY&amp;ll=37.5562719,126.9243717" target="_blank">📍 一片登心 Google Maps</a>
       </div>
     </div>
   </div>
@@ -723,137 +852,137 @@ footer p{font-size:.78rem;opacity:.5;letter-spacing:.1em}
 
   <div class="map-panel active" id="md1">
     <div style="background:#fff;border-radius:12px;overflow:hidden;border:1px solid var(--border);margin-bottom:1.2rem">
-      <iframe src="https://maps.google.com/maps?q=L7+Hongdae+Seoul&t=m&z=14&output=embed&iwloc=near" width="100%" height="300" style="border:0" loading="lazy"></iframe>
+      <div src="cid:frame-81ADB229B2DAE530729E00A103485A4A@mhtml.blink" width="100%" height="300" style="border:0" loading="lazy" data-original-tag="iframe"><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body></body></html></div>
     </div>
     <div class="spots-list">
       <div class="spot-row">
         <div class="spot-num">1</div>
         <div class="spot-info"><div class="spot-name">🏨 L7 Hongdae by LOTTE</div><div class="spot-addr">141 Yanghwa-ro, Mapo-gu</div></div>
-        <a class="map-link" href="https://maps.google.com/?q=L7+Hongdae+LOTTE&ll=37.5556155,126.9215951" target="_blank">📍 導航</a>
+        <a class="map-link" href="https://maps.google.com/?q=L7+Hongdae+LOTTE&amp;ll=37.5556155,126.9215951" target="_blank">📍 導航</a>
       </div>
       <div class="spot-row">
         <div class="spot-num">2</div>
         <div class="spot-info"><div class="spot-name">🥩 육전식당（韓式烤肉）</div><div class="spot-addr">弘大附近，豬肉烤肉人氣店</div></div>
-        <a class="map-link" href="https://maps.google.com/?q=육전식당+홍대" target="_blank">📍 導航</a>
+        <a class="map-link" href="https://maps.google.com/?q=%EC%9C%A1%EC%A0%84%EC%8B%9D%EB%8B%B9+%ED%99%8D%EB%8C%80" target="_blank">📍 導航</a>
       </div>
       <div class="spot-row">
         <div class="spot-num">3</div>
         <div class="spot-info"><div class="spot-name">🌃 延南洞＋京義線森林公園</div><div class="spot-addr">Seongmisan-ro, Mapo-gu</div></div>
-        <a class="map-link" href="https://maps.google.com/?q=연남동+서울&ll=37.5652109,126.9238607" target="_blank">📍 導航</a>
+        <a class="map-link" href="https://maps.google.com/?q=%EC%97%B0%EB%82%A8%EB%8F%99+%EC%84%9C%EC%9A%B8&amp;ll=37.5652109,126.9238607" target="_blank">📍 導航</a>
       </div>
     </div>
   </div>
 
   <div class="map-panel" id="md2">
     <div style="background:#fff;border-radius:12px;overflow:hidden;border:1px solid var(--border);margin-bottom:1.2rem">
-      <iframe src="https://maps.google.com/maps?q=Gyeongbokgung+Palace+Seoul&t=m&z=14&output=embed&iwloc=near" width="100%" height="300" style="border:0" loading="lazy"></iframe>
+      <div src="cid:frame-71705868578A405553DCAFBF3B5BA35C@mhtml.blink" width="100%" height="300" style="border:0" loading="lazy" data-original-tag="iframe"><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body></body></html></div>
     </div>
     <div class="spots-list">
       <div class="spot-row">
         <div class="spot-num">1</div>
         <div class="spot-info"><div class="spot-name">🏯 景福宮</div><div class="spot-addr">161 Sajik-ro, Jongno-gu｜09:00–18:00（週二休）</div></div>
-        <a class="map-link" href="https://maps.google.com/?q=경복궁&ll=37.579617,126.977041" target="_blank">📍 導航</a>
+        <a class="map-link" href="https://maps.google.com/?q=%EA%B2%BD%EB%B3%B5%EA%B6%81&amp;ll=37.579617,126.977041" target="_blank">📍 導航</a>
       </div>
       <div class="spot-row">
         <div class="spot-num">2</div>
         <div class="spot-info"><div class="spot-name">🏘️ 北村韓屋村</div><div class="spot-addr">Gyedong-gil, Jongno-gu｜10:00–17:00</div></div>
-        <a class="map-link" href="https://maps.google.com/?q=북촌한옥마을&ll=37.5814696,126.9849519" target="_blank">📍 導航</a>
+        <a class="map-link" href="https://maps.google.com/?q=%EB%B6%81%EC%B4%8C%ED%95%9C%EC%98%A5%EB%A7%88%EC%9D%84&amp;ll=37.5814696,126.9849519" target="_blank">📍 導航</a>
       </div>
       <div class="spot-row">
         <div class="spot-num">3</div>
         <div class="spot-info"><div class="spot-name">🥬 Osegyehyang 素食午餐</div><div class="spot-addr">14-5 Insadong 12-gil, Jongno-gu</div></div>
-        <a class="map-link" href="https://maps.google.com/?q=오세계향+인사동&ll=37.5746333,126.9852542" target="_blank">📍 導航</a>
+        <a class="map-link" href="https://maps.google.com/?q=%EC%98%A4%EC%84%B8%EA%B3%84%ED%96%A5+%EC%9D%B8%EC%82%AC%EB%8F%99&amp;ll=37.5746333,126.9852542" target="_blank">📍 導航</a>
       </div>
       <div class="spot-row">
         <div class="spot-num">4</div>
         <div class="spot-info"><div class="spot-name">☕ 益善洞咖啡街</div><div class="spot-addr">Ikseon-dong, Jongno-gu｜10:00–21:00</div></div>
-        <a class="map-link" href="https://maps.google.com/?q=익선동&ll=37.5737132,126.9901271" target="_blank">📍 導航</a>
+        <a class="map-link" href="https://maps.google.com/?q=%EC%9D%B5%EC%84%A0%EB%8F%99&amp;ll=37.5737132,126.9901271" target="_blank">📍 導航</a>
       </div>
       <div class="spot-row">
         <div class="spot-num">5</div>
         <div class="spot-info"><div class="spot-name">🛍️ 明洞購物街</div><div class="spot-addr">Myeong-dong, Jung-gu</div></div>
-        <a class="map-link" href="https://maps.google.com/?q=명동+서울&ll=37.559980,126.985830" target="_blank">📍 導航</a>
+        <a class="map-link" href="https://maps.google.com/?q=%EB%AA%85%EB%8F%99+%EC%84%9C%EC%9A%B8&amp;ll=37.559980,126.985830" target="_blank">📍 導航</a>
       </div>
     </div>
   </div>
 
   <div class="map-panel" id="md3">
     <div style="background:#fff;border-radius:12px;overflow:hidden;border:1px solid var(--border);margin-bottom:1.2rem">
-      <iframe src="https://maps.google.com/maps?q=Seongsu+Seoul&t=m&z=14&output=embed&iwloc=near" width="100%" height="300" style="border:0" loading="lazy"></iframe>
+      <div src="cid:frame-B89516E7FEF1695B46F26D4B459608F4@mhtml.blink" width="100%" height="300" style="border:0" loading="lazy" data-original-tag="iframe"><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body></body></html></div>
     </div>
     <div class="spots-list">
       <div class="spot-row">
         <div class="spot-num">1</div>
         <div class="spot-info"><div class="spot-name">🧡 聖水洞</div><div class="spot-addr">Seongsu-dong, Seongdong-gu｜地鐵 2 號線聖水站</div></div>
-        <a class="map-link" href="https://maps.google.com/?q=성수동&ll=37.5406846,127.0566319" target="_blank">📍 導航</a>
+        <a class="map-link" href="https://maps.google.com/?q=%EC%84%B1%EC%88%98%EB%8F%99&amp;ll=37.5406846,127.0566319" target="_blank">📍 導航</a>
       </div>
       <div class="spot-row">
         <div class="spot-num">2</div>
         <div class="spot-info"><div class="spot-name">🥐 Standard Bread</div><div class="spot-addr">37 Seongsui-ro 18-gil, Seongdong-gu</div></div>
-        <a class="map-link" href="https://maps.google.com/?q=스탠다드베이커리+성수&ll=37.5416845,127.0612531" target="_blank">📍 導航</a>
+        <a class="map-link" href="https://maps.google.com/?q=%EC%8A%A4%ED%83%A0%EB%8B%A4%EB%93%9C%EB%B2%A0%EC%9D%B4%EC%BB%A4%EB%A6%AC+%EC%84%B1%EC%88%98&amp;ll=37.5416845,127.0612531" target="_blank">📍 導航</a>
       </div>
       <div class="spot-row">
         <div class="spot-num">3</div>
         <div class="spot-info"><div class="spot-name">🌅 汝矣島漢江公園</div><div class="spot-addr">330 Yeouidong-ro, Yeongdeungpo-gu</div></div>
-        <a class="map-link" href="https://maps.google.com/?q=여의도한강공원&ll=37.5267106,126.9347112" target="_blank">📍 導航</a>
+        <a class="map-link" href="https://maps.google.com/?q=%EC%97%AC%EC%9D%98%EB%8F%84%ED%95%9C%EA%B0%95%EA%B3%B5%EC%9B%90&amp;ll=37.5267106,126.9347112" target="_blank">📍 導航</a>
       </div>
       <div class="spot-row">
         <div class="spot-num">4</div>
         <div class="spot-info"><div class="spot-name">🔥 몽탄（Mongtan）烤肉</div><div class="spot-addr">50 Baekbeom-ro 99-gil, Yongsan-gu</div></div>
-        <a class="map-link" href="https://maps.google.com/?q=몽탄&ll=37.5360397,126.9722240" target="_blank">📍 導航</a>
+        <a class="map-link" href="https://maps.google.com/?q=%EB%AA%BD%ED%83%84&amp;ll=37.5360397,126.9722240" target="_blank">📍 導航</a>
       </div>
     </div>
   </div>
 
   <div class="map-panel" id="md4">
     <div style="background:#fff;border-radius:12px;overflow:hidden;border:1px solid var(--border);margin-bottom:1.2rem">
-      <iframe src="https://maps.google.com/maps?q=Gangnam+Seoul&t=m&z=14&output=embed&iwloc=near" width="100%" height="300" style="border:0" loading="lazy"></iframe>
+      <div src="cid:frame-AFFD9C9287BCAEB6B978F7B5BA3AE69E@mhtml.blink" width="100%" height="300" style="border:0" loading="lazy" data-original-tag="iframe"><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body></body></html></div>
     </div>
     <div class="spots-list">
       <div class="spot-row">
         <div class="spot-num">1</div>
         <div class="spot-info"><div class="spot-name">💆 江南醫美診所區</div><div class="spot-addr">江南站、新論峴站周邊</div></div>
-        <a class="map-link" href="https://maps.google.com/?q=강남+피부과&ll=37.4979,127.0276" target="_blank">📍 導航</a>
+        <a class="map-link" href="https://maps.google.com/?q=%EA%B0%95%EB%82%A8+%ED%94%BC%EB%B6%80%EA%B3%BC&amp;ll=37.4979,127.0276" target="_blank">📍 導航</a>
       </div>
       <div class="spot-row">
         <div class="spot-num">2</div>
         <div class="spot-info"><div class="spot-name">🌳 新沙洞林蔭道（가로수길）</div><div class="spot-addr">Garosu-gil, Gangnam-gu</div></div>
-        <a class="map-link" href="https://maps.google.com/?q=가로수길&ll=37.5210566,127.0228686" target="_blank">📍 導航</a>
+        <a class="map-link" href="https://maps.google.com/?q=%EA%B0%80%EB%A1%9C%EC%88%98%EA%B8%B8&amp;ll=37.5210566,127.0228686" target="_blank">📍 導航</a>
       </div>
       <div class="spot-row">
         <div class="spot-num">3</div>
         <div class="spot-info"><div class="spot-name">📚 COEX Starfield Library</div><div class="spot-addr">513 Yeongdong-daero, Gangnam-gu｜10:30–22:00</div></div>
-        <a class="map-link" href="https://maps.google.com/?q=별마당도서관&ll=37.5100586,127.0601188" target="_blank">📍 導航</a>
+        <a class="map-link" href="https://maps.google.com/?q=%EB%B3%84%EB%A7%88%EB%8B%B9%EB%8F%84%EC%84%9C%EA%B4%80&amp;ll=37.5100586,127.0601188" target="_blank">📍 導航</a>
       </div>
     </div>
   </div>
 
   <div class="map-panel" id="md5">
     <div style="background:#fff;border-radius:12px;overflow:hidden;border:1px solid var(--border);margin-bottom:1.2rem">
-      <iframe src="https://maps.google.com/maps?q=Gwangjang+Market+Seoul&t=m&z=14&output=embed&iwloc=near" width="100%" height="300" style="border:0" loading="lazy"></iframe>
+      <div src="cid:frame-0186526D1F2909ACF03217BE19CC651C@mhtml.blink" width="100%" height="300" style="border:0" loading="lazy" data-original-tag="iframe"><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body></body></html></div>
     </div>
     <div class="spots-list">
       <div class="spot-row">
         <div class="spot-num">1</div>
         <div class="spot-info"><div class="spot-name">🐟 廣藏市場</div><div class="spot-addr">88 Cheonggyecheon-ro, Jongno-gu｜09:00–22:30</div></div>
-        <a class="map-link" href="https://maps.google.com/?q=광장시장&ll=37.5700398,126.9996036" target="_blank">📍 導航</a>
+        <a class="map-link" href="https://maps.google.com/?q=%EA%B4%91%EC%9E%A5%EC%8B%9C%EC%9E%A5&amp;ll=37.5700398,126.9996036" target="_blank">📍 導航</a>
       </div>
       <div class="spot-row">
         <div class="spot-num">2</div>
         <div class="spot-info"><div class="spot-name">🛍️ 最後自由血拼</div><div class="spot-addr">明洞 / 弘大 / 聖水洞 三選一</div></div>
-        <a class="map-link" href="https://maps.google.com/?q=명동+서울" target="_blank">📍 明洞導航</a>
+        <a class="map-link" href="https://maps.google.com/?q=%EB%AA%85%EB%8F%99+%EC%84%9C%EC%9A%B8" target="_blank">📍 明洞導航</a>
       </div>
       <div class="spot-row">
         <div class="spot-num">3</div>
         <div class="spot-info"><div class="spot-name">🥩 Ilpyeon Deungsim 韓牛</div><div class="spot-addr">52 Hongik-ro 6-gil, Mapo-gu</div></div>
-        <a class="map-link" href="https://maps.google.com/?q=일편등심+홍대&ll=37.5562719,126.9243717" target="_blank">📍 導航</a>
+        <a class="map-link" href="https://maps.google.com/?q=%EC%9D%BC%ED%8E%B8%EB%93%B1%EC%8B%AC+%ED%99%8D%EB%8C%80&amp;ll=37.5562719,126.9243717" target="_blank">📍 導航</a>
       </div>
     </div>
   </div>
 
   <div class="map-panel" id="md_hotel">
     <div style="background:#fff;border-radius:12px;overflow:hidden;border:1px solid var(--border);margin-bottom:1.2rem">
-      <iframe src="https://maps.google.com/maps?q=L7+Hongdae+by+LOTTE+Seoul&t=m&z=16&output=embed&iwloc=near" width="100%" height="300" style="border:0" loading="lazy"></iframe>
+      <div src="cid:frame-C25431EACD039B90920813688D06AF16@mhtml.blink" width="100%" height="300" style="border:0" loading="lazy" data-original-tag="iframe"><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body></body></html></div>
     </div>
     <div class="spots-list">
       <div class="spot-row">
@@ -862,7 +991,7 @@ footer p{font-size:.78rem;opacity:.5;letter-spacing:.1em}
           <div class="spot-name">🏨 L7 Hongdae by LOTTE ⭐ 4.6</div>
           <div class="spot-addr">141 Yanghwa-ro, Mapo-gu, Seoul｜☎ +82 2-2289-1000</div>
         </div>
-        <a class="map-link" href="https://maps.google.com/?q=L7+Hongdae+by+LOTTE&ll=37.5556155,126.9215951" target="_blank">📍 導航</a>
+        <a class="map-link" href="https://maps.google.com/?q=L7+Hongdae+by+LOTTE&amp;ll=37.5556155,126.9215951" target="_blank">📍 導航</a>
       </div>
     </div>
     <div class="tip-box" style="margin-top:1rem">
@@ -870,9 +999,9 @@ footer p{font-size:.78rem;opacity:.5;letter-spacing:.1em}
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:1rem">
       <div class="info-card"><div class="info-card-icon">🚇</div><h4>交通</h4><p>弘大入口站步行 3 分鐘，AREX 直達金浦機場</p></div>
-      <div class="info-card"><div class="info-card-icon">🌃</div><h4>周邊</div><p>弘大夜市、延南洞、望遠市場步行可達</p></div>
+      <div class="info-card"><div class="info-card-icon">🌃</div><h4>周邊</h4></div><p>弘大夜市、延南洞、望遠市場步行可達</p></div>
     </div>
-  </div>
+  
 </section>
 
 <!-- ════════════════════════════════════════ -->
@@ -892,13 +1021,373 @@ footer p{font-size:.78rem;opacity:.5;letter-spacing:.1em}
   </div>
 
   <div class="resto-panel active" id="r_all">
-    <div class="resto-grid" id="allGrid"></div>
+    <div class="resto-grid" id="allGrid"><div class="resto-card">
+    <div class="resto-tag tag-veg">🥬 素食友善</div>
+    <div class="resto-name">Osegyehyang 오세계향</div>
+    <div class="resto-kr">오세계향</div>
+    <div class="resto-desc">首爾最知名韓式純素餐廳，絕大多數料理無魚露蛋奶。蔬菜拌飯、豆腐鍋、炸豆腐都是媽媽安心選擇。</div>
+    <div class="resto-meta">
+      <span class="resto-chip rating">⭐ 4.3</span>
+      <span class="resto-chip">💰 ₩10,000–₩18,000</span>
+      <span class="resto-chip">📅 Day 2 午餐</span>
+    </div>
+    <div class="resto-hours">🕐 11:30–15:00, 17:00–21:00（週四休）</div>
+    <div style="margin-top:.5rem"><a class="map-link" href="https://maps.google.com/?q=%EC%98%A4%EC%84%B8%EA%B3%84%ED%96%A5+%EC%9D%B8%EC%82%AC%EB%8F%99" target="_blank">📍 Google Maps</a></div>
+  </div><div class="resto-card">
+    <div class="resto-tag tag-veg">🥬 素食友善</div>
+    <div class="resto-name">廣藏市場 素食拌飯攤</div>
+    <div class="resto-kr">광장시장</div>
+    <div class="resto-desc">廣藏市場內有不標榜素食但可客製化的拌飯攤，告知無肉即可。配料豐富，媽媽可詢問素食版。</div>
+    <div class="resto-meta">
+      <span class="resto-chip rating">⭐ 4.2</span>
+      <span class="resto-chip">💰 ₩5,000–₩10,000</span>
+      <span class="resto-chip">📅 Day 5 早午餐</span>
+    </div>
+    <div class="resto-hours">🕐 09:00–22:30</div>
+    <div style="margin-top:.5rem"><a class="map-link" href="https://maps.google.com/?q=%EA%B4%91%EC%9E%A5%EC%8B%9C%EC%9E%A5" target="_blank">📍 Google Maps</a></div>
+  </div><div class="resto-card">
+    <div class="resto-tag tag-bbq">🔥 韓式烤肉</div>
+    <div class="resto-name">육전식당</div>
+    <div class="resto-kr">육전식당</div>
+    <div class="resto-desc">弘大人氣豬肉烤肉店，豬五花與豬頸肉是招牌，配上生菜包飯超香！全團接受度高，CP 值高。</div>
+    <div class="resto-meta">
+      <span class="resto-chip rating">⭐ 4.5</span>
+      <span class="resto-chip">💰 ₩15,000–₩25,000/人</span>
+      <span class="resto-chip">📅 Day 1 晚餐</span>
+    </div>
+    <div class="resto-hours">🕐 18:00–深夜</div>
+    <div style="margin-top:.5rem"><a class="map-link" href="https://maps.google.com/?q=%EC%9C%A1%EC%A0%84%EC%8B%9D%EB%8B%B9+%ED%99%8D%EB%8C%80" target="_blank">📍 Google Maps</a></div>
+  </div><div class="resto-card">
+    <div class="resto-tag tag-bbq">🔥 韓式烤肉</div>
+    <div class="resto-name">몽탄 Mongtan</div>
+    <div class="resto-kr">몽탄</div>
+    <div class="resto-desc">首爾最人氣稻草燻烤牛肉名店！U字牛小排用稻草燻烤，香氣絕倫。務必提早訂位，等候時間常達 1–2 小時。</div>
+    <div class="resto-meta">
+      <span class="resto-chip rating">⭐ 4.1</span>
+      <span class="resto-chip">💰 ₩50,000–₩70,000/人</span>
+      <span class="resto-chip">📅 Day 3 晚餐</span>
+    </div>
+    <div class="resto-hours">🕐 12:00–22:00</div>
+    <div style="margin-top:.5rem"><a class="map-link" href="https://maps.google.com/?q=%EB%AA%BD%ED%83%84" target="_blank">📍 Google Maps</a></div>
+  </div><div class="resto-card">
+    <div class="resto-tag tag-bbq">🔥 韓式烤肉</div>
+    <div class="resto-name">Yookji 肉地 弘大</div>
+    <div class="resto-kr">육지홍대</div>
+    <div class="resto-desc">弘大超高評價烤肉店（4.9⭐），無煙設備、QR 點餐英文菜單，外國人友善。五花肉＋紫蘇拌麵是必點組合。</div>
+    <div class="resto-meta">
+      <span class="resto-chip rating">⭐ 4.9</span>
+      <span class="resto-chip">💰 ₩20,000–₩35,000/人</span>
+      <span class="resto-chip">📅 彈性安排</span>
+    </div>
+    <div class="resto-hours">🕐 11:30–23:00</div>
+    <div style="margin-top:.5rem"><a class="map-link" href="https://maps.google.com/?q=%EC%9C%A1%EC%A7%80%ED%99%8D%EB%8C%80" target="_blank">📍 Google Maps</a></div>
+  </div><div class="resto-card">
+    <div class="resto-tag tag-bbq">🔥 韓式烤肉</div>
+    <div class="resto-name">Ilpyeon Deungsim 一片登心</div>
+    <div class="resto-kr">일편등심</div>
+    <div class="resto-desc">弘大頂級韓牛料理餐廳（4.9⭐），炭火烤韓牛由服務員代烤，肉質絕頂鮮嫩。適合最後一晚的豪華收尾！</div>
+    <div class="resto-meta">
+      <span class="resto-chip rating">⭐ 4.9</span>
+      <span class="resto-chip">💰 ₩60,000–₩100,000/人</span>
+      <span class="resto-chip">📅 Day 5 晚餐</span>
+    </div>
+    <div class="resto-hours">🕐 12:00–15:00, 17:00–00:00</div>
+    <div style="margin-top:.5rem"><a class="map-link" href="https://maps.google.com/?q=%EC%9D%BC%ED%8E%B8%EB%93%B1%EC%8B%AC+%ED%99%8D%EB%8C%80" target="_blank">📍 Google Maps</a></div>
+  </div><div class="resto-card">
+    <div class="resto-tag tag-bbq">🔥 韓式烤肉</div>
+    <div class="resto-name">Andong Hanwoo Village</div>
+    <div class="resto-kr">안동한우마을</div>
+    <div class="resto-desc">弘大韓牛燒肉，服務超貼心，老闆熱情，常贈送野生人蔘等附贈品。肉質新鮮，多次獲好評。</div>
+    <div class="resto-meta">
+      <span class="resto-chip rating">⭐ 4.3</span>
+      <span class="resto-chip">💰 ₩40,000–₩80,000/人</span>
+      <span class="resto-chip">📅 Day 5 晚餐備選</span>
+    </div>
+    <div class="resto-hours">🕐 10:30–15:00, 17:00–02:00</div>
+    <div style="margin-top:.5rem"><a class="map-link" href="https://maps.google.com/?q=%EC%95%88%EB%8F%99%ED%95%9C%EC%9A%B0%EB%A7%88%EC%9D%84+%ED%99%8D%EB%8C%80" target="_blank">📍 Google Maps</a></div>
+  </div><div class="resto-card">
+    <div class="resto-tag tag-seafood">🐟 海鮮</div>
+    <div class="resto-name">廣藏市場海鮮區</div>
+    <div class="resto-kr">광장시장</div>
+    <div class="resto-desc">百年傳統市場，新鮮海鮮煎餅（해물전）、醃漬章魚、鮮蝦都有。小舅舅和小阿姨的天堂！可現點現吃。</div>
+    <div class="resto-meta">
+      <span class="resto-chip rating">⭐ 4.2</span>
+      <span class="resto-chip">💰 ₩8,000–₩20,000</span>
+      <span class="resto-chip">📅 Day 5 早上</span>
+    </div>
+    <div class="resto-hours">🕐 09:00–22:30</div>
+    <div style="margin-top:.5rem"><a class="map-link" href="https://maps.google.com/?q=%EA%B4%91%EC%9E%A5%EC%8B%9C%EC%9E%A5" target="_blank">📍 Google Maps</a></div>
+  </div><div class="resto-card">
+    <div class="resto-tag tag-seafood">🐟 海鮮</div>
+    <div class="resto-name">Jungbu 中部乾貨海鮮市場</div>
+    <div class="resto-kr">중부시장</div>
+    <div class="resto-desc">首爾最大乾貨海鮮批發市場，各種海乾貨、魷魚絲、蝦米超便宜，買來帶回家非常划算！</div>
+    <div class="resto-meta">
+      <span class="resto-chip rating">⭐ 4.1</span>
+      <span class="resto-chip">💰 依商品</span>
+      <span class="resto-chip">📅 Day 5 自由時間</span>
+    </div>
+    <div class="resto-hours">🕐 04:00–19:00（週日休）</div>
+    <div style="margin-top:.5rem"><a class="map-link" href="https://maps.google.com/?q=%EC%A4%91%EB%B6%80%EA%B1%B4%EC%96%B4%EB%AC%BC%EC%8B%9C%EC%9E%A5" target="_blank">📍 Google Maps</a></div>
+  </div><div class="resto-card">
+    <div class="resto-tag tag-cafe">☕ 咖啡廳</div>
+    <div class="resto-name">Cafe JAMJAM</div>
+    <div class="resto-kr">카페잼잼</div>
+    <div class="resto-desc">延南洞超高評價早午餐咖啡廳（4.7⭐），法式牛油果吐司、酥脆可頌、質感空間，弘大住宿者早餐首選。</div>
+    <div class="resto-meta">
+      <span class="resto-chip rating">⭐ 4.7</span>
+      <span class="resto-chip">💰 ₩10,000–₩18,000</span>
+      <span class="resto-chip">📅 彈性早午餐</span>
+    </div>
+    <div class="resto-hours">🕐 10:00–21:00（假日至22:00）</div>
+    <div style="margin-top:.5rem"><a class="map-link" href="https://maps.google.com/?q=%EC%B9%B4%ED%8E%98%EC%9E%BC%EC%9E%BC+%EC%97%B0%EB%82%A8%EB%8F%99" target="_blank">📍 Google Maps</a></div>
+  </div><div class="resto-card">
+    <div class="resto-tag tag-cafe">☕ 咖啡廳</div>
+    <div class="resto-name">Layered Yeonnam</div>
+    <div class="resto-kr">레이어드</div>
+    <div class="resto-desc">延南洞人氣蛋糕咖啡廳，草莓夾心、抹茶蛋糕精緻好吃，空間文青感強，適合拍照打卡。</div>
+    <div class="resto-meta">
+      <span class="resto-chip rating">⭐ 4.1</span>
+      <span class="resto-chip">💰 ₩7,000–₩15,000</span>
+      <span class="resto-chip">📅 Day 1 夜逛點心</span>
+    </div>
+    <div class="resto-hours">🕐 10:00–22:00</div>
+    <div style="margin-top:.5rem"><a class="map-link" href="https://maps.google.com/?q=%EB%A0%88%EC%9D%B4%EC%96%B4%EB%93%9C+%EC%97%B0%EB%82%A8%EB%8F%99" target="_blank">📍 Google Maps</a></div>
+  </div><div class="resto-card">
+    <div class="resto-tag tag-cafe">☕ 咖啡廳</div>
+    <div class="resto-name">Cafe ONION 聖水</div>
+    <div class="resto-kr">카페오니언</div>
+    <div class="resto-desc">聖水洞最地標性咖啡廳，老倉庫改造工業風，現烤麵包＋精品咖啡。開門即大排隊，建議開店前到達。</div>
+    <div class="resto-meta">
+      <span class="resto-chip rating">⭐ 4.5</span>
+      <span class="resto-chip">💰 ₩6,000–₩12,000</span>
+      <span class="resto-chip">📅 Day 3 聖水洞</span>
+    </div>
+    <div class="resto-hours">🕐 08:00–22:00</div>
+    <div style="margin-top:.5rem"><a class="map-link" href="https://maps.google.com/?q=%EC%B9%B4%ED%8E%98%EC%98%A4%EB%8B%88%EC%96%B8+%EC%84%B1%EC%88%98" target="_blank">📍 Google Maps</a></div>
+  </div><div class="resto-card">
+    <div class="resto-tag tag-cafe">☕ 咖啡廳</div>
+    <div class="resto-name">Greem Cafe 延南洞</div>
+    <div class="resto-kr">그림카페</div>
+    <div class="resto-desc">漫畫塗鴉風格特色咖啡廳，黑白線條的牆壁桌椅，宛如走進漫畫世界，超上鏡！橙拿鐵招牌推薦。</div>
+    <div class="resto-meta">
+      <span class="resto-chip rating">⭐ 4.4</span>
+      <span class="resto-chip">💰 ₩6,500–₩10,000</span>
+      <span class="resto-chip">📅 Day 1 夜逛</span>
+    </div>
+    <div class="resto-hours">🕐 11:00–19:00（週一二休）</div>
+    <div style="margin-top:.5rem"><a class="map-link" href="https://maps.google.com/?q=%EA%B7%B8%EB%A6%BC%EC%B9%B4%ED%8E%98+%EC%97%B0%EB%82%A8%EB%8F%99" target="_blank">📍 Google Maps</a></div>
+  </div><div class="resto-card">
+    <div class="resto-tag tag-bakery">🥐 麵包店</div>
+    <div class="resto-name">Standard Bread 聖水</div>
+    <div class="resto-kr">스탠다드베이커리</div>
+    <div class="resto-desc">聖水洞人氣烘焙店（4.8⭐），法式烤吐司招牌，奶油焦糖味超香！可加 Dubai 巧克力等多種 topping，座位充足。</div>
+    <div class="resto-meta">
+      <span class="resto-chip rating">⭐ 4.8</span>
+      <span class="resto-chip">💰 ₩8,000–₩18,000</span>
+      <span class="resto-chip">📅 Day 3 聖水早餐</span>
+    </div>
+    <div class="resto-hours">🕐 09:00–21:00</div>
+    <div style="margin-top:.5rem"><a class="map-link" href="https://maps.google.com/?q=%EC%8A%A4%ED%83%A0%EB%8B%A4%EB%93%9C%EB%B2%A0%EC%9D%B4%EC%BB%A4%EB%A6%AC+%EC%84%B1%EC%88%98" target="_blank">📍 Google Maps</a></div>
+  </div><div class="resto-card">
+    <div class="resto-tag tag-bakery">🥐 麵包店</div>
+    <div class="resto-name">Beton 聖水</div>
+    <div class="resto-kr">베통</div>
+    <div class="resto-desc">聖水洞最熱門鹽可頌（4.3⭐），招牌松露奶油鹽可頌外酥內軟，排隊絕對值得。提供外帶＋內用兩條隊。</div>
+    <div class="resto-meta">
+      <span class="resto-chip rating">⭐ 4.3</span>
+      <span class="resto-chip">💰 ₩3,900–₩8,000/個</span>
+      <span class="resto-chip">📅 Day 3 聖水下午</span>
+    </div>
+    <div class="resto-hours">🕐 09:00–18:30</div>
+    <div style="margin-top:.5rem"><a class="map-link" href="https://maps.google.com/?q=%EB%B2%A0%ED%86%B5+%EC%84%B1%EC%88%98" target="_blank">📍 Google Maps</a></div>
+  </div></div>
   </div>
-  <div class="resto-panel" id="r_veg"><div class="resto-grid" id="vegGrid"></div></div>
-  <div class="resto-panel" id="r_bbq"><div class="resto-grid" id="bbqGrid"></div></div>
-  <div class="resto-panel" id="r_seafood"><div class="resto-grid" id="seafoodGrid"></div></div>
-  <div class="resto-panel" id="r_cafe"><div class="resto-grid" id="cafeGrid"></div></div>
-  <div class="resto-panel" id="r_bakery"><div class="resto-grid" id="bakeryGrid"></div></div>
+  <div class="resto-panel" id="r_veg"><div class="resto-grid" id="vegGrid"><div class="resto-card">
+    <div class="resto-tag tag-veg">🥬 素食友善</div>
+    <div class="resto-name">Osegyehyang 오세계향</div>
+    <div class="resto-kr">오세계향</div>
+    <div class="resto-desc">首爾最知名韓式純素餐廳，絕大多數料理無魚露蛋奶。蔬菜拌飯、豆腐鍋、炸豆腐都是媽媽安心選擇。</div>
+    <div class="resto-meta">
+      <span class="resto-chip rating">⭐ 4.3</span>
+      <span class="resto-chip">💰 ₩10,000–₩18,000</span>
+      <span class="resto-chip">📅 Day 2 午餐</span>
+    </div>
+    <div class="resto-hours">🕐 11:30–15:00, 17:00–21:00（週四休）</div>
+    <div style="margin-top:.5rem"><a class="map-link" href="https://maps.google.com/?q=%EC%98%A4%EC%84%B8%EA%B3%84%ED%96%A5+%EC%9D%B8%EC%82%AC%EB%8F%99" target="_blank">📍 Google Maps</a></div>
+  </div><div class="resto-card">
+    <div class="resto-tag tag-veg">🥬 素食友善</div>
+    <div class="resto-name">廣藏市場 素食拌飯攤</div>
+    <div class="resto-kr">광장시장</div>
+    <div class="resto-desc">廣藏市場內有不標榜素食但可客製化的拌飯攤，告知無肉即可。配料豐富，媽媽可詢問素食版。</div>
+    <div class="resto-meta">
+      <span class="resto-chip rating">⭐ 4.2</span>
+      <span class="resto-chip">💰 ₩5,000–₩10,000</span>
+      <span class="resto-chip">📅 Day 5 早午餐</span>
+    </div>
+    <div class="resto-hours">🕐 09:00–22:30</div>
+    <div style="margin-top:.5rem"><a class="map-link" href="https://maps.google.com/?q=%EA%B4%91%EC%9E%A5%EC%8B%9C%EC%9E%A5" target="_blank">📍 Google Maps</a></div>
+  </div></div></div>
+  <div class="resto-panel" id="r_bbq"><div class="resto-grid" id="bbqGrid"><div class="resto-card">
+    <div class="resto-tag tag-bbq">🔥 韓式烤肉</div>
+    <div class="resto-name">육전식당</div>
+    <div class="resto-kr">육전식당</div>
+    <div class="resto-desc">弘大人氣豬肉烤肉店，豬五花與豬頸肉是招牌，配上生菜包飯超香！全團接受度高，CP 值高。</div>
+    <div class="resto-meta">
+      <span class="resto-chip rating">⭐ 4.5</span>
+      <span class="resto-chip">💰 ₩15,000–₩25,000/人</span>
+      <span class="resto-chip">📅 Day 1 晚餐</span>
+    </div>
+    <div class="resto-hours">🕐 18:00–深夜</div>
+    <div style="margin-top:.5rem"><a class="map-link" href="https://maps.google.com/?q=%EC%9C%A1%EC%A0%84%EC%8B%9D%EB%8B%B9+%ED%99%8D%EB%8C%80" target="_blank">📍 Google Maps</a></div>
+  </div><div class="resto-card">
+    <div class="resto-tag tag-bbq">🔥 韓式烤肉</div>
+    <div class="resto-name">몽탄 Mongtan</div>
+    <div class="resto-kr">몽탄</div>
+    <div class="resto-desc">首爾最人氣稻草燻烤牛肉名店！U字牛小排用稻草燻烤，香氣絕倫。務必提早訂位，等候時間常達 1–2 小時。</div>
+    <div class="resto-meta">
+      <span class="resto-chip rating">⭐ 4.1</span>
+      <span class="resto-chip">💰 ₩50,000–₩70,000/人</span>
+      <span class="resto-chip">📅 Day 3 晚餐</span>
+    </div>
+    <div class="resto-hours">🕐 12:00–22:00</div>
+    <div style="margin-top:.5rem"><a class="map-link" href="https://maps.google.com/?q=%EB%AA%BD%ED%83%84" target="_blank">📍 Google Maps</a></div>
+  </div><div class="resto-card">
+    <div class="resto-tag tag-bbq">🔥 韓式烤肉</div>
+    <div class="resto-name">Yookji 肉地 弘大</div>
+    <div class="resto-kr">육지홍대</div>
+    <div class="resto-desc">弘大超高評價烤肉店（4.9⭐），無煙設備、QR 點餐英文菜單，外國人友善。五花肉＋紫蘇拌麵是必點組合。</div>
+    <div class="resto-meta">
+      <span class="resto-chip rating">⭐ 4.9</span>
+      <span class="resto-chip">💰 ₩20,000–₩35,000/人</span>
+      <span class="resto-chip">📅 彈性安排</span>
+    </div>
+    <div class="resto-hours">🕐 11:30–23:00</div>
+    <div style="margin-top:.5rem"><a class="map-link" href="https://maps.google.com/?q=%EC%9C%A1%EC%A7%80%ED%99%8D%EB%8C%80" target="_blank">📍 Google Maps</a></div>
+  </div><div class="resto-card">
+    <div class="resto-tag tag-bbq">🔥 韓式烤肉</div>
+    <div class="resto-name">Ilpyeon Deungsim 一片登心</div>
+    <div class="resto-kr">일편등심</div>
+    <div class="resto-desc">弘大頂級韓牛料理餐廳（4.9⭐），炭火烤韓牛由服務員代烤，肉質絕頂鮮嫩。適合最後一晚的豪華收尾！</div>
+    <div class="resto-meta">
+      <span class="resto-chip rating">⭐ 4.9</span>
+      <span class="resto-chip">💰 ₩60,000–₩100,000/人</span>
+      <span class="resto-chip">📅 Day 5 晚餐</span>
+    </div>
+    <div class="resto-hours">🕐 12:00–15:00, 17:00–00:00</div>
+    <div style="margin-top:.5rem"><a class="map-link" href="https://maps.google.com/?q=%EC%9D%BC%ED%8E%B8%EB%93%B1%EC%8B%AC+%ED%99%8D%EB%8C%80" target="_blank">📍 Google Maps</a></div>
+  </div><div class="resto-card">
+    <div class="resto-tag tag-bbq">🔥 韓式烤肉</div>
+    <div class="resto-name">Andong Hanwoo Village</div>
+    <div class="resto-kr">안동한우마을</div>
+    <div class="resto-desc">弘大韓牛燒肉，服務超貼心，老闆熱情，常贈送野生人蔘等附贈品。肉質新鮮，多次獲好評。</div>
+    <div class="resto-meta">
+      <span class="resto-chip rating">⭐ 4.3</span>
+      <span class="resto-chip">💰 ₩40,000–₩80,000/人</span>
+      <span class="resto-chip">📅 Day 5 晚餐備選</span>
+    </div>
+    <div class="resto-hours">🕐 10:30–15:00, 17:00–02:00</div>
+    <div style="margin-top:.5rem"><a class="map-link" href="https://maps.google.com/?q=%EC%95%88%EB%8F%99%ED%95%9C%EC%9A%B0%EB%A7%88%EC%9D%84+%ED%99%8D%EB%8C%80" target="_blank">📍 Google Maps</a></div>
+  </div></div></div>
+  <div class="resto-panel" id="r_seafood"><div class="resto-grid" id="seafoodGrid"><div class="resto-card">
+    <div class="resto-tag tag-seafood">🐟 海鮮</div>
+    <div class="resto-name">廣藏市場海鮮區</div>
+    <div class="resto-kr">광장시장</div>
+    <div class="resto-desc">百年傳統市場，新鮮海鮮煎餅（해물전）、醃漬章魚、鮮蝦都有。小舅舅和小阿姨的天堂！可現點現吃。</div>
+    <div class="resto-meta">
+      <span class="resto-chip rating">⭐ 4.2</span>
+      <span class="resto-chip">💰 ₩8,000–₩20,000</span>
+      <span class="resto-chip">📅 Day 5 早上</span>
+    </div>
+    <div class="resto-hours">🕐 09:00–22:30</div>
+    <div style="margin-top:.5rem"><a class="map-link" href="https://maps.google.com/?q=%EA%B4%91%EC%9E%A5%EC%8B%9C%EC%9E%A5" target="_blank">📍 Google Maps</a></div>
+  </div><div class="resto-card">
+    <div class="resto-tag tag-seafood">🐟 海鮮</div>
+    <div class="resto-name">Jungbu 中部乾貨海鮮市場</div>
+    <div class="resto-kr">중부시장</div>
+    <div class="resto-desc">首爾最大乾貨海鮮批發市場，各種海乾貨、魷魚絲、蝦米超便宜，買來帶回家非常划算！</div>
+    <div class="resto-meta">
+      <span class="resto-chip rating">⭐ 4.1</span>
+      <span class="resto-chip">💰 依商品</span>
+      <span class="resto-chip">📅 Day 5 自由時間</span>
+    </div>
+    <div class="resto-hours">🕐 04:00–19:00（週日休）</div>
+    <div style="margin-top:.5rem"><a class="map-link" href="https://maps.google.com/?q=%EC%A4%91%EB%B6%80%EA%B1%B4%EC%96%B4%EB%AC%BC%EC%8B%9C%EC%9E%A5" target="_blank">📍 Google Maps</a></div>
+  </div></div></div>
+  <div class="resto-panel" id="r_cafe"><div class="resto-grid" id="cafeGrid"><div class="resto-card">
+    <div class="resto-tag tag-cafe">☕ 咖啡廳</div>
+    <div class="resto-name">Cafe JAMJAM</div>
+    <div class="resto-kr">카페잼잼</div>
+    <div class="resto-desc">延南洞超高評價早午餐咖啡廳（4.7⭐），法式牛油果吐司、酥脆可頌、質感空間，弘大住宿者早餐首選。</div>
+    <div class="resto-meta">
+      <span class="resto-chip rating">⭐ 4.7</span>
+      <span class="resto-chip">💰 ₩10,000–₩18,000</span>
+      <span class="resto-chip">📅 彈性早午餐</span>
+    </div>
+    <div class="resto-hours">🕐 10:00–21:00（假日至22:00）</div>
+    <div style="margin-top:.5rem"><a class="map-link" href="https://maps.google.com/?q=%EC%B9%B4%ED%8E%98%EC%9E%BC%EC%9E%BC+%EC%97%B0%EB%82%A8%EB%8F%99" target="_blank">📍 Google Maps</a></div>
+  </div><div class="resto-card">
+    <div class="resto-tag tag-cafe">☕ 咖啡廳</div>
+    <div class="resto-name">Layered Yeonnam</div>
+    <div class="resto-kr">레이어드</div>
+    <div class="resto-desc">延南洞人氣蛋糕咖啡廳，草莓夾心、抹茶蛋糕精緻好吃，空間文青感強，適合拍照打卡。</div>
+    <div class="resto-meta">
+      <span class="resto-chip rating">⭐ 4.1</span>
+      <span class="resto-chip">💰 ₩7,000–₩15,000</span>
+      <span class="resto-chip">📅 Day 1 夜逛點心</span>
+    </div>
+    <div class="resto-hours">🕐 10:00–22:00</div>
+    <div style="margin-top:.5rem"><a class="map-link" href="https://maps.google.com/?q=%EB%A0%88%EC%9D%B4%EC%96%B4%EB%93%9C+%EC%97%B0%EB%82%A8%EB%8F%99" target="_blank">📍 Google Maps</a></div>
+  </div><div class="resto-card">
+    <div class="resto-tag tag-cafe">☕ 咖啡廳</div>
+    <div class="resto-name">Cafe ONION 聖水</div>
+    <div class="resto-kr">카페오니언</div>
+    <div class="resto-desc">聖水洞最地標性咖啡廳，老倉庫改造工業風，現烤麵包＋精品咖啡。開門即大排隊，建議開店前到達。</div>
+    <div class="resto-meta">
+      <span class="resto-chip rating">⭐ 4.5</span>
+      <span class="resto-chip">💰 ₩6,000–₩12,000</span>
+      <span class="resto-chip">📅 Day 3 聖水洞</span>
+    </div>
+    <div class="resto-hours">🕐 08:00–22:00</div>
+    <div style="margin-top:.5rem"><a class="map-link" href="https://maps.google.com/?q=%EC%B9%B4%ED%8E%98%EC%98%A4%EB%8B%88%EC%96%B8+%EC%84%B1%EC%88%98" target="_blank">📍 Google Maps</a></div>
+  </div><div class="resto-card">
+    <div class="resto-tag tag-cafe">☕ 咖啡廳</div>
+    <div class="resto-name">Greem Cafe 延南洞</div>
+    <div class="resto-kr">그림카페</div>
+    <div class="resto-desc">漫畫塗鴉風格特色咖啡廳，黑白線條的牆壁桌椅，宛如走進漫畫世界，超上鏡！橙拿鐵招牌推薦。</div>
+    <div class="resto-meta">
+      <span class="resto-chip rating">⭐ 4.4</span>
+      <span class="resto-chip">💰 ₩6,500–₩10,000</span>
+      <span class="resto-chip">📅 Day 1 夜逛</span>
+    </div>
+    <div class="resto-hours">🕐 11:00–19:00（週一二休）</div>
+    <div style="margin-top:.5rem"><a class="map-link" href="https://maps.google.com/?q=%EA%B7%B8%EB%A6%BC%EC%B9%B4%ED%8E%98+%EC%97%B0%EB%82%A8%EB%8F%99" target="_blank">📍 Google Maps</a></div>
+  </div></div></div>
+  <div class="resto-panel" id="r_bakery"><div class="resto-grid" id="bakeryGrid"><div class="resto-card">
+    <div class="resto-tag tag-bakery">🥐 麵包店</div>
+    <div class="resto-name">Standard Bread 聖水</div>
+    <div class="resto-kr">스탠다드베이커리</div>
+    <div class="resto-desc">聖水洞人氣烘焙店（4.8⭐），法式烤吐司招牌，奶油焦糖味超香！可加 Dubai 巧克力等多種 topping，座位充足。</div>
+    <div class="resto-meta">
+      <span class="resto-chip rating">⭐ 4.8</span>
+      <span class="resto-chip">💰 ₩8,000–₩18,000</span>
+      <span class="resto-chip">📅 Day 3 聖水早餐</span>
+    </div>
+    <div class="resto-hours">🕐 09:00–21:00</div>
+    <div style="margin-top:.5rem"><a class="map-link" href="https://maps.google.com/?q=%EC%8A%A4%ED%83%A0%EB%8B%A4%EB%93%9C%EB%B2%A0%EC%9D%B4%EC%BB%A4%EB%A6%AC+%EC%84%B1%EC%88%98" target="_blank">📍 Google Maps</a></div>
+  </div><div class="resto-card">
+    <div class="resto-tag tag-bakery">🥐 麵包店</div>
+    <div class="resto-name">Beton 聖水</div>
+    <div class="resto-kr">베통</div>
+    <div class="resto-desc">聖水洞最熱門鹽可頌（4.3⭐），招牌松露奶油鹽可頌外酥內軟，排隊絕對值得。提供外帶＋內用兩條隊。</div>
+    <div class="resto-meta">
+      <span class="resto-chip rating">⭐ 4.3</span>
+      <span class="resto-chip">💰 ₩3,900–₩8,000/個</span>
+      <span class="resto-chip">📅 Day 3 聖水下午</span>
+    </div>
+    <div class="resto-hours">🕐 09:00–18:30</div>
+    <div style="margin-top:.5rem"><a class="map-link" href="https://maps.google.com/?q=%EB%B2%A0%ED%86%B5+%EC%84%B1%EC%88%98" target="_blank">📍 Google Maps</a></div>
+  </div></div></div>
 
   <div class="danger-box" style="margin-top:1.5rem">
     <strong>🌱 素食提醒：</strong>韓國一般餐廳幾乎使用魚露、肉湯底。媽媽務必事先確認，建議帶「저는 채식주의자입니다（我是素食者）고기, 생선 빼주세요（不要肉、魚）」小卡。
@@ -909,7 +1398,7 @@ footer p{font-size:.78rem;opacity:.5;letter-spacing:.1em}
 <!--  SECTION 5: IMMIGRATION                 -->
 <!-- ════════════════════════════════════════ -->
 <section class="section" id="immigration">
-  <div class="sec-title">入境 <span>流程</span> & 退稅</div>
+  <div class="sec-title">入境 <span>流程</span> &amp; 退稅</div>
   <div class="sec-desc">韓國入境懶人包 + 商品退稅完整教學｜2026 最新規定</div>
 
   <!-- 入境 -->
@@ -1000,7 +1489,7 @@ footer p{font-size:.78rem;opacity:.5;letter-spacing:.1em}
 <!-- ════════════════════════════════════════ -->
 <section class="section" id="packing">
   <div class="sec-title">行李 <span>清單</span></div>
-  <div class="sec-desc">點擊打勾，出發前逐一確認 ✓｜已選 <span id="checkCount">0</span> / <span id="checkTotal">0</span> 項</div>
+  <div class="sec-desc">點擊打勾，出發前逐一確認 ✓｜已選 <span id="checkCount">0</span> / <span id="checkTotal">48</span> 項</div>
 
   <div class="pack-cats">
     <button class="pack-cat active" data-fn="showPackCat" data-target="pc_all">📋 全部</button>
@@ -1012,16 +1501,304 @@ footer p{font-size:.78rem;opacity:.5;letter-spacing:.1em}
     <button class="pack-cat" data-fn="showPackCat" data-target="pc_misc">🎒 雜物</button>
   </div>
 
-  <div id="pc_all" class="pack-panel active"></div>
-  <div id="pc_docs" class="pack-panel"></div>
-  <div id="pc_clothes" class="pack-panel"></div>
-  <div id="pc_elec" class="pack-panel"></div>
-  <div id="pc_beauty" class="pack-panel"></div>
-  <div id="pc_medicine" class="pack-panel"></div>
-  <div id="pc_misc" class="pack-panel"></div>
+  <div id="pc_all" class="pack-panel active"><div class="checklist"></div><div class="check-item" id="ci_docs_0" data-fn="toggleCheck" data-key="docs_0" data-label="護照（有效期 6 個月以上）">
+      <div class="check-box"></div>
+      <span class="check-label">護照（有效期 6 個月以上）</span>
+    </div><div class="check-item" id="ci_docs_1" data-fn="toggleCheck" data-key="docs_1" data-label="回程機票電子票（截圖）">
+      <div class="check-box"></div>
+      <span class="check-label">回程機票電子票（截圖）</span>
+    </div><div class="check-item" id="ci_docs_2" data-fn="toggleCheck" data-key="docs_2" data-label="旅遊保險文件">
+      <div class="check-box"></div>
+      <span class="check-label">旅遊保險文件</span>
+    </div><div class="check-item" id="ci_docs_3" data-fn="toggleCheck" data-key="docs_3" data-label="飯店訂房確認單">
+      <div class="check-box"></div>
+      <span class="check-label">飯店訂房確認單</span>
+    </div><div class="check-item" id="ci_docs_4" data-fn="toggleCheck" data-key="docs_4" data-label="信用卡（Visa/Master 刷卡最方便）">
+      <div class="check-box"></div>
+      <span class="check-label">信用卡（Visa/Master 刷卡最方便）</span>
+    </div><div class="check-item" id="ci_docs_5" data-fn="toggleCheck" data-key="docs_5" data-label="台幣現金（換韓元用）">
+      <div class="check-box"></div>
+      <span class="check-label">台幣現金（換韓元用）</span>
+    </div><div class="check-item" id="ci_docs_6" data-fn="toggleCheck" data-key="docs_6" data-label="醫美預約確認文件">
+      <div class="check-box"></div>
+      <span class="check-label">醫美預約確認文件</span>
+    </div><div class="check-item" id="ci_docs_7" data-fn="toggleCheck" data-key="docs_7" data-label="緊急聯絡人資訊小卡">
+      <div class="check-box"></div>
+      <span class="check-label">緊急聯絡人資訊小卡</span>
+    </div><div class="check-item" id="ci_clothes_8" data-fn="toggleCheck" data-key="clothes_8" data-label="上衣 × 5（輕薄透氣，7月高温）">
+      <div class="check-box"></div>
+      <span class="check-label">上衣 × 5（輕薄透氣，7月高温）</span>
+    </div><div class="check-item" id="ci_clothes_9" data-fn="toggleCheck" data-key="clothes_9" data-label="短褲 / 裙子 × 3">
+      <div class="check-box"></div>
+      <span class="check-label">短褲 / 裙子 × 3</span>
+    </div><div class="check-item" id="ci_clothes_10" data-fn="toggleCheck" data-key="clothes_10" data-label="薄外套 / 防曬外套 × 1">
+      <div class="check-box"></div>
+      <span class="check-label">薄外套 / 防曬外套 × 1</span>
+    </div><div class="check-item" id="ci_clothes_11" data-fn="toggleCheck" data-key="clothes_11" data-label="韓服拍照用衣（可當地租借）">
+      <div class="check-box"></div>
+      <span class="check-label">韓服拍照用衣（可當地租借）</span>
+    </div><div class="check-item" id="ci_clothes_12" data-fn="toggleCheck" data-key="clothes_12" data-label="舒適步行鞋 × 1">
+      <div class="check-box"></div>
+      <span class="check-label">舒適步行鞋 × 1</span>
+    </div><div class="check-item" id="ci_clothes_13" data-fn="toggleCheck" data-key="clothes_13" data-label="拖鞋（飯店用）">
+      <div class="check-box"></div>
+      <span class="check-label">拖鞋（飯店用）</span>
+    </div><div class="check-item" id="ci_clothes_14" data-fn="toggleCheck" data-key="clothes_14" data-label="內衣褲 × 5 套">
+      <div class="check-box"></div>
+      <span class="check-label">內衣褲 × 5 套</span>
+    </div><div class="check-item" id="ci_clothes_15" data-fn="toggleCheck" data-key="clothes_15" data-label="泳衣（漢江玩水備用）">
+      <div class="check-box"></div>
+      <span class="check-label">泳衣（漢江玩水備用）</span>
+    </div><div class="check-item" id="ci_elec_16" data-fn="toggleCheck" data-key="elec_16" data-label="手機充電器（220V 寬幅確認）">
+      <div class="check-box"></div>
+      <span class="check-label">手機充電器（220V 寬幅確認）</span>
+    </div><div class="check-item" id="ci_elec_17" data-fn="toggleCheck" data-key="elec_17" data-label="歐規轉換插頭（Type C）⭐必備">
+      <div class="check-box"></div>
+      <span class="check-label">歐規轉換插頭（Type C）⭐必備</span>
+    </div><div class="check-item" id="ci_elec_18" data-fn="toggleCheck" data-key="elec_18" data-label="行動電源（100Wh 以下可登機）">
+      <div class="check-box"></div>
+      <span class="check-label">行動電源（100Wh 以下可登機）</span>
+    </div><div class="check-item" id="ci_elec_19" data-fn="toggleCheck" data-key="elec_19" data-label="相機 + 充電器">
+      <div class="check-box"></div>
+      <span class="check-label">相機 + 充電器</span>
+    </div><div class="check-item" id="ci_elec_20" data-fn="toggleCheck" data-key="elec_20" data-label="記憶卡備份">
+      <div class="check-box"></div>
+      <span class="check-label">記憶卡備份</span>
+    </div><div class="check-item" id="ci_elec_21" data-fn="toggleCheck" data-key="elec_21" data-label="藍牙耳機">
+      <div class="check-box"></div>
+      <span class="check-label">藍牙耳機</span>
+    </div><div class="check-item" id="ci_elec_22" data-fn="toggleCheck" data-key="elec_22" data-label="韓國 SIM 卡（預先購買 eSIM）">
+      <div class="check-box"></div>
+      <span class="check-label">韓國 SIM 卡（預先購買 eSIM）</span>
+    </div><div class="check-item" id="ci_elec_23" data-fn="toggleCheck" data-key="elec_23" data-label="耳機（飛機用）">
+      <div class="check-box"></div>
+      <span class="check-label">耳機（飛機用）</span>
+    </div><div class="check-item" id="ci_beauty_24" data-fn="toggleCheck" data-key="beauty_24" data-label="防曬乳 SPF 50+ ⭐醫美後必備">
+      <div class="check-box"></div>
+      <span class="check-label">防曬乳 SPF 50+ ⭐醫美後必備</span>
+    </div><div class="check-item" id="ci_beauty_25" data-fn="toggleCheck" data-key="beauty_25" data-label="基礎保濕乳液">
+      <div class="check-box"></div>
+      <span class="check-label">基礎保濕乳液</span>
+    </div><div class="check-item" id="ci_beauty_26" data-fn="toggleCheck" data-key="beauty_26" data-label="卸妝用品">
+      <div class="check-box"></div>
+      <span class="check-label">卸妝用品</span>
+    </div><div class="check-item" id="ci_beauty_27" data-fn="toggleCheck" data-key="beauty_27" data-label="洗面乳">
+      <div class="check-box"></div>
+      <span class="check-label">洗面乳</span>
+    </div><div class="check-item" id="ci_beauty_28" data-fn="toggleCheck" data-key="beauty_28" data-label="精華液（旅行裝）">
+      <div class="check-box"></div>
+      <span class="check-label">精華液（旅行裝）</span>
+    </div><div class="check-item" id="ci_beauty_29" data-fn="toggleCheck" data-key="beauty_29" data-label="粉底 / BB 霜">
+      <div class="check-box"></div>
+      <span class="check-label">粉底 / BB 霜</span>
+    </div><div class="check-item" id="ci_beauty_30" data-fn="toggleCheck" data-key="beauty_30" data-label="口紅 / 唇彩">
+      <div class="check-box"></div>
+      <span class="check-label">口紅 / 唇彩</span>
+    </div><div class="check-item" id="ci_beauty_31" data-fn="toggleCheck" data-key="beauty_31" data-label="眼線筆">
+      <div class="check-box"></div>
+      <span class="check-label">眼線筆</span>
+    </div><div class="check-item" id="ci_beauty_32" data-fn="toggleCheck" data-key="beauty_32" data-label="防曬噴霧（隨時補噴）">
+      <div class="check-box"></div>
+      <span class="check-label">防曬噴霧（隨時補噴）</span>
+    </div><div class="check-item" id="ci_medicine_33" data-fn="toggleCheck" data-key="medicine_33" data-label="個人常備藥（腸胃藥、止痛藥）">
+      <div class="check-box"></div>
+      <span class="check-label">個人常備藥（腸胃藥、止痛藥）</span>
+    </div><div class="check-item" id="ci_medicine_34" data-fn="toggleCheck" data-key="medicine_34" data-label="暈車藥（飛機備用）">
+      <div class="check-box"></div>
+      <span class="check-label">暈車藥（飛機備用）</span>
+    </div><div class="check-item" id="ci_medicine_35" data-fn="toggleCheck" data-key="medicine_35" data-label="OK 繃">
+      <div class="check-box"></div>
+      <span class="check-label">OK 繃</span>
+    </div><div class="check-item" id="ci_medicine_36" data-fn="toggleCheck" data-key="medicine_36" data-label="酒精濕紙巾">
+      <div class="check-box"></div>
+      <span class="check-label">酒精濕紙巾</span>
+    </div><div class="check-item" id="ci_medicine_37" data-fn="toggleCheck" data-key="medicine_37" data-label="維他命 C 補充（旅途體力）">
+      <div class="check-box"></div>
+      <span class="check-label">維他命 C 補充（旅途體力）</span>
+    </div><div class="check-item" id="ci_medicine_38" data-fn="toggleCheck" data-key="medicine_38" data-label="腳痛藥膏（久走備用）">
+      <div class="check-box"></div>
+      <span class="check-label">腳痛藥膏（久走備用）</span>
+    </div><div class="check-item" id="ci_medicine_39" data-fn="toggleCheck" data-key="medicine_39" data-label="口罩 × 5（捷運規定可能需要）">
+      <div class="check-box"></div>
+      <span class="check-label">口罩 × 5（捷運規定可能需要）</span>
+    </div><div class="check-item" id="ci_misc_40" data-fn="toggleCheck" data-key="misc_40" data-label="可折疊購物袋（血拼必備）">
+      <div class="check-box"></div>
+      <span class="check-label">可折疊購物袋（血拼必備）</span>
+    </div><div class="check-item" id="ci_misc_41" data-fn="toggleCheck" data-key="misc_41" data-label="小型手提箱 / 手提袋">
+      <div class="check-box"></div>
+      <span class="check-label">小型手提箱 / 手提袋</span>
+    </div><div class="check-item" id="ci_misc_42" data-fn="toggleCheck" data-key="misc_42" data-label="防水袋（漢江河邊備用）">
+      <div class="check-box"></div>
+      <span class="check-label">防水袋（漢江河邊備用）</span>
+    </div><div class="check-item" id="ci_misc_43" data-fn="toggleCheck" data-key="misc_43" data-label="雨傘或雨衣（7 月梅雨季）">
+      <div class="check-box"></div>
+      <span class="check-label">雨傘或雨衣（7 月梅雨季）</span>
+    </div><div class="check-item" id="ci_misc_44" data-fn="toggleCheck" data-key="misc_44" data-label="韓語常用語小卡（素食說明）">
+      <div class="check-box"></div>
+      <span class="check-label">韓語常用語小卡（素食說明）</span>
+    </div><div class="check-item" id="ci_misc_45" data-fn="toggleCheck" data-key="misc_45" data-label="零錢包（地鐵找零）">
+      <div class="check-box"></div>
+      <span class="check-label">零錢包（地鐵找零）</span>
+    </div><div class="check-item" id="ci_misc_46" data-fn="toggleCheck" data-key="misc_46" data-label="身份證副本（護照遺失備用）">
+      <div class="check-box"></div>
+      <span class="check-label">身份證副本（護照遺失備用）</span>
+    </div><div class="check-item" id="ci_misc_47" data-fn="toggleCheck" data-key="misc_47" data-label="T-money 交通卡">
+      <div class="check-box"></div>
+      <span class="check-label">T-money 交通卡</span>
+    </div></div>
+  <div id="pc_docs" class="pack-panel"><div class="checklist"></div><div class="check-item" id="ci_docs_0" data-fn="toggleCheck" data-key="docs_0" data-label="護照（有效期 6 個月以上）">
+      <div class="check-box"></div>
+      <span class="check-label">護照（有效期 6 個月以上）</span>
+    </div><div class="check-item" id="ci_docs_1" data-fn="toggleCheck" data-key="docs_1" data-label="回程機票電子票（截圖）">
+      <div class="check-box"></div>
+      <span class="check-label">回程機票電子票（截圖）</span>
+    </div><div class="check-item" id="ci_docs_2" data-fn="toggleCheck" data-key="docs_2" data-label="旅遊保險文件">
+      <div class="check-box"></div>
+      <span class="check-label">旅遊保險文件</span>
+    </div><div class="check-item" id="ci_docs_3" data-fn="toggleCheck" data-key="docs_3" data-label="飯店訂房確認單">
+      <div class="check-box"></div>
+      <span class="check-label">飯店訂房確認單</span>
+    </div><div class="check-item" id="ci_docs_4" data-fn="toggleCheck" data-key="docs_4" data-label="信用卡（Visa/Master 刷卡最方便）">
+      <div class="check-box"></div>
+      <span class="check-label">信用卡（Visa/Master 刷卡最方便）</span>
+    </div><div class="check-item" id="ci_docs_5" data-fn="toggleCheck" data-key="docs_5" data-label="台幣現金（換韓元用）">
+      <div class="check-box"></div>
+      <span class="check-label">台幣現金（換韓元用）</span>
+    </div><div class="check-item" id="ci_docs_6" data-fn="toggleCheck" data-key="docs_6" data-label="醫美預約確認文件">
+      <div class="check-box"></div>
+      <span class="check-label">醫美預約確認文件</span>
+    </div><div class="check-item" id="ci_docs_7" data-fn="toggleCheck" data-key="docs_7" data-label="緊急聯絡人資訊小卡">
+      <div class="check-box"></div>
+      <span class="check-label">緊急聯絡人資訊小卡</span>
+    </div></div>
+  <div id="pc_clothes" class="pack-panel"><div class="checklist"></div><div class="check-item" id="ci_clothes_0" data-fn="toggleCheck" data-key="clothes_0" data-label="上衣 × 5（輕薄透氣，7月高温）">
+      <div class="check-box"></div>
+      <span class="check-label">上衣 × 5（輕薄透氣，7月高温）</span>
+    </div><div class="check-item" id="ci_clothes_1" data-fn="toggleCheck" data-key="clothes_1" data-label="短褲 / 裙子 × 3">
+      <div class="check-box"></div>
+      <span class="check-label">短褲 / 裙子 × 3</span>
+    </div><div class="check-item" id="ci_clothes_2" data-fn="toggleCheck" data-key="clothes_2" data-label="薄外套 / 防曬外套 × 1">
+      <div class="check-box"></div>
+      <span class="check-label">薄外套 / 防曬外套 × 1</span>
+    </div><div class="check-item" id="ci_clothes_3" data-fn="toggleCheck" data-key="clothes_3" data-label="韓服拍照用衣（可當地租借）">
+      <div class="check-box"></div>
+      <span class="check-label">韓服拍照用衣（可當地租借）</span>
+    </div><div class="check-item" id="ci_clothes_4" data-fn="toggleCheck" data-key="clothes_4" data-label="舒適步行鞋 × 1">
+      <div class="check-box"></div>
+      <span class="check-label">舒適步行鞋 × 1</span>
+    </div><div class="check-item" id="ci_clothes_5" data-fn="toggleCheck" data-key="clothes_5" data-label="拖鞋（飯店用）">
+      <div class="check-box"></div>
+      <span class="check-label">拖鞋（飯店用）</span>
+    </div><div class="check-item" id="ci_clothes_6" data-fn="toggleCheck" data-key="clothes_6" data-label="內衣褲 × 5 套">
+      <div class="check-box"></div>
+      <span class="check-label">內衣褲 × 5 套</span>
+    </div><div class="check-item" id="ci_clothes_7" data-fn="toggleCheck" data-key="clothes_7" data-label="泳衣（漢江玩水備用）">
+      <div class="check-box"></div>
+      <span class="check-label">泳衣（漢江玩水備用）</span>
+    </div></div>
+  <div id="pc_elec" class="pack-panel"><div class="checklist"></div><div class="check-item" id="ci_elec_0" data-fn="toggleCheck" data-key="elec_0" data-label="手機充電器（220V 寬幅確認）">
+      <div class="check-box"></div>
+      <span class="check-label">手機充電器（220V 寬幅確認）</span>
+    </div><div class="check-item" id="ci_elec_1" data-fn="toggleCheck" data-key="elec_1" data-label="歐規轉換插頭（Type C）⭐必備">
+      <div class="check-box"></div>
+      <span class="check-label">歐規轉換插頭（Type C）⭐必備</span>
+    </div><div class="check-item" id="ci_elec_2" data-fn="toggleCheck" data-key="elec_2" data-label="行動電源（100Wh 以下可登機）">
+      <div class="check-box"></div>
+      <span class="check-label">行動電源（100Wh 以下可登機）</span>
+    </div><div class="check-item" id="ci_elec_3" data-fn="toggleCheck" data-key="elec_3" data-label="相機 + 充電器">
+      <div class="check-box"></div>
+      <span class="check-label">相機 + 充電器</span>
+    </div><div class="check-item" id="ci_elec_4" data-fn="toggleCheck" data-key="elec_4" data-label="記憶卡備份">
+      <div class="check-box"></div>
+      <span class="check-label">記憶卡備份</span>
+    </div><div class="check-item" id="ci_elec_5" data-fn="toggleCheck" data-key="elec_5" data-label="藍牙耳機">
+      <div class="check-box"></div>
+      <span class="check-label">藍牙耳機</span>
+    </div><div class="check-item" id="ci_elec_6" data-fn="toggleCheck" data-key="elec_6" data-label="韓國 SIM 卡（預先購買 eSIM）">
+      <div class="check-box"></div>
+      <span class="check-label">韓國 SIM 卡（預先購買 eSIM）</span>
+    </div><div class="check-item" id="ci_elec_7" data-fn="toggleCheck" data-key="elec_7" data-label="耳機（飛機用）">
+      <div class="check-box"></div>
+      <span class="check-label">耳機（飛機用）</span>
+    </div></div>
+  <div id="pc_beauty" class="pack-panel"><div class="checklist"></div><div class="check-item" id="ci_beauty_0" data-fn="toggleCheck" data-key="beauty_0" data-label="防曬乳 SPF 50+ ⭐醫美後必備">
+      <div class="check-box"></div>
+      <span class="check-label">防曬乳 SPF 50+ ⭐醫美後必備</span>
+    </div><div class="check-item" id="ci_beauty_1" data-fn="toggleCheck" data-key="beauty_1" data-label="基礎保濕乳液">
+      <div class="check-box"></div>
+      <span class="check-label">基礎保濕乳液</span>
+    </div><div class="check-item" id="ci_beauty_2" data-fn="toggleCheck" data-key="beauty_2" data-label="卸妝用品">
+      <div class="check-box"></div>
+      <span class="check-label">卸妝用品</span>
+    </div><div class="check-item" id="ci_beauty_3" data-fn="toggleCheck" data-key="beauty_3" data-label="洗面乳">
+      <div class="check-box"></div>
+      <span class="check-label">洗面乳</span>
+    </div><div class="check-item" id="ci_beauty_4" data-fn="toggleCheck" data-key="beauty_4" data-label="精華液（旅行裝）">
+      <div class="check-box"></div>
+      <span class="check-label">精華液（旅行裝）</span>
+    </div><div class="check-item" id="ci_beauty_5" data-fn="toggleCheck" data-key="beauty_5" data-label="粉底 / BB 霜">
+      <div class="check-box"></div>
+      <span class="check-label">粉底 / BB 霜</span>
+    </div><div class="check-item" id="ci_beauty_6" data-fn="toggleCheck" data-key="beauty_6" data-label="口紅 / 唇彩">
+      <div class="check-box"></div>
+      <span class="check-label">口紅 / 唇彩</span>
+    </div><div class="check-item" id="ci_beauty_7" data-fn="toggleCheck" data-key="beauty_7" data-label="眼線筆">
+      <div class="check-box"></div>
+      <span class="check-label">眼線筆</span>
+    </div><div class="check-item" id="ci_beauty_8" data-fn="toggleCheck" data-key="beauty_8" data-label="防曬噴霧（隨時補噴）">
+      <div class="check-box"></div>
+      <span class="check-label">防曬噴霧（隨時補噴）</span>
+    </div></div>
+  <div id="pc_medicine" class="pack-panel"><div class="checklist"></div><div class="check-item" id="ci_medicine_0" data-fn="toggleCheck" data-key="medicine_0" data-label="個人常備藥（腸胃藥、止痛藥）">
+      <div class="check-box"></div>
+      <span class="check-label">個人常備藥（腸胃藥、止痛藥）</span>
+    </div><div class="check-item" id="ci_medicine_1" data-fn="toggleCheck" data-key="medicine_1" data-label="暈車藥（飛機備用）">
+      <div class="check-box"></div>
+      <span class="check-label">暈車藥（飛機備用）</span>
+    </div><div class="check-item" id="ci_medicine_2" data-fn="toggleCheck" data-key="medicine_2" data-label="OK 繃">
+      <div class="check-box"></div>
+      <span class="check-label">OK 繃</span>
+    </div><div class="check-item" id="ci_medicine_3" data-fn="toggleCheck" data-key="medicine_3" data-label="酒精濕紙巾">
+      <div class="check-box"></div>
+      <span class="check-label">酒精濕紙巾</span>
+    </div><div class="check-item" id="ci_medicine_4" data-fn="toggleCheck" data-key="medicine_4" data-label="維他命 C 補充（旅途體力）">
+      <div class="check-box"></div>
+      <span class="check-label">維他命 C 補充（旅途體力）</span>
+    </div><div class="check-item" id="ci_medicine_5" data-fn="toggleCheck" data-key="medicine_5" data-label="腳痛藥膏（久走備用）">
+      <div class="check-box"></div>
+      <span class="check-label">腳痛藥膏（久走備用）</span>
+    </div><div class="check-item" id="ci_medicine_6" data-fn="toggleCheck" data-key="medicine_6" data-label="口罩 × 5（捷運規定可能需要）">
+      <div class="check-box"></div>
+      <span class="check-label">口罩 × 5（捷運規定可能需要）</span>
+    </div></div>
+  <div id="pc_misc" class="pack-panel"><div class="checklist"></div><div class="check-item" id="ci_misc_0" data-fn="toggleCheck" data-key="misc_0" data-label="可折疊購物袋（血拼必備）">
+      <div class="check-box"></div>
+      <span class="check-label">可折疊購物袋（血拼必備）</span>
+    </div><div class="check-item" id="ci_misc_1" data-fn="toggleCheck" data-key="misc_1" data-label="小型手提箱 / 手提袋">
+      <div class="check-box"></div>
+      <span class="check-label">小型手提箱 / 手提袋</span>
+    </div><div class="check-item" id="ci_misc_2" data-fn="toggleCheck" data-key="misc_2" data-label="防水袋（漢江河邊備用）">
+      <div class="check-box"></div>
+      <span class="check-label">防水袋（漢江河邊備用）</span>
+    </div><div class="check-item" id="ci_misc_3" data-fn="toggleCheck" data-key="misc_3" data-label="雨傘或雨衣（7 月梅雨季）">
+      <div class="check-box"></div>
+      <span class="check-label">雨傘或雨衣（7 月梅雨季）</span>
+    </div><div class="check-item" id="ci_misc_4" data-fn="toggleCheck" data-key="misc_4" data-label="韓語常用語小卡（素食說明）">
+      <div class="check-box"></div>
+      <span class="check-label">韓語常用語小卡（素食說明）</span>
+    </div><div class="check-item" id="ci_misc_5" data-fn="toggleCheck" data-key="misc_5" data-label="零錢包（地鐵找零）">
+      <div class="check-box"></div>
+      <span class="check-label">零錢包（地鐵找零）</span>
+    </div><div class="check-item" id="ci_misc_6" data-fn="toggleCheck" data-key="misc_6" data-label="身份證副本（護照遺失備用）">
+      <div class="check-box"></div>
+      <span class="check-label">身份證副本（護照遺失備用）</span>
+    </div><div class="check-item" id="ci_misc_7" data-fn="toggleCheck" data-key="misc_7" data-label="T-money 交通卡">
+      <div class="check-box"></div>
+      <span class="check-label">T-money 交通卡</span>
+    </div></div>
 
   <div class="pack-note">
-    <h4>🔌 韓國插座 & 電器資訊</h4>
+    <h4>🔌 韓國插座 &amp; 電器資訊</h4>
     <p>
       ▸ <strong>插頭類型：</strong>歐規 Type C（圓形兩孔），與台灣插頭不同，需帶轉換頭<br>
       ▸ <strong>電壓：</strong>220V / 60Hz（台灣 110V）— 帶轉換插頭，確認電器支援 100–240V 寬幅電壓（手機充電器、筆電通常可）<br>
@@ -1173,11 +1950,211 @@ footer p{font-size:.78rem;opacity:.5;letter-spacing:.1em}
     <button class="gift-tab" data-fn="showGiftTab" data-target="g_lifestyle">🎁 生活小物</button>
   </div>
 
-  <div class="gift-panel active" id="g_all"><div class="gift-grid" id="giftAllGrid"></div></div>
-  <div class="gift-panel" id="g_snack"><div class="gift-grid" id="giftSnackGrid"></div></div>
-  <div class="gift-panel" id="g_beauty"><div class="gift-grid" id="giftBeautyGrid"></div></div>
-  <div class="gift-panel" id="g_grocery"><div class="gift-grid" id="giftGroceryGrid"></div></div>
-  <div class="gift-panel" id="g_lifestyle"><div class="gift-grid" id="giftLifestyleGrid"></div></div>
+  <div class="gift-panel active" id="g_all"><div class="gift-grid" id="giftAllGrid"><div class="gift-card">
+    <div class="gift-emoji">🍫</div>
+    <div class="gift-name">海太 Honey Butter Chips</div>
+    <div class="gift-price">₩2,500</div>
+    <div class="gift-desc">韓國超人氣蜂蜜奶油洋芋片，甜鹹完美平衡，人手一包</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">🌶</div>
+    <div class="gift-name">辣炒年糕棒</div>
+    <div class="gift-price">₩1,500</div>
+    <div class="gift-desc">便利商店必買零食，台灣買不到的甜辣口感</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">🍬</div>
+    <div class="gift-name">HBAF 蜂蜜奶油杏仁</div>
+    <div class="gift-price">₩8,000</div>
+    <div class="gift-desc">韓國最夯堅果零食，口味超多，送禮有面子，Olive Young 必買</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">🥜</div>
+    <div class="gift-name">Tom's Farm 杏仁脆片</div>
+    <div class="gift-price">₩12,000</div>
+    <div class="gift-desc">各種口味醃製杏仁，顆粒飽滿超香，台灣朋友最愛</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">🍭</div>
+    <div class="gift-name">Lotte 珠珠糖 / 熊仔餅</div>
+    <div class="gift-price">₩2,000</div>
+    <div class="gift-desc">韓國代表性糖果餅乾，小孩大人都愛的懷舊零食</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">🍜</div>
+    <div class="gift-name">三養火雞麵（多種口味）</div>
+    <div class="gift-price">₩1,500</div>
+    <div class="gift-desc">超辣挑戰必買！注意有肉粒版本不能帶回台灣</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">💧</div>
+    <div class="gift-name">VT 微針精華 / Cica 霜</div>
+    <div class="gift-price">₩25,000</div>
+    <div class="gift-desc">Olive Young 長年冠軍，鎮靜舒緩超有效，CP 值極高</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">🌿</div>
+    <div class="gift-name">Anua 77% 牛油果面膜</div>
+    <div class="gift-price">₩20,000</div>
+    <div class="gift-desc">超滋潤深層保濕面膜，韓妞愛用，帶一盒就是最好的禮物</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">☀️</div>
+    <div class="gift-name">Isntree / Beauty of Joseon 防曬</div>
+    <div class="gift-price">₩15,000</div>
+    <div class="gift-desc">韓系輕薄防曬乳，不泛白超好推，台灣 3 倍價差</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">💄</div>
+    <div class="gift-name">Romand / 3CE 唇妝</div>
+    <div class="gift-price">₩10,000</div>
+    <div class="gift-desc">韓國設計感彩妝，顯色持久，是台灣韓妝控的最愛</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">🎯</div>
+    <div class="gift-name">Prada 平替 潤唇膏（Daiso）</div>
+    <div class="gift-price">₩1,000</div>
+    <div class="gift-desc">韓國大創獨有，高顏值潤唇膏，100 元台幣入手超划算</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">🧴</div>
+    <div class="gift-name">Dr.Jart / 藥妝品牌</div>
+    <div class="gift-price">₩30,000</div>
+    <div class="gift-desc">韓國皮膚科合作品牌，專業功效，台灣購買貴 30–50%</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">🌶</div>
+    <div class="gift-name">韓式辣醬（太陽牌）</div>
+    <div class="gift-price">₩5,000</div>
+    <div class="gift-desc">正版韓式辣醬，炒年糕、拌飯、泡麵必備，帶回自己煮</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">🍵</div>
+    <div class="gift-name">蜂蜜柚子茶（隨行包）</div>
+    <div class="gift-price">₩8,000</div>
+    <div class="gift-desc">方便攜帶的小包裝，美白止咳，送長輩超受歡迎</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">🫙</div>
+    <div class="gift-name">韓國泡菜（罐裝）</div>
+    <div class="gift-price">₩10,000</div>
+    <div class="gift-desc">超市超市真空包裝泡菜，口味正宗，台灣買不到的真實韓味</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">🧀</div>
+    <div class="gift-name">Homeplus 自有品牌小吃</div>
+    <div class="gift-price">₩3,000</div>
+    <div class="gift-desc">No Brand 超市 CP 值極高，各種零食餅乾超便宜，適合大量採購</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">🎨</div>
+    <div class="gift-name">BUTTER 文創小物</div>
+    <div class="gift-price">₩5,000</div>
+    <div class="gift-desc">韓國人氣文創品牌，貼紙、文具、鑰匙圈，療癒伴手禮</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">📖</div>
+    <div class="gift-name">Artbox 文具週邊</div>
+    <div class="gift-price">₩3,000</div>
+    <div class="gift-desc">韓系設計文具，筆記本、便利貼、日曆超可愛，必逛必買</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">🕯️</div>
+    <div class="gift-name">TAMBURINS 香氛手霜</div>
+    <div class="gift-price">₩25,000</div>
+    <div class="gift-desc">聖水洞設計師香氛品牌，瓶身極美，送禮高質感</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">👜</div>
+    <div class="gift-name">Fennec 真皮小物</div>
+    <div class="gift-price">₩35,000</div>
+    <div class="gift-desc">韓系設計師包款、零錢包，質感好適合犒賞自己</div>
+  </div></div></div>
+  <div class="gift-panel" id="g_snack"><div class="gift-grid" id="giftSnackGrid"><div class="gift-card">
+    <div class="gift-emoji">🍫</div>
+    <div class="gift-name">海太 Honey Butter Chips</div>
+    <div class="gift-price">₩2,500</div>
+    <div class="gift-desc">韓國超人氣蜂蜜奶油洋芋片，甜鹹完美平衡，人手一包</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">🌶</div>
+    <div class="gift-name">辣炒年糕棒</div>
+    <div class="gift-price">₩1,500</div>
+    <div class="gift-desc">便利商店必買零食，台灣買不到的甜辣口感</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">🍬</div>
+    <div class="gift-name">HBAF 蜂蜜奶油杏仁</div>
+    <div class="gift-price">₩8,000</div>
+    <div class="gift-desc">韓國最夯堅果零食，口味超多，送禮有面子，Olive Young 必買</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">🥜</div>
+    <div class="gift-name">Tom's Farm 杏仁脆片</div>
+    <div class="gift-price">₩12,000</div>
+    <div class="gift-desc">各種口味醃製杏仁，顆粒飽滿超香，台灣朋友最愛</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">🍭</div>
+    <div class="gift-name">Lotte 珠珠糖 / 熊仔餅</div>
+    <div class="gift-price">₩2,000</div>
+    <div class="gift-desc">韓國代表性糖果餅乾，小孩大人都愛的懷舊零食</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">🍜</div>
+    <div class="gift-name">三養火雞麵（多種口味）</div>
+    <div class="gift-price">₩1,500</div>
+    <div class="gift-desc">超辣挑戰必買！注意有肉粒版本不能帶回台灣</div>
+  </div></div></div>
+  <div class="gift-panel" id="g_beauty"><div class="gift-grid" id="giftBeautyGrid"><div class="gift-card">
+    <div class="gift-emoji">💧</div>
+    <div class="gift-name">VT 微針精華 / Cica 霜</div>
+    <div class="gift-price">₩25,000</div>
+    <div class="gift-desc">Olive Young 長年冠軍，鎮靜舒緩超有效，CP 值極高</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">🌿</div>
+    <div class="gift-name">Anua 77% 牛油果面膜</div>
+    <div class="gift-price">₩20,000</div>
+    <div class="gift-desc">超滋潤深層保濕面膜，韓妞愛用，帶一盒就是最好的禮物</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">☀️</div>
+    <div class="gift-name">Isntree / Beauty of Joseon 防曬</div>
+    <div class="gift-price">₩15,000</div>
+    <div class="gift-desc">韓系輕薄防曬乳，不泛白超好推，台灣 3 倍價差</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">💄</div>
+    <div class="gift-name">Romand / 3CE 唇妝</div>
+    <div class="gift-price">₩10,000</div>
+    <div class="gift-desc">韓國設計感彩妝，顯色持久，是台灣韓妝控的最愛</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">🎯</div>
+    <div class="gift-name">Prada 平替 潤唇膏（Daiso）</div>
+    <div class="gift-price">₩1,000</div>
+    <div class="gift-desc">韓國大創獨有，高顏值潤唇膏，100 元台幣入手超划算</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">🧴</div>
+    <div class="gift-name">Dr.Jart / 藥妝品牌</div>
+    <div class="gift-price">₩30,000</div>
+    <div class="gift-desc">韓國皮膚科合作品牌，專業功效，台灣購買貴 30–50%</div>
+  </div></div></div>
+  <div class="gift-panel" id="g_grocery"><div class="gift-grid" id="giftGroceryGrid"><div class="gift-card">
+    <div class="gift-emoji">🌶</div>
+    <div class="gift-name">韓式辣醬（太陽牌）</div>
+    <div class="gift-price">₩5,000</div>
+    <div class="gift-desc">正版韓式辣醬，炒年糕、拌飯、泡麵必備，帶回自己煮</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">🍵</div>
+    <div class="gift-name">蜂蜜柚子茶（隨行包）</div>
+    <div class="gift-price">₩8,000</div>
+    <div class="gift-desc">方便攜帶的小包裝，美白止咳，送長輩超受歡迎</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">🫙</div>
+    <div class="gift-name">韓國泡菜（罐裝）</div>
+    <div class="gift-price">₩10,000</div>
+    <div class="gift-desc">超市超市真空包裝泡菜，口味正宗，台灣買不到的真實韓味</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">🧀</div>
+    <div class="gift-name">Homeplus 自有品牌小吃</div>
+    <div class="gift-price">₩3,000</div>
+    <div class="gift-desc">No Brand 超市 CP 值極高，各種零食餅乾超便宜，適合大量採購</div>
+  </div></div></div>
+  <div class="gift-panel" id="g_lifestyle"><div class="gift-grid" id="giftLifestyleGrid"><div class="gift-card">
+    <div class="gift-emoji">🎨</div>
+    <div class="gift-name">BUTTER 文創小物</div>
+    <div class="gift-price">₩5,000</div>
+    <div class="gift-desc">韓國人氣文創品牌，貼紙、文具、鑰匙圈，療癒伴手禮</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">📖</div>
+    <div class="gift-name">Artbox 文具週邊</div>
+    <div class="gift-price">₩3,000</div>
+    <div class="gift-desc">韓系設計文具，筆記本、便利貼、日曆超可愛，必逛必買</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">🕯️</div>
+    <div class="gift-name">TAMBURINS 香氛手霜</div>
+    <div class="gift-price">₩25,000</div>
+    <div class="gift-desc">聖水洞設計師香氛品牌，瓶身極美，送禮高質感</div>
+  </div><div class="gift-card">
+    <div class="gift-emoji">👜</div>
+    <div class="gift-name">Fennec 真皮小物</div>
+    <div class="gift-price">₩35,000</div>
+    <div class="gift-desc">韓系設計師包款、零錢包，質感好適合犒賞自己</div>
+  </div></div></div>
 
   <div class="where-buy" style="margin-top:1.5rem">
     <h4>🗺️ 在哪裡買？</h4>
@@ -1232,7 +2209,7 @@ footer p{font-size:.78rem;opacity:.5;letter-spacing:.1em}
       <div class="shop-card"><div class="shop-type">BEAUTY</div><div class="shop-name">Olive Young 弘大店</div><div class="shop-desc">韓國最大藥妝連鎖，精華、防曬、彩妝應有盡有，集點退稅</div></div>
       <div class="shop-card"><div class="shop-type">DESIGN</div><div class="shop-name">Fennec 弘大</div><div class="shop-desc">韓系質感包包品牌，真皮極簡設計，實用又耐用</div></div>
     </div>
-    <a class="map-link" href="https://maps.google.com/?q=홍대+쇼핑&ll=37.5556155,126.9215951" target="_blank">📍 弘大地圖</a>
+    <a class="map-link" href="https://maps.google.com/?q=%ED%99%8D%EB%8C%80+%EC%87%BC%ED%95%91&amp;ll=37.5556155,126.9215951" target="_blank">📍 弘大地圖</a>
     <div class="transport-pill" style="margin-left:.5rem">🚇 地鐵 2 號線「弘大入口站」</div>
   </div>
 
@@ -1254,7 +2231,7 @@ footer p{font-size:.78rem;opacity:.5;letter-spacing:.1em}
       <div class="shop-card"><div class="shop-type">DEPT. STORE</div><div class="shop-name">樂天百貨 明洞店</div><div class="shop-desc">精品品牌＋韓系設計師，頂樓有免稅店，可現場辦退稅</div></div>
       <div class="shop-card"><div class="shop-type">STREET FOOD</div><div class="shop-name">明洞街邊攤</div><div class="shop-desc">蛋糕冰淇淋、起司龍蝦、韓式煎餅，邊逛邊吃最韓國</div></div>
     </div>
-    <a class="map-link" href="https://maps.google.com/?q=명동+쇼핑&ll=37.559980,126.985830" target="_blank">📍 明洞地圖</a>
+    <a class="map-link" href="https://maps.google.com/?q=%EB%AA%85%EB%8F%99+%EC%87%BC%ED%95%91&amp;ll=37.559980,126.985830" target="_blank">📍 明洞地圖</a>
     <div class="transport-pill" style="margin-left:.5rem">🚇 地鐵 4 號線「明洞站」</div>
   </div>
 
@@ -1276,7 +2253,7 @@ footer p{font-size:.78rem;opacity:.5;letter-spacing:.1em}
       <div class="shop-card"><div class="shop-type">SELECT SHOP</div><div class="shop-name">BLUE ELEPHANT</div><div class="shop-desc">質感選物店，韓系生活品味家居好物，超適合買禮物</div></div>
       <div class="shop-card"><div class="shop-type">SNEAKER</div><div class="shop-name">波鞋 / 小眾品牌</div><div class="shop-desc">New Balance、Asics 特色門市，限定色款首爾獨家</div></div>
     </div>
-    <a class="map-link" href="https://maps.google.com/?q=성수동+쇼핑&ll=37.5406846,127.0566319" target="_blank">📍 聖水洞地圖</a>
+    <a class="map-link" href="https://maps.google.com/?q=%EC%84%B1%EC%88%98%EB%8F%99+%EC%87%BC%ED%95%91&amp;ll=37.5406846,127.0566319" target="_blank">📍 聖水洞地圖</a>
     <div class="transport-pill" style="margin-left:.5rem">🚇 地鐵 2 號線「聖水站」</div>
   </div>
 
@@ -1298,7 +2275,7 @@ footer p{font-size:.78rem;opacity:.5;letter-spacing:.1em}
       <div class="shop-card"><div class="shop-type">LUXURY</div><div class="shop-name">APM 名品</div><div class="shop-desc">Chanel、Dior、LV 等精品旗艦店雲集，狎鷗亭延伸逛</div></div>
       <div class="shop-card"><div class="shop-type">CAFE</div><div class="shop-name">林蔭道咖啡廳</div><div class="shop-desc">無數質感咖啡廳散落樹下，下午茶氣氛超好，特別適合拍照</div></div>
     </div>
-    <a class="map-link" href="https://maps.google.com/?q=가로수길&ll=37.5210566,127.0228686" target="_blank">📍 林蔭道地圖</a>
+    <a class="map-link" href="https://maps.google.com/?q=%EA%B0%80%EB%A1%9C%EC%88%98%EA%B8%B8&amp;ll=37.5210566,127.0228686" target="_blank">📍 林蔭道地圖</a>
     <div class="transport-pill" style="margin-left:.5rem">🚇 地鐵 3 號線「新沙站」</div>
   </div>
 
@@ -1320,7 +2297,7 @@ footer p{font-size:.78rem;opacity:.5;letter-spacing:.1em}
       <div class="shop-card"><div class="shop-type">LANDMARK</div><div class="shop-name">DDP 東大門設計廣場</div><div class="shop-desc">扎哈哈地設計的地標建築，晚上燈光超美，必拍夜景！</div></div>
       <div class="shop-card"><div class="shop-type">MARKET</div><div class="shop-name">東大門批發市場</div><div class="shop-desc">服飾批發天堂，凌晨 2–5 點最熱鬧，適合買超量服飾</div></div>
     </div>
-    <a class="map-link" href="https://maps.google.com/?q=동대문+쇼핑&ll=37.5658,127.0088" target="_blank">📍 東大門地圖</a>
+    <a class="map-link" href="https://maps.google.com/?q=%EB%8F%99%EB%8C%80%EB%AC%B8+%EC%87%BC%ED%95%91&amp;ll=37.5658,127.0088" target="_blank">📍 東大門地圖</a>
     <div class="transport-pill" style="margin-left:.5rem">🚇 地鐵 2/4/5 號線「東大門歷史文化公園站」</div>
   </div>
 
@@ -1342,7 +2319,7 @@ footer p{font-size:.78rem;opacity:.5;letter-spacing:.1em}
       <div class="shop-card"><div class="shop-type">FASHION</div><div class="shop-name">Fennec 延南洞</div><div class="shop-desc">韓系質感包包，真皮簡約設計，包色危險慎入！</div></div>
       <div class="shop-card"><div class="shop-type">PARK</div><div class="shop-name">京義線森林公園</div><div class="shop-desc">舊鐵路改造綠色步道，兩側皆是特色店家，散步拍照超愜意</div></div>
     </div>
-    <a class="map-link" href="https://maps.google.com/?q=연남동&ll=37.5652109,126.9238607" target="_blank">📍 延南洞地圖</a>
+    <a class="map-link" href="https://maps.google.com/?q=%EC%97%B0%EB%82%A8%EB%8F%99&amp;ll=37.5652109,126.9238607" target="_blank">📍 延南洞地圖</a>
     <div class="transport-pill" style="margin-left:.5rem">🚶 L7 Hongdae 步行 10 分鐘可達</div>
   </div>
 </section>
@@ -1565,4 +2542,8 @@ gifts.forEach(g=>{
   const catMap={snack:'giftSnackGrid',beauty:'giftBeautyGrid',grocery:'giftGroceryGrid',lifestyle:'giftLifestyleGrid'};
   document.getElementById(catMap[g.cat]).innerHTML+=card;
 });
-</script>
+</script><script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
+}
+</script></body></html>
