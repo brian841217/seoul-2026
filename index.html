@@ -16,7 +16,7 @@ body { background: var(--cream); color: var(--ink); font-family: "Noto Sans TC",
 
 button, [data-fn] { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 
-.site-header { background: var(--ink); color: var(--cream); padding: 0px; position: sticky; top: 0px; z-index: 1000; box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 20px; }
+.site-header { background: var(--ink); color: var(--cream); padding: 0px; padding-top: env(safe-area-inset-top); position: sticky; top: 0px; z-index: 1000; box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 20px; }
 
 .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 0px 2rem; height: 56px; }
 
