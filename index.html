@@ -468,9 +468,10 @@ footer p { font-size: 0.78rem; opacity: 0.5; letter-spacing: 0.1em; }
     <nav class="main-nav">
       <button class="nav-btn active" data-fn="showSection" data-target="itinerary">📅 行程</button>
       <button class="nav-btn" data-fn="showSection" data-target="budget">💰 費用</button>
+      <button class="nav-btn" data-fn="showSection" data-target="transport">🚇 交通</button>
       <button class="nav-btn" data-fn="showSection" data-target="map">🗺️ 地圖</button>
       <button class="nav-btn" data-fn="showSection" data-target="restaurant">🍽️ 餐廳</button>
-      <button class="nav-btn" data-fn="showSection" data-target="immigration">✈️ 入境</button>
+      <button class="nav-btn" data-fn="showSection" data-target="immigration">✈️ 行前入境</button>
       <button class="nav-btn" data-fn="showSection" data-target="packing">🧳 行李</button>
       <button class="nav-btn" data-fn="showSection" data-target="medical">💆 醫美</button>
       <button class="nav-btn" data-fn="showSection" data-target="gifts">🛍️ 伴手禮</button>
@@ -539,7 +540,9 @@ footer p { font-size: 0.78rem; opacity: 0.5; letter-spacing: 0.1em; }
         <div class="tl-time">14:00 出發</div>
         <div class="tl-title">✈️ TW668 松山 → 金浦</div>
         <div class="tl-desc">14:00 起飛，17:25 抵達金浦機場（GMP）。航程約 2 小時 25 分，B737-800。</div>
-        <div class="tl-note"><strong>交通建議：</strong>搭乘 AREX（機場快線）至弘大入口站，約 20 分鐘，票價約 ₩4,000。或搭計程車約 ₩25,000–₩35,000。</div>
+        <div class="tl-note" style="border-left:3px solid var(--coral)"><strong>🌀 颱風警戒：</strong>強颱巴威預估 7/10–7/11 最接近台灣，出發日航班有延誤或取消風險。出發日早上先查 TW668 航班狀態（松山機場官網或 Flightradar24），應變細節見「行前入境」頁颱風應變區。</div>
+        <div class="tl-note"><strong>交通建議：</strong>搭 AREX 一般列車（機場鐵路）至弘大入口站，僅 3 站約 15 分鐘，T-money 約 ₩1,550/人，五人最省最快。計程車一般車只能坐 4 人，五人需 2 台或叫大型計程車（Kakao T「Venti」），單程約 ₩18,000–₩25,000/台。</div>
+        <div class="tl-note"><strong>💳 落地先辦三件事：</strong>① 便利商店買 T-money 卡（₩4,000/張，五人都要各一張）並用現金儲值 ② 開通事先買好的 eSIM ③ 提領少量韓元現金（機場匯率較差，大額到明洞換錢所再換）。詳見「交通」與「行前入境」頁。</div>
       </div>
       <div class="tl-item">
         <div class="tl-dot" style="background:var(--gold)"></div>
@@ -576,8 +579,8 @@ footer p { font-size: 0.78rem; opacity: 0.5; letter-spacing: 0.1em; }
         <div class="tl-dot"></div>
         <div class="tl-time">10:00</div>
         <div class="tl-title">🏯 景福宮</div>
-        <div class="tl-desc">首爾最大古宮，朝鮮王朝代表建築。<br>▸ 開放時間 09:00–18:00（週二休館）<br>▸ 門票：成人 ₩3,000，穿韓服免費</div>
-        <div class="tl-note"><strong>💡 建議：</strong>在景福宮前租韓服，拍家族照！弘大→景福宮搭地鐵 3 號線約 20 分。</div>
+        <div class="tl-desc">首爾最大古宮，朝鮮王朝代表建築。<br>▸ 開放時間 09:00–18:00（週二休館，7/11 週六正常開放）<br>▸ 門票：成人 ₩3,000，穿韓服免費</div>
+        <div class="tl-note"><strong>💡 建議：</strong>在景福宮前租韓服，拍家族照！弘大入口站搭 2 號線到乙支路3街轉 3 號線至景福宮站，約 25 分。<br><strong>⏰ 週六人多：</strong>建議提早到 09:30 前入場；10:00 與 14:00 光化門有守門將換崗儀式，可順道觀賞（免費）。</div>
         <a class="map-link" href="https://maps.google.com/?cid=ChIJod7tSseifDUR9hXHLFNGMIs&amp;q=%E6%99%AF%E7%A6%8F%E5%AE%AE&amp;ll=37.579617,126.977041" target="_blank">📍 Google Maps</a>
       </div>
       <div class="tl-item">
@@ -615,7 +618,7 @@ footer p { font-size: 0.78rem; opacity: 0.5; letter-spacing: 0.1em; }
 
   <!-- DAY 3 -->
   <div class="day-panel" id="d3">
-    <div style="background:var(--warm);border-radius:10px;padding:.8rem 1.2rem;margin-bottom:1.5rem;font-size:.85px;border-left:4px solid var(--sky)">
+    <div style="background:var(--warm);border-radius:10px;padding:.8rem 1.2rem;margin-bottom:1.5rem;font-size:.85rem;border-left:4px solid var(--sky)">
       🏃 <strong>聖水洞 + 漢江跑步</strong>｜潮流街區與夕陽野餐
     </div>
     <div class="timeline">
@@ -637,9 +640,9 @@ footer p { font-size: 0.78rem; opacity: 0.5; letter-spacing: 0.1em; }
         <div class="tl-dot" style="background:var(--coral)"></div>
         <div class="tl-time">16:30</div>
         <div class="tl-title">🌅 汝矣島漢江公園</div>
-        <div class="tl-desc">傍晚夕陽時段最美。河邊自行車道、大草地、便利商店野餐區一應俱全。</div>
+        <div class="tl-desc">傍晚夕陽時段最美。河邊自行車道、大草地、便利商店野餐區一應俱全。7 月中日落約 19:50，18:30 後光線最美。</div>
         <div class="tl-note">
-          <strong>🏃 跑步計畫：</strong>推薦路線 汝矣島漢江公園 → 麻浦大橋折返，單程約 4km，傍晚涼風徐徐。<br>
+          <strong>🏃 跑步計畫：</strong>推薦路線 汝矣島漢江公園 → 麻浦大橋折返，單程約 4km。<strong>7 月午後 33°C+ 且濕度高</strong>，建議 18:00 後再跑並補足水分。<br>
           <strong>🧺 其餘成員：</strong>CU 便利商店購買炸雞＋啤酒野餐組合，漢江野餐超道地！
         </div>
         <a class="map-link" href="https://maps.google.com/?cid=ChIJ77fEAzuffDURLEWNv56G2KQ&amp;ll=37.5267106,126.9347112" target="_blank">📍 Google Maps</a>
@@ -648,7 +651,7 @@ footer p { font-size: 0.78rem; opacity: 0.5; letter-spacing: 0.1em; }
         <div class="tl-dot" style="background:var(--sage)"></div>
         <div class="tl-time">19:30</div>
         <div class="tl-title">🔥 몽탄（Mongtan）烤肉晚餐</div>
-        <div class="tl-desc">首爾最人氣稻草燻烤牛肉名店，U字牛小排超香！<br>▸ 位於龍山區，步行或計程車前往<br>▸ <strong style="color:var(--coral)">務必提前電話或網路訂位！</strong>平均等候 1–2 小時</div>
+        <div class="tl-desc">首爾最人氣稻草燻烤牛肉名店，U字牛小排超香！<br>▸ 位於龍山區，汝矣島搭計程車約 15 分<br>▸ <strong style="color:var(--coral)">務必提前用 CATCHTABLE App（有英文版）訂位，或當天一開店 16:00 前到場登記候位！</strong>週日晚間平均等候 1–2 小時，訂不到可改弘大 Yookji（4.9⭐，見餐廳頁）</div>
         <div class="tl-note"><strong>💰 預算：</strong>約 ₩50,000–₩70,000 / 人（牛肉主餐＋配菜）｜評分 4.1 ⭐</div>
         <a class="map-link" href="https://maps.google.com/?cid=ChIJO85WpN6jfDURVI5DNM9JkCI&amp;ll=37.5360397,126.9722240" target="_blank">📍 Google Maps</a>
       </div>
@@ -663,11 +666,11 @@ footer p { font-size: 0.78rem; opacity: 0.5; letter-spacing: 0.1em; }
     <div class="timeline">
       <div class="tl-item">
         <div class="tl-dot" style="background:var(--sage)"></div>
-        <div class="tl-time">上午 09:00</div>
-        <div class="tl-title">💆 江南醫美行程</div>
-        <div class="tl-desc">媽媽、小阿姨安排皮膚管理 / 音波 / 輕醫美療程。建議提早預約，帶上護照。<br>▸ 江南區診所密集，建議提前 2 週網路預約<br>▸ 許多診所有中文翻譯服務</div>
-        <div class="tl-note"><strong>📍 推薦區域：</strong>江南站、新論峴站周邊醫美診所最密集。詳見「醫美」頁面。</div>
-        <a class="map-link" href="https://maps.google.com/?q=%EA%B0%95%EB%82%A8%EA%B5%AC+%EC%9D%98%EC%9B%90&amp;ll=37.4979,127.0276" target="_blank">📍 江南醫美區地圖</a>
+        <div class="tl-time">上午 09:30（已預約 ✅）</div>
+        <div class="tl-title">💆 Doctors 皮膚科 — 醫美療程</div>
+        <div class="tl-desc">六位皆已預約完成！<br>▸ 地址：江南區島山大路12街7（강남구 도산대로 12길 7）<br>▸ 鄰近地鐵 3 號線新沙站，就在林蔭道旁，療程後直接接下午行程<br>▸ 醫師團隊介紹：<a href="https://litt.ly/doctors_cn_dr" target="_blank" style="color:var(--sky)">litt.ly/doctors_cn_dr</a></div>
+        <div class="tl-note"><strong>⚠️ 診所提醒：</strong>① 來院請攜帶<strong>護照原件</strong>（六人都要）② 依院內行程可能有些許等待時間 ③ 幼童一同來院時，需由 1 位監護人陪同。<br><strong>🚕 交通：</strong>弘大出發建議 08:40 前出門，搭計程車約 30–40 分（過漢江），或 2 號線→3 號線新沙站約 40 分。</div>
+        <a class="map-link" href="https://maps.google.com/?q=%EB%8F%84%EC%82%B0%EB%8C%80%EB%A1%9C12%EA%B8%B8+7" target="_blank">📍 Google Maps</a>
       </div>
       <div class="tl-item">
         <div class="tl-dot" style="background:var(--gold)"></div>
@@ -739,7 +742,7 @@ footer p { font-size: 0.78rem; opacity: 0.5; letter-spacing: 0.1em; }
         <div class="tl-dot" style="background:var(--sky)"></div>
         <div class="tl-time">08:00</div>
         <div class="tl-title">🚇 前往金浦機場</div>
-        <div class="tl-desc">從弘大出發：AREX 約 20 分鐘（₩4,000/人），或計程車約 25,000–35,000 韓元。<br>▸ 建議 08:00 前離開飯店，從容辦理登機手續</div>
+        <div class="tl-desc">從弘大出發：AREX 一般列車約 15 分鐘（T-money 約 ₩1,550/人），或大型計程車約 ₩20,000–₩25,000。<br>▸ 建議 08:00 前離開飯店，從容辦理登機手續<br>▸ T-money 卡內餘額 ₩20,000 以下可在便利商店退款，或留著下次再來用</div>
         <div class="tl-note"><strong>⚠️ 重要：</strong>國際線建議至少提早 2 小時到機場。11:20 起飛 → 08:00 前出發最保險。</div>
       </div>
       <div class="tl-item">
@@ -835,6 +838,88 @@ footer p { font-size: 0.78rem; opacity: 0.5; letter-spacing: 0.1em; }
 </section>
 
 <!-- ════════════════════════════════════════ -->
+<!--  SECTION 2.5: TRANSPORT                 -->
+<!-- ════════════════════════════════════════ -->
+<section class="section" id="transport">
+  <div class="sec-title">首爾 <span>交通</span> 全攻略</div>
+  <div class="sec-desc">第一次去首爾必讀：導航 App、交通卡、地鐵、計程車、機場往返</div>
+
+  <div class="info-section">
+    <h3>📱 出發前必裝 App</h3>
+    <div class="danger-box" style="margin-bottom:1rem">
+      <strong>🚨 最重要的一件事：</strong>Google Maps 在韓國<strong>無法導航</strong>（步行/開車路線都不能用，只能看點位）！全程請用 <strong>Naver Map</strong>，有中文介面，地鐵、公車、步行路線都準確。
+    </div>
+    <div class="info-grid">
+      <div class="info-card"><div class="info-card-icon">🗺️</div><h4>Naver Map（必裝）</h4><p>韓國版 Google Maps，設定介面可切換中文。出發前把行程景點全部先收藏（星號），現場直接導航</p></div>
+      <div class="info-card"><div class="info-card-icon">🚕</div><h4>Kakao T（必裝）</h4><p>韓國版 Uber，叫計程車神器。可綁台灣信用卡或選擇下車付現/刷卡，免韓文溝通</p></div>
+      <div class="info-card"><div class="info-card-icon">🈶</div><h4>Papago（必裝）</h4><p>Naver 出的翻譯 App，韓文翻譯最準，支援拍照翻譯菜單、對話模式，比 Google 翻譯好用</p></div>
+      <div class="info-card"><div class="info-card-icon">🍽️</div><h4>CATCHTABLE</h4><p>韓國餐廳訂位 App（有英文全球版），Mongtan 等人氣店提前訂位就靠它</p></div>
+    </div>
+    <div class="tip-box">
+      <strong>💡 小技巧：</strong>五人同行容易走散，出發前建 LINE 群組，並把「L7 Hongdae by LOTTE／홍대 L7 호텔」飯店名稱與地址截圖存在每個人手機，迷路時給計程車司機看即可。
+    </div>
+  </div>
+
+  <div class="info-section">
+    <h3>💳 交通卡怎麼選（五人建議：每人一張 T-money）</h3>
+    <div class="info-grid">
+      <div class="info-card"><div class="info-card-icon">🟦</div><h4>T-money 卡 ⭐首選</h4><p>空卡 ₩4,000，機場/便利商店（CU、GS25）都買得到。地鐵、公車、計程車、便利商店都能刷。<strong>儲值只收現金</strong>，建議每人先儲 ₩20,000</p></div>
+      <div class="info-card"><div class="info-card-icon">🟧</div><h4>WOWPASS（進階）</h4><p>外國旅客專用預付卡＝T-money＋簽帳卡二合一，機台可直接用台幣換韓元儲值、匯率不錯。弘大、明洞的機台很多，適合不想帶太多現金的人</p></div>
+      <div class="info-card"><div class="info-card-icon">📉</div><h4>刷卡 vs 現金</h4><p>首爾刷卡普及率極高，連市場攤販多數可刷。現金主要用在：T-money 儲值、部分小吃攤、換錢所。五人帶 30–50 萬韓元現金已很夠</p></div>
+      <div class="info-card"><div class="info-card-icon">💱</div><h4>換錢攻略</h4><p>台灣先換少量（機場應急用），大額到<strong>明洞換錢所</strong>匯率最好（Day 2 順路）。帶台幣現鈔直接換韓元即可，不必先換美金</p></div>
+    </div>
+  </div>
+
+  <div class="info-section">
+    <h3>🚇 地鐵搭乘教學（我們最常用：2 號線 + AREX）</h3>
+    <div class="steps-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-content"><h4>買卡＋儲值</h4><p>便利商店說「티머니 주세요（T-money 給我）」，儲值到櫃檯或用站內加值機（有中文介面），現金投入即可。</p></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-content"><h4>Naver Map 查路線</h4><p>輸入目的地，App 會告訴你搭幾號線、哪個方向、幾號出口。首爾地鐵以「線色＋數字」辨識，跟著顏色走不會錯。</p></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-content"><h4>進出站刷卡</h4><p>進站感應一次、出站再感應一次（依距離扣款，基本費 ₩1,550）。刷卡下公車/地鐵後 30 分鐘內轉乘有優惠。</p></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-content"><h4>車廂禮儀</h4><p>兩端深色「博愛座」即使空著也<strong>絕對不要坐</strong>（韓國人非常在意）；粉紅色是孕婦席。車廂內講話小聲、不吃東西、手扶梯靠右站。</p></div>
+      </div>
+    </div>
+    <div class="warning-box">
+      <strong>⏰ 末班車注意：</strong>首爾地鐵約 24:00 前後收班（各線不同）。弘大是夜生活區，錯過末班車就叫 Kakao T，深夜有加成但不會被坑。
+    </div>
+  </div>
+
+  <div class="info-section">
+    <h3>🚕 計程車指南（五人重點）</h3>
+    <div class="info-grid">
+      <div class="info-card"><div class="info-card-icon">🧮</div><h4>費率</h4><p>首爾一般車基本費 ₩4,800（2km），之後跳表；22:00 後深夜加成 20–40%。市區短程多在 ₩8,000–₩15,000</p></div>
+      <div class="info-card"><div class="info-card-icon">👨‍👩‍👧‍👦</div><h4>五人搭車</h4><p>一般計程車<strong>最多坐 4 人</strong>！五人請用 Kakao T 叫「Venti」大型車（6–10 人座），或直接分兩台</p></div>
+      <div class="info-card"><div class="info-card-icon">📲</div><h4>Kakao T 用法</h4><p>定位上車點→輸入目的地→選車型→上車。行程透明顯示在 App，語言不通也不怕繞路</p></div>
+      <div class="info-card"><div class="info-card-icon">🗣️</div><h4>路邊攔車</h4><p>給司機看 Naver Map 韓文地址或截圖最保險。「~로 가주세요」＝請到 ~。上車記得確認跳表有開</p></div>
+    </div>
+  </div>
+
+  <div class="info-section">
+    <h3>✈️ 機場 ↔ 弘大（金浦 GMP）</h3>
+    <div class="budget-rows">
+      <h3>金浦機場 → L7 弘大 三種走法</h3>
+      <div class="brow"><span>🚇 AREX 一般列車（推薦）｜金浦機場站 → 弘大入口站，3 站約 15 分，班距 6–12 分</span><span class="amt">約 ₩1,550/人</span></div>
+      <div class="brow"><span>🚕 大型計程車（Kakao T Venti）｜五人一車約 30–40 分（視塞車）</span><span class="amt">₩20,000–₩30,000/台</span></div>
+      <div class="brow"><span>🚕 一般計程車 × 2 台｜每台最多 4 人</span><span class="amt">₩15,000–₩20,000/台</span></div>
+    </div>
+    <div class="tip-box">
+      <strong>💡 建議：</strong>去程（Day 1）行李還不多，搭 AREX 最快最省；回程（Day 6）戰利品大包小包，五人叫一台 Venti 直達機場最輕鬆。弘大入口站與 L7 飯店步行約 3 分鐘。
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════ -->
 <!--  SECTION 3: MAP                         -->
 <!-- ════════════════════════════════════════ -->
 <section class="section" id="map">
@@ -852,7 +937,7 @@ footer p { font-size: 0.78rem; opacity: 0.5; letter-spacing: 0.1em; }
 
   <div class="map-panel active" id="md1">
     <div style="background:#fff;border-radius:12px;overflow:hidden;border:1px solid var(--border);margin-bottom:1.2rem">
-      <div src="cid:frame-81ADB229B2DAE530729E00A103485A4A@mhtml.blink" width="100%" height="300" style="border:0" loading="lazy" data-original-tag="iframe"><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body></body></html></div>
+      <iframe src="https://maps.google.com/maps?q=37.5556155,126.9215951&z=15&output=embed&hl=zh-TW" width="100%" height="300" style="border:0;display:block" loading="lazy"></iframe>
     </div>
     <div class="spots-list">
       <div class="spot-row">
@@ -875,7 +960,7 @@ footer p { font-size: 0.78rem; opacity: 0.5; letter-spacing: 0.1em; }
 
   <div class="map-panel" id="md2">
     <div style="background:#fff;border-radius:12px;overflow:hidden;border:1px solid var(--border);margin-bottom:1.2rem">
-      <div src="cid:frame-71705868578A405553DCAFBF3B5BA35C@mhtml.blink" width="100%" height="300" style="border:0" loading="lazy" data-original-tag="iframe"><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body></body></html></div>
+      <iframe src="https://maps.google.com/maps?q=37.5766,126.9840&z=14&output=embed&hl=zh-TW" width="100%" height="300" style="border:0;display:block" loading="lazy"></iframe>
     </div>
     <div class="spots-list">
       <div class="spot-row">
@@ -908,7 +993,7 @@ footer p { font-size: 0.78rem; opacity: 0.5; letter-spacing: 0.1em; }
 
   <div class="map-panel" id="md3">
     <div style="background:#fff;border-radius:12px;overflow:hidden;border:1px solid var(--border);margin-bottom:1.2rem">
-      <div src="cid:frame-B89516E7FEF1695B46F26D4B459608F4@mhtml.blink" width="100%" height="300" style="border:0" loading="lazy" data-original-tag="iframe"><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body></body></html></div>
+      <iframe src="https://maps.google.com/maps?q=37.5407,127.0566&z=13&output=embed&hl=zh-TW" width="100%" height="300" style="border:0;display:block" loading="lazy"></iframe>
     </div>
     <div class="spots-list">
       <div class="spot-row">
@@ -936,13 +1021,13 @@ footer p { font-size: 0.78rem; opacity: 0.5; letter-spacing: 0.1em; }
 
   <div class="map-panel" id="md4">
     <div style="background:#fff;border-radius:12px;overflow:hidden;border:1px solid var(--border);margin-bottom:1.2rem">
-      <div src="cid:frame-AFFD9C9287BCAEB6B978F7B5BA3AE69E@mhtml.blink" width="100%" height="300" style="border:0" loading="lazy" data-original-tag="iframe"><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body></body></html></div>
+      <iframe src="https://maps.google.com/maps?q=37.5175,127.0350&z=13&output=embed&hl=zh-TW" width="100%" height="300" style="border:0;display:block" loading="lazy"></iframe>
     </div>
     <div class="spots-list">
       <div class="spot-row">
         <div class="spot-num">1</div>
-        <div class="spot-info"><div class="spot-name">💆 江南醫美診所區</div><div class="spot-addr">江南站、新論峴站周邊</div></div>
-        <a class="map-link" href="https://maps.google.com/?q=%EA%B0%95%EB%82%A8+%ED%94%BC%EB%B6%80%EA%B3%BC&amp;ll=37.4979,127.0276" target="_blank">📍 導航</a>
+        <div class="spot-info"><div class="spot-name">💆 Doctors 皮膚科（已預約 7/13 09:30）</div><div class="spot-addr">江南區島山大路12街7（도산대로 12길 7）｜新沙站步行約 5 分</div></div>
+        <a class="map-link" href="https://maps.google.com/?q=%EB%8F%84%EC%82%B0%EB%8C%80%EB%A1%9C12%EA%B8%B8+7" target="_blank">📍 導航</a>
       </div>
       <div class="spot-row">
         <div class="spot-num">2</div>
@@ -959,7 +1044,7 @@ footer p { font-size: 0.78rem; opacity: 0.5; letter-spacing: 0.1em; }
 
   <div class="map-panel" id="md5">
     <div style="background:#fff;border-radius:12px;overflow:hidden;border:1px solid var(--border);margin-bottom:1.2rem">
-      <div src="cid:frame-0186526D1F2909ACF03217BE19CC651C@mhtml.blink" width="100%" height="300" style="border:0" loading="lazy" data-original-tag="iframe"><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body></body></html></div>
+      <iframe src="https://maps.google.com/maps?q=37.5700398,126.9996036&z=15&output=embed&hl=zh-TW" width="100%" height="300" style="border:0;display:block" loading="lazy"></iframe>
     </div>
     <div class="spots-list">
       <div class="spot-row">
@@ -982,7 +1067,7 @@ footer p { font-size: 0.78rem; opacity: 0.5; letter-spacing: 0.1em; }
 
   <div class="map-panel" id="md_hotel">
     <div style="background:#fff;border-radius:12px;overflow:hidden;border:1px solid var(--border);margin-bottom:1.2rem">
-      <div src="cid:frame-C25431EACD039B90920813688D06AF16@mhtml.blink" width="100%" height="300" style="border:0" loading="lazy" data-original-tag="iframe"><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body></body></html></div>
+      <iframe src="https://maps.google.com/maps?q=L7+Hongdae+by+LOTTE&z=16&output=embed&hl=zh-TW" width="100%" height="300" style="border:0;display:block" loading="lazy"></iframe>
     </div>
     <div class="spots-list">
       <div class="spot-row">
@@ -999,9 +1084,9 @@ footer p { font-size: 0.78rem; opacity: 0.5; letter-spacing: 0.1em; }
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:1rem">
       <div class="info-card"><div class="info-card-icon">🚇</div><h4>交通</h4><p>弘大入口站步行 3 分鐘，AREX 直達金浦機場</p></div>
-      <div class="info-card"><div class="info-card-icon">🌃</div><h4>周邊</h4></div><p>弘大夜市、延南洞、望遠市場步行可達</p></div>
+      <div class="info-card"><div class="info-card-icon">🌃</div><h4>周邊</h4><p>弘大夜市、延南洞、望遠市場步行可達</p></div>
     </div>
-  
+  </div>
 </section>
 
 <!-- ════════════════════════════════════════ -->
@@ -1398,49 +1483,77 @@ footer p { font-size: 0.78rem; opacity: 0.5; letter-spacing: 0.1em; }
 <!--  SECTION 5: IMMIGRATION                 -->
 <!-- ════════════════════════════════════════ -->
 <section class="section" id="immigration">
-  <div class="sec-title">入境 <span>流程</span> &amp; 退稅</div>
-  <div class="sec-desc">韓國入境懶人包 + 商品退稅完整教學｜2026 最新規定</div>
+  <div class="sec-title">行前準備 <span>&amp;</span> 入境退稅</div>
+  <div class="sec-desc">第一次去首爾必讀：出發前倒數清單 + 入境流程 + 退稅教學｜2026/7 查證最新規定</div>
+
+  <!-- 行前準備倒數 -->
+  <div class="info-section">
+    <h3>📝 出發前倒數清單（7/10 出發）</h3>
+    <div class="danger-box" style="border-left-width:6px">
+      <strong>🌀 颱風巴威應變（7/5 更新）：</strong>強颱巴威預估 <strong>7/10–7/11 最接近台灣</strong>——正是出發日，海警發布機率已逾 75%，路徑北轉時間點仍有變數，<strong>航班延誤或取消風險高</strong>，請照下面清單準備：
+      <ul style="margin:.6rem 0 0 1.2rem;line-height:1.9">
+        <li><strong>7/8 起每天盯</strong>：<a href="https://www.cwa.gov.tw/V8/C/P/Typhoon/TY_NEWS.html" target="_blank" style="color:var(--coral)">中央氣象署颱風消息</a> ＋ T'way App／訂票時留的 Email 簡訊（航班異動會主動通知，確認聯絡資料正確）</li>
+        <li><strong>7/10 早上</strong>：先查 <a href="https://www.tsa.gov.tw" target="_blank" style="color:var(--coral)">松山機場官網</a>即時航班看板確認 TW668 狀態，再出門</li>
+        <li><strong>若航班取消／大幅延誤</strong>：天災屬不可抗力，T'way 可免費改期或全額退票——第一時間透過 T'way 官網/App 或原購票管道改票（動作要快，改 7/11 的位子大家都在搶）</li>
+        <li><strong>訂房應變</strong>：若確定延後出發，立刻寫信/致電 L7 Hongdae 說明颱風因素、把首晚改期或取消，避免整晚被扣 no-show</li>
+        <li><strong>醫美不受影響</strong>：Doctors 皮膚科預約在 7/13（一），即使延一天出發也趕得上，不用改約</li>
+        <li><strong>旅平險不便險</strong>：班機延誤（通常 4 小時以上）或取消可理賠，記得保留登機證、延誤證明與衍生費用收據</li>
+        <li><strong>家裡防颱</strong>：出發前把陽台盆栽收好、窗戶關妥——人在首爾也安心</li>
+      </ul>
+    </div>
+    <div class="steps-list">
+      <div class="step-item">
+        <div class="step-num" style="background:var(--sage)">今</div>
+        <div class="step-content"><h4>今天就做（7/5–7/6）</h4><p>✅ 確認五本護照效期皆 &gt; 6 個月｜✅ 購買韓國 eSIM（Klook/KKday 搜「韓國 eSIM」，一人一份，選 5 日不限量）｜✅ 投保旅平險＋不便險｜✅ 全員下載 Naver Map、Kakao T、Papago（見「交通」頁）｜✅ 用 CATCHTABLE 訂 Day 3 Mongtan 晚餐｜✅ Naver Map 把行程景點全部收藏</p></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num" style="background:var(--gold)">-3</div>
+        <div class="step-content"><h4>7/7 之後：填電子入境卡 e-Arrival Card</h4><p>抵達前 <strong>72 小時內</strong>上官網 <a href="https://www.e-arrivalcard.go.kr" target="_blank" style="color:var(--sky)">e-arrivalcard.go.kr</a> 填寫（免費、有中文介面），一人可代填全家同行者。住宿填：L7 Hongdae by LOTTE, 141 Yanghwa-ro, Mapo-gu。填完截圖存手機。</p></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num" style="background:var(--coral)">-1</div>
+        <div class="step-content"><h4>7/9 出發前一天</h4><p>✅ <strong>查颱風動態與 TW668 是否異動</strong>（見上方颱風應變區）｜✅ T'way 官網線上報到、確認託運行李額度（超重加購比現場便宜）｜✅ 行李秤重｜✅ 印出／截圖：訂房確認單、回程機票、e-Arrival 完成畫面、醫美預約資訊｜✅ 台幣現金備妥（含到明洞換錢用）｜✅ 手機、行動電源充飽</p></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">✈️</div>
+        <div class="step-content"><h4>7/10 出發日</h4><p>松山機場國際線 11:30 前集合（起飛前 2.5 小時），掛行李、換少量韓元應急。<strong>行動電源一律隨身帶上機</strong>（不可託運），韓國新規：機上行動電源不可放行李架、不可邊充邊用。</p></div>
+      </div>
+    </div>
+    <div class="danger-box">
+      <strong>💊 藥品注意：</strong>部分含特定成分的成藥（如日本 EVE 止痛藥）禁止帶入韓國；一般台灣常備藥（普拿疼、腸胃藥）沒問題。處方藥請帶藥單備查。
+    </div>
+  </div>
 
   <!-- 入境 -->
   <div class="info-section">
     <h3>✈️ 韓國入境流程（金浦機場）</h3>
     <div class="warning-box">
-      <strong>📱 2026 新制：</strong>韓國已啟用電子入境卡（K-ETA 已廢除）。台灣護照免申請 K-ETA，直接入境。但需在飛機上填寫<strong>電子入境卡（Q Code）</strong>或使用 <strong>S.e.S 快速通關</strong>。
+      <strong>📱 2026 現行規定：</strong>台灣護照<strong>免簽 90 天、免 K-ETA</strong>（豁免延長至 2026/12/31）。紙本入境卡已全面改為<strong>電子入境卡 e-Arrival Card</strong>（抵達前 72 小時內線上填）。Q-Code 健康申報已免填（無症狀、未去疫區者）。
     </div>
     <div class="steps-list">
       <div class="step-item">
         <div class="step-num">1</div>
-        <div class="step-content"><h4>📱 飛機上填寫電子入境卡</h4><p>在機上掃描 QR Code 填寫電子入境卡（Korean Q Code），取代紙本入境卡。手機提前充飽電。</p></div>
+        <div class="step-content"><h4>📱 起飛前：確認 e-Arrival Card 已填</h4><p>7/7 之後全員填妥（見上方倒數清單），完成畫面截圖存手機。沒填的話入境時要現場掃 QR 補填，會多花時間。</p></div>
       </div>
       <div class="step-item">
         <div class="step-num">2</div>
-        <div class="step-content"><h4>🛬 抵達金浦機場 — 入境審查</h4><p>排隊入境審查（Immigration），台灣護照免簽，照常過關。準備好護照＋電子入境卡確認畫面，如實填寫住宿資訊（L7 Hongdae）。</p></div>
+        <div class="step-content"><h4>🛬 入境審查：走自動通關（SeS）</h4><p>2026 年起台灣旅客<strong>年滿 17 歲、持晶片護照可直接走自動通關閘門</strong>，免事先申請：掃護照→臉部辨識→按指紋→通關，全程約 1 分鐘。家族中未滿 17 歲者走人工櫃檯（準備護照＋e-Arrival 截圖）。</p></div>
       </div>
       <div class="step-item">
         <div class="step-num">3</div>
-        <div class="step-content"><h4>🧳 等候行李</h4><p>至行李轉盤等候托運行李，記得確認航班號確認轉盤編號。</p></div>
+        <div class="step-content"><h4>🧳 等候行李</h4><p>看螢幕確認 TW668 對應的行李轉盤編號，等候托運行李。</p></div>
       </div>
       <div class="step-item">
         <div class="step-num">4</div>
-        <div class="step-content"><h4>🔍 海關申報</h4><p>無需申報者走綠色通道，有申報物品走紅色通道。帶回台灣注意：有肉塊的泡麵不可攜帶！</p></div>
+        <div class="step-content"><h4>🔍 海關</h4><p>無申報物品走綠色通道。攜帶現金超過 US$10,000 等值才需申報，一般旅客直接通過。</p></div>
       </div>
       <div class="step-item">
         <div class="step-num">5</div>
-        <div class="step-content"><h4>🚇 前往飯店</h4><p>出口後搭乘 AREX 或計程車前往弘大。AREX 至弘大入口站約 20 分，₩4,000/人。</p></div>
+        <div class="step-content"><h4>🚇 買 T-money、開 eSIM、前往飯店</h4><p>入境大廳便利商店買 T-money 卡＋儲值，開通 eSIM，跟指標走「공항철도 AREX」搭到弘大入口站（3 站約 15 分，₩1,550）。</p></div>
       </div>
     </div>
-  </div>
-
-  <div class="info-section">
-    <h3>⚡ S.e.S 快速通關（推薦！）</h3>
     <div class="tip-box">
-      <strong>💡 Smart Entry Service（SES）：</strong>台灣旅客可事前申請 S.e.S，使用自動通關閘門，免排隊，速度快 3 倍。需提前在韓國移民局官網或 APP 預約，免費申請。
-    </div>
-    <div class="info-grid">
-      <div class="info-card"><div class="info-card-icon">⏱️</div><h4>節省時間</h4><p>旺季入境可能大排隊，S.e.S 可縮短至 5 分鐘內通關</p></div>
-      <div class="info-card"><div class="info-card-icon">📋</div><h4>申請方式</h4><p>飛機抵達前可在金浦機場現場申辦，或提前上官網申請</p></div>
-      <div class="info-card"><div class="info-card-icon">✅</div><h4>適用對象</h4><p>台灣護照、年滿 17 歲、指紋登記後即可使用</p></div>
-      <div class="info-card"><div class="info-card-icon">💰</div><h4>費用</h4><p>完全免費！強力推薦五人全員申請</p></div>
+      <strong>🇹🇼 回程台灣海關提醒：</strong>肉製品（含肉塊泡麵、肉鬆、火腿腸）<strong>嚴禁攜入台灣</strong>，違者最高罰 100 萬；新鮮水果也不可帶。乾燥海苔、餅乾、無肉泡麵 OK。
     </div>
   </div>
 
@@ -1906,8 +2019,27 @@ footer p { font-size: 0.78rem; opacity: 0.5; letter-spacing: 0.1em; }
     </div>
   </div>
 
+  <div class="clinic-box" style="border:2px solid var(--gold)">
+    <h3>✅ 已預約確認 — Doctors 皮膚科</h3>
+    <div class="clinic-list">
+      <div class="clinic-item">
+        <div><div class="clinic-name">📅 預約時間</div><div class="clinic-area">2026/7/13（一）上午 09:30｜六位皆已預約</div></div>
+      </div>
+      <div class="clinic-item">
+        <div><div class="clinic-name">📍 地址</div><div class="clinic-area">江南區島山大路12街7｜강남구 도산대로 12길 7（新沙站旁）</div></div>
+        <a class="map-link" href="https://maps.google.com/?q=%EB%8F%84%EC%82%B0%EB%8C%80%EB%A1%9C12%EA%B8%B8+7" target="_blank">📍 導航</a>
+      </div>
+      <div class="clinic-item">
+        <div><div class="clinic-name">👨‍⚕️ 醫師團隊</div><div class="clinic-area"><a href="https://litt.ly/doctors_cn_dr" target="_blank" style="color:var(--gold)">litt.ly/doctors_cn_dr</a></div></div>
+      </div>
+    </div>
+    <div style="margin-top:1.2rem;font-size:.82rem;opacity:.85;line-height:1.7">
+      ⚠️ 來院請攜帶<strong>護照原件</strong>（每位都要）｜依院內行程可能有些許等待時間｜幼童一同來院需由 1 位監護人陪同
+    </div>
+  </div>
+
   <div class="clinic-box">
-    <h3>🏥 江南推薦診所類型</h3>
+    <h3>🏥 江南其他診所類型（備用參考）</h3>
     <div class="clinic-list">
       <div class="clinic-item">
         <div><div class="clinic-name">DR.REONE 皮膚科</div><div class="clinic-area">江南 · 貴婦級診所</div></div>

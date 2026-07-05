@@ -1,10 +1,11 @@
-const CACHE = 'seoul-2026-v1';
+const CACHE = 'seoul-2026-v2';
 const ASSETS = [
   './',
   './index.html',
   './manifest.json',
   './icon-192.png',
   './icon-512.png',
+  './apple-touch-icon.png',
   'https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=DM+Serif+Display&family=Space+Mono:wght@400;700&display=swap'
 ];
 
