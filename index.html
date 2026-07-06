@@ -399,6 +399,28 @@ button, [data-fn] { touch-action: manipulation; -webkit-tap-highlight-color: tra
 
 .shop-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
 
+.rank-block { margin-bottom: 1.8rem; }
+
+.rank-block h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.6rem; color: var(--ink); }
+
+.rank-table { width: 100%; border-collapse: collapse; background: rgb(255, 255, 255); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; font-size: 0.8rem; }
+
+.rank-table th { background: var(--warm); color: var(--muted); font-weight: 600; font-size: 0.68rem; letter-spacing: 0.06em; text-align: left; padding: 0.5rem 0.7rem; }
+
+.rank-table td { padding: 0.55rem 0.7rem; border-top: 1px solid var(--border); vertical-align: top; }
+
+.rank-table td:first-child { font-family: 'Space Mono', monospace; color: var(--gold); font-weight: 700; width: 1.6rem; }
+
+.rank-table td:nth-child(2) { font-weight: 700; white-space: nowrap; }
+
+.rank-table td:nth-child(3) { color: var(--muted); }
+
+.gender-tag { display: inline-block; font-size: 0.68rem; padding: 0.15rem 0.55rem; border-radius: 100px; font-weight: 700; margin-bottom: 1rem; }
+
+.gender-tag.women { background: #fbe4e8; color: #b3435a; }
+
+.gender-tag.men { background: #e2ecf5; color: var(--sky); }
+
 .transport-pill { display: inline-flex; align-items: center; gap: 0.35rem; background: var(--sky); color: rgb(255, 255, 255); border-radius: 6px; padding: 0.35rem 0.8rem; font-size: 0.78rem; margin-top: 0.5rem; }
 
 footer { background: var(--ink); color: var(--cream); padding: 2.5rem; text-align: center; margin-top: 4rem; }
@@ -2319,6 +2341,7 @@ footer p { font-size: 0.78rem; opacity: 0.5; letter-spacing: 0.1em; }
     <button class="area-tab" data-fn="showAreaTab" data-target="a_sinsa">🌳 新沙洞</button>
     <button class="area-tab" data-fn="showAreaTab" data-target="a_dongdaemun">🌃 東大門</button>
     <button class="area-tab" data-fn="showAreaTab" data-target="a_yeonnam">☕ 延南洞</button>
+    <button class="area-tab" data-fn="showAreaTab" data-target="a_beauty">💄 美妝香氛必買</button>
   </div>
 
   <!-- 弘大 -->
@@ -2453,6 +2476,129 @@ footer p { font-size: 0.78rem; opacity: 0.5; letter-spacing: 0.1em; }
     </div>
     <a class="map-link" href="https://maps.google.com/?q=%EC%97%B0%EB%82%A8%EB%8F%99&amp;ll=37.5652109,126.9238607" target="_blank">📍 延南洞地圖</a>
     <div class="transport-pill" style="margin-left:.5rem">🚶 L7 Hongdae 步行 10 分鐘可達</div>
+  </div>
+
+  <!-- 美妝香氛必買 -->
+  <div class="area-panel" id="a_beauty">
+    <div class="area-header">
+      <div class="area-icon">💄</div>
+      <div>
+        <div class="area-title">Olive Young 美妝必買 Top 5（2026）</div>
+        <div class="area-desc">依類別整理，男女分開。弘大／明洞／聖水洞的 Olive Young 都有貨，出國前先截圖對照，退稅記得集中在同一家店滿額結帳。</div>
+        <div class="area-vibe">
+          <span class="vibe-tag">女生保養彩妝</span><span class="vibe-tag">男生保養</span><span class="vibe-tag">男香不限品牌</span>
+        </div>
+      </div>
+    </div>
+
+    <span class="gender-tag women">👩 女生必買</span>
+    <div class="rank-block">
+      <h4>化妝水</h4>
+      <table class="rank-table"><tr><th></th><th>品牌</th><th>產品</th></tr>
+        <tr><td>1</td><td>Round Lab</td><td>1025 獨島化妝水</td></tr>
+        <tr><td>2</td><td>Anua</td><td>77% 魚腥草化妝水</td></tr>
+        <tr><td>3</td><td>Beauty of Joseon</td><td>人蔘化妝水</td></tr>
+        <tr><td>4</td><td>Torriden</td><td>Dive-In 玻尿酸化妝水</td></tr>
+        <tr><td>5</td><td>Numbuzin</td><td>3號化妝水</td></tr>
+      </table>
+    </div>
+    <div class="rank-block">
+      <h4>精華液／安瓶</h4>
+      <table class="rank-table"><tr><th></th><th>品牌</th><th>產品</th></tr>
+        <tr><td>1</td><td>Torriden</td><td>Dive-In 低分子玻尿酸精華</td></tr>
+        <tr><td>2</td><td>Skin1004</td><td>積雪草精華</td></tr>
+        <tr><td>3</td><td>VT</td><td>Reedle Shot 100 微針精華</td></tr>
+        <tr><td>4</td><td>Medicube</td><td>PDRN 精華</td></tr>
+        <tr><td>5</td><td>Goodal</td><td>青橘 VitaC 淡斑精華</td></tr>
+      </table>
+    </div>
+    <div class="rank-block">
+      <h4>面膜</h4>
+      <table class="rank-table"><tr><th></th><th>品牌</th><th>產品</th></tr>
+        <tr><td>1</td><td>Torriden</td><td>Dive-In 玻尿酸面膜</td></tr>
+        <tr><td>2</td><td>Mediheal</td><td>積雪草痕跡修護棉片</td></tr>
+        <tr><td>3</td><td>VT</td><td>Reedle Shot 50 微針面膜</td></tr>
+        <tr><td>4</td><td>Abib</td><td>弱酸性/口香糖魚腥草面膜</td></tr>
+        <tr><td>5</td><td>Lindsay</td><td>Modeling Mask 軟膜</td></tr>
+      </table>
+    </div>
+    <div class="rank-block">
+      <h4>防曬</h4>
+      <table class="rank-table"><tr><th></th><th>品牌</th><th>產品</th></tr>
+        <tr><td>1</td><td>Round Lab</td><td>獨島白樺樹防曬 SPF50+</td></tr>
+        <tr><td>2</td><td>April Skin</td><td>Tone-Up Skin Tint 素顏防曬</td></tr>
+      </table>
+    </div>
+    <div class="rank-block">
+      <h4>卸妝／清潔</h4>
+      <table class="rank-table"><tr><th></th><th>品牌</th><th>產品</th></tr>
+        <tr><td>1</td><td>ma:nyo</td><td>純淨柔護卸妝油</td></tr>
+        <tr><td>2</td><td>Arencia</td><td>Fresh Green Cleanser 潔面霜</td></tr>
+      </table>
+    </div>
+    <div class="rank-block">
+      <h4>彩妝（唇彩／氣墊）</h4>
+      <table class="rank-table"><tr><th></th><th>品牌</th><th>產品</th></tr>
+        <tr><td>1</td><td>rom&amp;nd</td><td>Juicy Lasting Tint 果汁玻璃水光唇釉</td></tr>
+        <tr><td>2</td><td>fwee</td><td>Blurry Pudding Pot 唇頰兩用膏</td></tr>
+        <tr><td>3</td><td>AMUSE</td><td>Dew Power 保濕水光純素氣墊</td></tr>
+        <tr><td>4</td><td>Hince</td><td>Second Skin Foundation 粉底液</td></tr>
+        <tr><td>5</td><td>dasique</td><td>9色眼影盤</td></tr>
+      </table>
+    </div>
+
+    <span class="gender-tag men">👨 男生必買</span>
+    <div class="rank-block">
+      <h4>保濕保養（懶人系）</h4>
+      <table class="rank-table"><tr><th></th><th>品牌</th><th>產品</th></tr>
+        <tr><td>1</td><td>IDEAL FOR MEN</td><td>全效合一乳液（男士保養長年銷量冠軍）</td></tr>
+        <tr><td>2</td><td>Round Lab</td><td>獨島男士積雪草化妝水+乳液組</td></tr>
+        <tr><td>3</td><td>Torriden</td><td>男士適用低分子玻尿酸化妝水</td></tr>
+        <tr><td>4</td><td>Dr. G</td><td>男士舒緩多效乳液</td></tr>
+        <tr><td>5</td><td>CNP</td><td>男士多效控油精華</td></tr>
+      </table>
+    </div>
+    <div class="rank-block">
+      <h4>防曬／底妝</h4>
+      <table class="rank-table"><tr><th></th><th>品牌</th><th>產品</th></tr>
+        <tr><td>1</td><td>B.READY</td><td>男士防曬粉底乳液（防曬+底妝+修飾三合一）</td></tr>
+        <tr><td>2</td><td>OBGE</td><td>遮瑕防曬 BB 乳液</td></tr>
+        <tr><td>3</td><td>DASHU</td><td>旋轉粉底棒</td></tr>
+        <tr><td>4</td><td>OBGE</td><td>控油防曬棒</td></tr>
+        <tr><td>5</td><td>Round Lab</td><td>獨島白樺樹防曬（男女通用）</td></tr>
+      </table>
+    </div>
+    <div class="rank-block">
+      <h4>清潔／毛孔保養</h4>
+      <table class="rank-table"><tr><th></th><th>品牌</th><th>產品</th></tr>
+        <tr><td>1</td><td>beplain</td><td>毛孔清潔黏土面膜</td></tr>
+        <tr><td>2</td><td>Innisfree</td><td>火山岩毛孔潔面乳</td></tr>
+        <tr><td>3</td><td>ilso</td><td>Super Melting Sebum Softener 黑頭導出液</td></tr>
+        <tr><td>4</td><td>ilso</td><td>Natural Mild Clear Nose Pack 去黑頭鼻貼</td></tr>
+        <tr><td>5</td><td>BARBER501</td><td>剃鬚增強平滑修復乳</td></tr>
+      </table>
+    </div>
+    <div class="rank-block">
+      <h4>髮品／鬍鬚／護唇</h4>
+      <table class="rank-table"><tr><th></th><th>品牌</th><th>產品</th></tr>
+        <tr><td>1</td><td>DASHU</td><td>男士定型髮蠟</td></tr>
+        <tr><td>2</td><td>F:B For Beaut</td><td>遮頭皮粉末噴霧</td></tr>
+        <tr><td>3</td><td>Gillette Labs</td><td>深層潔淨刮鬍刀</td></tr>
+        <tr><td>4</td><td>OBGE</td><td>感溫變色潤唇膏</td></tr>
+        <tr><td>5</td><td>BARBER501</td><td>剃鬚後修復乳</td></tr>
+      </table>
+    </div>
+    <div class="rank-block">
+      <h4>男香 Top 5（不限 Olive Young，韓國小眾＋國際品牌）</h4>
+      <table class="rank-table"><tr><th></th><th>品牌</th><th>產品／香調</th></tr>
+        <tr><td>1</td><td>Tamburins</td><td>Chamo — 洋甘菊木質麝香，中性耐撞；新沙洞 HAUS DOSAN 旗艦店可現場退稅</td></tr>
+        <tr><td>2</td><td>Youssoful</td><td>Empire State — 柑橘木質調，持香度高，發源自延南洞（飯店旁）</td></tr>
+        <tr><td>3</td><td>Nonfiction</td><td>Sandal Cream — 檀香無花果薑調，國際知名度高，乾淨中性</td></tr>
+        <tr><td>4</td><td>Granhand</td><td>Marine Orchid — 梨檸檬玫瑰麝香調，聖水洞／新沙洞都有分店</td></tr>
+        <tr><td>5</td><td>Aesop / Le Labo</td><td>聖水洞旗艦店代表，國際小眾香氛，價格較高但送禮質感佳</td></tr>
+      </table>
+      <div class="shop-desc" style="margin-top:.5rem">💡 逛香水建議安排在 Day 3 聖水洞或 Day 4 新沙洞林蔭道行程順路試香，兩區都是韓國香氛品牌密集地。</div>
+    </div>
   </div>
 </section>
 
